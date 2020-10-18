@@ -27,7 +27,7 @@ class Pembelian extends CI_Controller {
 		$data['akhir'] = $end;
 		
 		$menu['modul'] = $this->ModUser->modul();
-		$menu['akses'] = $this->ModUser->akses();
+		$menu['akses'] = $this->ModUser->akses_admin($this->session->userdata('admin_id'));
 		$menu['login'] = $this->ModUser->edit($this->session->userdata('admin_id'));
 		$data['pembelian'] = $this->ModPembelian->selectAll();
 		$this->load->view('template/header');

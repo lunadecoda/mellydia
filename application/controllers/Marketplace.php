@@ -15,7 +15,7 @@ class Marketplace extends CI_Controller {
 		}
 		
 		$menu['modul'] = $this->ModUser->modul();
-		$menu['akses'] = $this->ModUser->akses();
+		$menu['akses'] = $this->ModUser->akses_admin($this->session->userdata('admin_id'));
 		$menu['login'] = $this->ModUser->edit($this->session->userdata('admin_id'));
 		$data['marketplace'] = $this->ModMarketplace->selectAll();
 		$this->load->view('template/header');

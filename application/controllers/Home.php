@@ -15,7 +15,7 @@ class Home extends CI_Controller {
 			redirect('login','refresh');
 		}
 		$menu['modul'] = $this->ModUser->modul();
-		$menu['akses'] = $this->ModUser->akses();
+		$menu['akses'] = $this->ModUser->akses_admin($this->session->userdata('admin_id'));
 		$menu['login'] = $this->ModUser->edit($this->session->userdata('admin_id'));
 		$this->load->view('template/header');
 		$this->load->view('template/menu',$menu);

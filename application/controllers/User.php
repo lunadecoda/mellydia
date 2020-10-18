@@ -14,7 +14,7 @@ class User extends CI_Controller {
 		}
 		
 		$menu['modul'] = $this->ModUser->modul();
-		$menu['akses'] = $this->ModUser->akses();
+		$menu['akses'] = $this->ModUser->akses_admin($this->session->userdata('admin_id'));
 		$menu['login'] = $this->ModUser->edit($this->session->userdata('admin_id'));
 		$data['user'] = $this->ModUser->selectAll();
 		$this->load->view('template/header');
@@ -28,6 +28,7 @@ class User extends CI_Controller {
 			exit();
 		}
 		$data['cek'] = 0;
+		$data['modul'] = $this->ModUser->modul();
 		$data['akses'] = $this->ModUser->akses();
 		$this->load->view('modal/user', $data);
 	}
@@ -45,6 +46,7 @@ class User extends CI_Controller {
 			exit();
 		}
 		$data['cek'] = 1;
+		$data['modul'] = $this->ModUser->modul();
 		$data['user'] = $this->ModUser->edit($id);
 		$data['akses'] = $this->ModUser->akses();
 		$data['akses_admin'] = $this->ModUser->akses_admin($id);
