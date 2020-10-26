@@ -1,6 +1,6 @@
 </main>
 
-<div class="modal fade" id="myModal" tabindex="-1">
+<div class="modal fade" id="myModal" tabindex="-1" data-backdrop="static">
          <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                <div class="modal-header">
@@ -8,6 +8,25 @@
                </div>
                <form id="form" class="xform">
                   <div class="modal-body" id="modalbody">
+                       
+                  </div>
+                  <div class="modal-footer">
+                     <button type="submit" class="btn btn-primary">Simpan</button>
+                     <button type="button" class="btn btn-link" data-dismiss="modal">Batal</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+	  
+<div class="modal fade" id="modal-lg" tabindex="-1" data-backdrop="static">
+         <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title pull-left">Form</h5>
+               </div>
+               <form id="form" class="xform-lg">
+                  <div class="modal-body" id="modalbody-lg">
                        
                   </div>
                   <div class="modal-footer">

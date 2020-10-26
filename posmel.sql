@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 18, 2020 at 05:20 AM
+-- Generation Time: Oct 26, 2020 at 02:52 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -60,8 +60,13 @@ CREATE TABLE `admin_akses` (
 
 INSERT INTO `admin_akses` (`id`, `admin_id`, `akses_id`) VALUES
 (1, 2, 1),
-(3, 1, 1),
-(4, 1, 2);
+(9, 1, 1),
+(10, 1, 3),
+(11, 1, 4),
+(12, 1, 2),
+(13, 1, 5),
+(14, 1, 6),
+(15, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -84,7 +89,10 @@ INSERT INTO `akses` (`id_akses`, `nama_akses`, `link`, `modul_id`) VALUES
 (1, 'User', 'user', 1),
 (2, 'Kategori', 'kategori', 2),
 (3, 'Customer', 'customer', 1),
-(4, 'Marketplace', 'marketplace', 1);
+(4, 'Marketplace', 'marketplace', 1),
+(5, 'Produk', 'produk', 2),
+(6, 'Paket', 'paket', 2),
+(7, 'Pembelian', 'pembelian', 3);
 
 -- --------------------------------------------------------
 
@@ -143,7 +151,8 @@ CREATE TABLE `modul` (
 
 INSERT INTO `modul` (`id_modul`, `nama_modul`) VALUES
 (1, 'Master Data'),
-(2, 'Master Barang');
+(2, 'Master Barang'),
+(3, 'Transaksi');
 
 -- --------------------------------------------------------
 
@@ -201,12 +210,78 @@ CREATE TABLE `pembelian` (
   `tgl` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `pembelian`
+-- Table structure for table `penjualan`
 --
 
-INSERT INTO `pembelian` (`id_pembelian`, `produk_id`, `total_harga`, `harga_satuan`, `qty`, `tgl`) VALUES
-(4, 3, 15000, 1500, 10, '2020-10-18');
+CREATE TABLE `penjualan` (
+  `id_penjualan` int(11) NOT NULL,
+  `diskon` int(11) NOT NULL,
+  `ongkir` int(11) NOT NULL,
+  `kurir` varchar(100) NOT NULL,
+  `status` varchar(30) NOT NULL,
+  `total_harga` int(11) NOT NULL,
+  `admin_id` int(11) NOT NULL,
+  `tgl_penjualan` date NOT NULL,
+  `tgl_proses` date NOT NULL,
+  `tgl_selesai` date NOT NULL,
+  `member_id` int(11) NOT NULL,
+  `sumber_id` int(11) NOT NULL,
+  `nama_penerima` varchar(100) NOT NULL,
+  `alamat_penerima` text NOT NULL,
+  `telp_penerima` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `penjualan`
+--
+
+INSERT INTO `penjualan` (`id_penjualan`, `diskon`, `ongkir`, `kurir`, `status`, `total_harga`, `admin_id`, `tgl_penjualan`, `tgl_proses`, `tgl_selesai`, `member_id`, `sumber_id`, `nama_penerima`, `alamat_penerima`, `telp_penerima`) VALUES
+(13, 0, 0, '', 'sedang dikemas', 5143, 1, '2020-10-25', '0000-00-00', '0000-00-00', 1, 2, 'member 1', 'alamat', '081');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penjualan_paket`
+--
+
+CREATE TABLE `penjualan_paket` (
+  `id_penjualan_paket` int(11) NOT NULL,
+  `paket_id` int(11) NOT NULL,
+  `harga_paket` int(11) NOT NULL,
+  `penjualan_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `penjualan_paket`
+--
+
+INSERT INTO `penjualan_paket` (`id_penjualan_paket`, `paket_id`, `harga_paket`, `penjualan_id`) VALUES
+(10, 4, 4675, 13);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penjualan_produk`
+--
+
+CREATE TABLE `penjualan_produk` (
+  `id_penjualan_produk` int(11) NOT NULL,
+  `penjualan_paket_id` int(11) NOT NULL,
+  `produk_id` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `harga` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `penjualan_produk`
+--
+
+INSERT INTO `penjualan_produk` (`id_penjualan_produk`, `penjualan_paket_id`, `produk_id`, `qty`, `harga`) VALUES
+(10, 10, 3, 1, 2500),
+(11, 10, 4, 1, 3000);
 
 -- --------------------------------------------------------
 
@@ -228,8 +303,8 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga_beli`, `harga_jual`, `stok`, `berat`) VALUES
-(3, 'Produk', 1500, 2500, 10, '900'),
-(4, 'Produk 1', 0, 3000, 5, '900'),
+(3, 'Produk', 1500, 2500, 7, '900'),
+(4, 'Produk 1', 0, 3000, 2, '900'),
 (5, 'Produk 2', 0, 15000, 5, '500');
 
 -- --------------------------------------------------------
@@ -333,6 +408,24 @@ ALTER TABLE `pembelian`
   ADD PRIMARY KEY (`id_pembelian`);
 
 --
+-- Indexes for table `penjualan`
+--
+ALTER TABLE `penjualan`
+  ADD PRIMARY KEY (`id_penjualan`);
+
+--
+-- Indexes for table `penjualan_paket`
+--
+ALTER TABLE `penjualan_paket`
+  ADD PRIMARY KEY (`id_penjualan_paket`);
+
+--
+-- Indexes for table `penjualan_produk`
+--
+ALTER TABLE `penjualan_produk`
+  ADD PRIMARY KEY (`id_penjualan_produk`);
+
+--
 -- Indexes for table `produk`
 --
 ALTER TABLE `produk`
@@ -364,13 +457,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `admin_akses`
 --
 ALTER TABLE `admin_akses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `akses`
 --
 ALTER TABLE `akses`
-  MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -388,7 +481,7 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `modul`
 --
 ALTER TABLE `modul`
-  MODIFY `id_modul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_modul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `paket`
@@ -407,6 +500,24 @@ ALTER TABLE `paket_produk`
 --
 ALTER TABLE `pembelian`
   MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `penjualan`
+--
+ALTER TABLE `penjualan`
+  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `penjualan_paket`
+--
+ALTER TABLE `penjualan_paket`
+  MODIFY `id_penjualan_paket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `penjualan_produk`
+--
+ALTER TABLE `penjualan_produk`
+  MODIFY `id_penjualan_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `produk`
