@@ -1,6 +1,6 @@
 <section class="content">
             <header class="content__title">
-               <h1>Penjualan</h1>
+               <h1>Penjualan (Sedang Dikirim)</h1>
                <div class="actions">
                   <button class="btn btn-primary font-btn" onclick="tambah()"><i class="zmdi zmdi-plus zmdi-hc-fw"></i></button>
                </div>
@@ -9,10 +9,10 @@
                <div class="card-body">
 				<ul class="nav nav-tabs" role="tablist">
 					<li class="nav-item">
-						<a class="nav-link active" href="#">Sedang Dikemas</a>
+						<a class="nav-link" href="<?php echo base_url();?>penjualan">Sedang Dikemas</a>
                     </li>
                     <li class="nav-item">
-						<a class="nav-link" href="<?php echo base_url();?>penjualan/proses">Proses</a>
+						<a class="nav-link active" href="#">Proses</a>
                     </li>
                     <li class="nav-item">
 						<a class="nav-link" href="<?php echo base_url();?>penjualan/selesai">Selesai</a>
@@ -22,13 +22,12 @@
                     </li>
 				</ul>
 			   <br>
-			   
 				<form class="form-inline" action="" method="post">
                      <div class="form-group mb-4 mr-sm-4">
 						<select class="form-control" name="admin_id">
 						<option value="0">Semua Penjual</option>
 						<?php foreach ($user as $ku) { ?>
-							<option <?php if($ku->id_admin == $admin_id) { echo 'selected'; } ?> value="<?php echo $ku->id_admin;?>"><?php echo $ku->nama_admin;?></option>
+							<option <?php if($ku->id_admin == $admin_id) { echo 'selected'; } ?>><?php echo $ku->nama_admin;?></option>
 						<?php } ?>
 						</select>
 					 </div>
@@ -51,6 +50,7 @@
 								 <th>Harga</th>
 								 <th>Penerima</th>
 								 <th>Marketplace</th>
+								 <th>Total</th>
                                  <th class="text-right"></th>
                               </tr>
                            </thead>
@@ -61,6 +61,7 @@
 								 <th>Harga</th>
 								 <th>Penerima</th>
 								 <th>Marketplace</th>
+								 <th>Total</th>
                                  <th class="text-right"></th>
                               </tr>
                            </tfoot>
@@ -69,9 +70,11 @@
                                  foreach ($penjualan as $k) { ?>
                               <tr>
                                  <td><?php echo $no;?></td>
-								 <td>
-								 <?php echo date("j M Y", strtotime($k->tgl_penjualan));?>
-								</td>
+								 <td>Pembelian <?php echo date("j M Y", strtotime($k->tgl_penjualan));?>
+								 <div class="collapse mt-2 expand<?php echo $no;?>">
+									Proses <?php echo date("j M Y", strtotime($k->tgl_proses));?>
+								</div>
+								 </td>
 								 <td><div class="collapse mt-2 expand<?php echo $no;?>">
 									<?php foreach($penjualan_paket as $kp) {
 										if($kp->penjualan_id == $k->id_penjualan) {
@@ -101,10 +104,14 @@
 								 </td>
 								 <td><?php echo $k->nama_penerima;?><br>
 								 <div class="collapse mt-2 expand<?php echo $no;?>">
-									<?php echo $k->alamat_penerima."<br>".$k->telp_penerima; ?>
+									<?php echo $k->alamat_penerima."<br>".$k->telp_penerima."<br>(".$k->kurir.") ".number_format($k->ongkir,0,",","."); ?>
 								</div>
 								 </td>
 								 <td><?php echo $k->nama_market;?></td>
+								 <td><div class="collapse mt-2 expand<?php echo $no;?>">
+									<?php echo "(harga) ".number_format($k->total_harga,0,",",".")." + (ongkir) ".number_format($k->ongkir,0,",","."); ?><br>
+								</div><b><?php echo number_format($k->total_harga+$k->ongkir,0,",",".");?></b>
+								 </td>
                                  <td class="td-actions text-right">
 									<a class="btn btn-warning mb-2" href="<?php echo base_url();?>penjualan/invoice/<?php echo $k->id_penjualan;?>" target="_blank">
 									<i class="zmdi zmdi-print zmdi-hc-fw"></i>
@@ -117,9 +124,9 @@
 									<button type="button" onclick="kirim(<?php echo $k->id_penjualan;?>)" rel="tooltip" class="btn btn-info btn-round mb-2" data-original-title="" title="">
 									<i class="zmdi zmdi-local-shipping zmdi-hc-fw"></i>
 									</button>
-                                    &nbsp;
-                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round mb-2" data-original-title="" title="" onclick="hapus(<?php echo $k->id_penjualan;?>)">
-                                       <i class="zmdi zmdi-close zmdi-hc-fw"></i>
+									&nbsp;
+                                    <button type="button" onclick="selesai(<?php echo $k->id_penjualan;?>)" rel="tooltip" class="btn btn-success btn-round mb-2" data-original-title="" title="">
+                                       <i class="zmdi zmdi-check zmdi-hc-fw"></i>
                                     </button>
                                  </td>
                               </tr>
@@ -137,8 +144,6 @@
 <script>
 var table;
 var simpan;
-var simpan_alt;
-var loadsub = 1;
 $(document).ready(function () {
 	setTimeout(function() {
 		table = $("#datatables").DataTable({
@@ -199,8 +204,6 @@ $(document).ready(function () {
 		
 		$(".xform-lg").on("submit", (function (b) {
 			b.preventDefault();
-			if(loadsub == 1) {
-			loadsub = 0;
 			$(".input-mask").unmask()
 			var a;
 			if (simpan == "tambah") {
@@ -219,25 +222,18 @@ $(document).ready(function () {
 					$("#modal-lg").modal("hide");
 					//swal("Sukses!", "", "success");
 					location.reload();
-					loadsub = 1;
 				},
 				error: function (c, e, d) {
 					swal("Error", "", "error")
 				}
 			});
-			}
 			return false
 		}));
 		
 		$(".xform").on("submit", (function (b) {
 			b.preventDefault();
-			$(".input-mask").unmask();
-			var a;
-			if(simpan_alt == "hapus") {
-				a = "<?php echo base_url();?>penjualan/update_delete";
-			} else {
-				a = "<?php echo base_url();?>penjualan/update_ongkir";
-			}
+			$(".input-mask").unmask()
+			var a = "<?php echo base_url();?>penjualan/update_ongkir";
 			$.ajax({
 				url: a,
 				type: "POST",
@@ -279,7 +275,6 @@ function ganti(a) {
 }
 
 function kirim(a) {
-	simpan_alt = "ongkir";
 	$(".form")[0].reset();
 	$("#myModal").modal("show");
 	$("#modalbody").load("<?php echo base_url();?>penjualan/ongkir/" + a, function (b) {
@@ -287,12 +282,20 @@ function kirim(a) {
 	})
 }
 
-function hapus(a) {
-	simpan_alt = "hapus";
-	$(".form")[0].reset();
-	$("#myModal").modal("show");
-	$("#modalbody").load("<?php echo base_url();?>penjualan/hapus/" + a, function (b) {
-		$("#modalbody").html(b);
+function selesai(a) {
+	Swal.fire({
+	  title: 'Penjualan Selesai?',
+	  text: "",
+	  type: 'success',
+	  showCancelButton: true,
+	  confirmButtonColor: '#3085d6',
+	  cancelButtonColor: '#d33',
+	  confirmButtonText: 'Ya',
+	  cancelButtonText: "Batal"
+	}).then((result) => {
+	  if (result.value == true) {
+		$.get("<?php echo base_url()?>penjualan/update_selesai/" + a, function (b) { location.reload(); })
+	  }
 	})
-}
+};
 </script>

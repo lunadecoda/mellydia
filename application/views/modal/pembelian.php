@@ -48,6 +48,7 @@ $("select.select2").select2({
 	dropdownParent: $("#myModal")
 })
 $(".satuan").on("change keydown paste input", function() {
+	$(".input-mask").unmask();
 	var qty = $(".qty").val();
 	if(qty > 0) {
 		var xval = $(this).val();
@@ -55,9 +56,11 @@ $(".satuan").on("change keydown paste input", function() {
 		var xhit = xval * qty;
 		$(".total").val(xhit);
 	}
+	$(".input-mask").mask('000.000.000.000.000', {reverse: true});
 })
 
 $(".total").on("change keydown paste input", function() {
+	$(".input-mask").unmask();
 	var qty = $(".qty").val();
 	if(qty > 0) {
 		var xval = $(this).val();
@@ -65,8 +68,10 @@ $(".total").on("change keydown paste input", function() {
 		var xhit = xval / qty;
 		$(".satuan").val(xhit);
 	}
+	$(".input-mask").mask('000.000.000.000.000', {reverse: true});
 })
 $(".qty").on("change keydown paste input", function() {
+	$(".input-mask").unmask();
 	var satuan = $(".satuan").val();
 	if(satuan > 0) {
 		var xval = $(this).val();
@@ -74,6 +79,7 @@ $(".qty").on("change keydown paste input", function() {
 		var xhit = xval * satuan;
 		$(".total").val(xhit);
 	}
+	$(".input-mask").mask('000.000.000.000.000', {reverse: true});
 })
-//$(".input-mask").mask('000.000.000.000.000', {reverse: true});
+$(".input-mask").mask('000.000.000.000.000', {reverse: true});
 </script>

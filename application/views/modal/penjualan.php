@@ -6,7 +6,7 @@
 </div>
 <div class="form-group">
     <select class="select2 xtra" data-placeholder="Pilih Produk" name="set_produk">
-		<option disabled selected>Pilih Paket/Produk</option>
+		<option value="0" disabled selected>Pilih Paket/Produk</option>
 		<?php foreach ($paket as $k) { ?>
 		<option value="p-<?php echo $k->id_paket;?>"><?php echo $k->nama_paket;?></option>
 		<?php } ?>
@@ -17,6 +17,10 @@
 	</select>
 </div>
 <div class="isi-pro"></div>
+<div class="form-group">
+	<label>Total Berat <small>(satuan gram)</small></label><br>
+    <input class="form-control berat-total" value="0" name="total_berat" type="text" placeholder="Total Berat" required>
+</div>
 <div class="form-group">
 	<label>Diskon <small>(dihitung dalam bentuk %)</small></label><br>
     <input class="form-control diskon" name="diskon" value="0" type="number" placeholder="Diskon">
@@ -88,6 +92,13 @@ $(".xtra").on("change keydown paste input", function() {
 	$.get("<?php echo base_url();?>penjualan/set_produk/" + a, function (b) {
 		$(".isi-pro").append(b);
 		hitung();
+		$(".xtra").val("0");
+		$(".xtra").select2("destroy").select2({
+			dropdownAutoWidth: !0,
+			width: "100%",
+			dropdownParent: $(".modal")
+		});
+		//$('.xtra').trigger('change');
 	})
 })
 $(document).on('change keydown paste input','.set-pro,.diskon', function (e) {
@@ -100,6 +111,10 @@ $(document).on('change keydown paste input','.qty', function (e) {
 	var c = a * b;
 	var res = id.split("-");
 	$(".harga-"+res[1]).val(c);
+	
+	var d = $(".berat-asli-"+res[1]).val();
+	var e = b * d;
+	$(".berat-"+res[1]).val(e);
 	hitung();
 });
 $(document).on('change keydown paste input','.qtypro', function (e) {
@@ -109,6 +124,10 @@ $(document).on('change keydown paste input','.qtypro', function (e) {
 	var b = $(this).val();
 	var c = a * b;
 	$(".harga-"+res[1]+res[0]).val(c);
+	
+	var d = $(".berat-asli-"+res[1]+res[0]).val();
+	var e = b * d;
+	$(".berat-"+res[1]+res[0]).val(e);
 	
 	var awal = 0;
 	var xnum=1;
@@ -123,6 +142,18 @@ $(document).on('change keydown paste input','.qtypro', function (e) {
 			$(".total-paket-"+res[1]).val(cekhit); 
 		}
 	xnum++;})
+	
+	var awal_berat = 0;
+	var xnum=1;
+	$("."+res[1]+" .berat").each(function(i,obj) {
+		var xhit = $(this).val();
+		xhit = xhit.replace(".","");
+		awal_berat = parseInt(xhit) + awal_berat;
+		if(xnum == $("."+res[1]+" .berat").length) {
+			$(".berat-paket-"+res[1]).val(awal_berat); 
+		}
+	xnum++;})
+	
 	hitung();
 });
 function hapus_produk(id) {
@@ -149,6 +180,19 @@ function hitung() {
 			$(".harga-total").val(awal); 
 		}
 	xnum++; })
+	
+	var awal_berat = 0;
+	var xnum=1;
+	$(".berat").each(function(i,obj) {
+		var xhit = $(this).val();
+		xhit = xhit.replace(".","");
+		//console.log(xhit);
+		awal_berat = parseInt(xhit) + awal_berat;
+		if(xnum == $(".berat").length) {
+			$(".berat-total").val(awal_berat); 
+		}
+	xnum++; })
+	
 	$(".input-mask").mask('000.000.000.000.000', {reverse: true});
 }
 $(".input-mask").mask('000.000.000.000.000', {reverse: true});

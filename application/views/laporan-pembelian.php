@@ -1,14 +1,19 @@
 <section class="content">
             <header class="content__title">
-               <h1>Pembelian</h1>
-               <div class="actions">
-                  <button class="btn btn-primary font-btn" onclick="tambah()"><i class="zmdi zmdi-plus zmdi-hc-fw"></i></button>
-               </div>
+               <h1>Laporan Pembelian</h1>
             </header>
             <div class="card">
                <div class="card-body">
 				<form class="form-inline" action="" method="post">
                      <div class="form-group mb-4 mr-sm-4">
+                        <select class="form-control" name="produk_id">
+						<option value="0">Semua Produk</option>
+						<?php foreach ($produk as $ku) { ?>
+							<option <?php if($ku->id_produk == $produk_id) { echo 'selected'; } ?> value="<?php echo $ku->id_produk;?>"><?php echo $ku->nama_produk;?></option>
+						<?php } ?>
+						</select>
+                     </div>
+					 <div class="form-group mb-4 mr-sm-4">
                         <input type="date" class="form-control" name="start" value="<?php echo $awal;?>">
                         <i class="form-group__bar"></i>
                      </div>
@@ -28,7 +33,6 @@
 								 <th>Qty</th>
 								 <th>Harga Satuan</th>
 								 <th>Harga Total</th>
-                                 <th class="disabled-sorting text-right">Actions</th>
                               </tr>
                            </thead>
                            <tfoot>
@@ -38,7 +42,6 @@
 								 <th>Qty</th>
 								 <th>Harga Satuan</th>
 								 <th>Harga Total</th>
-                                 <th class="text-right">Actions</th>
                               </tr>
                            </tfoot>
                            <tbody>
@@ -52,27 +55,26 @@
 								 <td><?php echo $k->qty;?></td>
 								 <td><?php echo number_format($k->harga_satuan,0,",",".");?></td>
 								 <td><?php echo number_format($k->total_harga,0,",",".");?></td>
-                                 <td class="td-actions text-right">
-                                    <button type="button" onclick="ganti(<?php echo $k->id_pembelian;?>)" rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="">
-                                       <i class="zmdi zmdi-edit zmdi-hc-fw"></i>
-                                    </button>
-                                    &nbsp;
-                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="" onclick="hapus(<?php echo $k->id_pembelian;?>)">
-                                       <i class="zmdi zmdi-close zmdi-hc-fw"></i>
-                                    </button>
-                                 </td>
                               </tr>
                               <?php $no++; } ?>
                            </tbody>
 						   <tbody>
 							<tr class="bg-info text-white">
-								<td colspan="5">Total</td>
+								<td colspan="4">Total</td>
 								<td><?php echo number_format(array_sum($arr_harga),0,",",".");?></td>
 								<td></td>
 							</tr>
 						   </tbody>
                      </table>
                   </div>
+				  <div><h2>Grafik Jumlah Pembelian</h2>
+				  <div class="flot-chart flot-line"></div>
+				  <div class="flot-chart-legends flot-chart-legends--line"></div>
+				  </div><br><br>
+				  <div><h2>Grafik Harga Satuan</h2>
+				  <div class="flot-chart flot-line-1"></div>
+				  <div class="flot-chart-legends flot-chart-legends--line"></div>
+				  </div>
                </div>
             </div>
             <footer class="footer hidden-xs-down">
@@ -130,70 +132,85 @@ $(document).ready(function () {
 			}
 		})
 		
-		$(".xform").on("submit", (function (b) {
-			b.preventDefault();
-			$(".input-mask").unmask()
-			var a;
-			if (simpan == "tambah") {
-				a = "<?php echo base_url();?>pembelian/add"
-			} else {
-				a = "<?php echo base_url();?>pembelian/update"
-			}
-			$.ajax({
-				url: a,
-				type: "POST",
-				data: new FormData(this),
-				contentType: false,
-				cache: false,
-				processData: false,
-				success: function (c) {
-					$("#myModal").modal("hide");
-					//swal("Sukses!", "", "success");
-					location.reload();
-				},
-				error: function (c, e, d) {
-					swal("Error", "", "error")
-				}
-			});
-			return false
-		}));
+		'use strict';
+
+    // Chart Data
+	var lineChartData = [
+	<?php $num=0;
+	foreach ($grafik_qty as $key => $value) { ?>
+        {
+            label: '<?php echo $key;?>',
+            data: [[1,0],<?php $xnum=2; foreach ($value as $k => $v) { ?>[<?php echo $xnum;?>,<?php echo $v;?>],<?php $xnum++;} ?>],
+        },
+	<?php $num++; } ?>
+    ];
+	var lineChartData_1 = [
+	<?php $num=0;
+	foreach ($grafik_harga as $key => $value) { ?>
+        {
+            label: '<?php echo $key;?>',
+            data: [[1,0],<?php $xnum=2; foreach ($value as $k => $v) { ?>[<?php echo $xnum;?>,<?php echo $v;?>],<?php $xnum++;} ?>],
+        },
+	<?php $num++; } ?>
+    ];
+
+    // Chart Options
+    var lineChartOptions = {
+        series: {
+            lines: {
+                show: true,
+                barWidth: 0.05,
+                fill: 0
+            }
+        },
+        shadowSize: 0.1,
+        grid : {
+            borderWidth: 1,
+            borderColor: '#edf9fc',
+            show : true,
+            hoverable : true,
+            clickable : true
+        },
+
+        yaxis: {
+            tickColor: '#edf9fc',
+            tickDecimals: 0,
+            font :{
+                lineHeight: 13,
+                style: 'normal',
+                color: '#9f9f9f',
+            },
+            shadowSize: 0
+        },
+
+        xaxis: {
+            tickColor: '#fff',
+            tickDecimals: 0,
+            font :{
+                lineHeight: 13,
+                style: 'normal',
+                color: '#9f9f9f'
+            },
+            shadowSize: 0,
+        },
+        legend:{
+            container: '.flot-chart-legends--line',
+            backgroundOpacity: 0.5,
+            noColumns: 0,
+            backgroundColor: '#fff',
+            lineWidth: 0,
+            labelBoxBorderColor: '#fff'
+        }
+    };
+
+    // Create chart
+    if ($('.flot-line')[0]) {
+        $.plot($('.flot-line'), lineChartData, lineChartOptions);
+    }
+	if ($('.flot-line-1')[0]) {
+        $.plot($('.flot-line-1'), lineChartData_1, lineChartOptions);
+    }
 		
     }, 1500)
 });
-
-function tambah() {
-	simpan = "tambah";
-	$(".form")[0].reset();
-	$("#myModal").modal("show");
-	$("#modalbody").load("<?php echo base_url();?>pembelian/modal/", function (a) {
-		$("#modalbody").html(a)
-	})
-}
-
-function ganti(a) {
-	simpan = "update";
-	$(".form")[0].reset();
-	$("#myModal").modal("show");
-	$("#modalbody").load("<?php echo base_url();?>pembelian/edit/" + a, function (b) {
-		$("#modalbody").html(b)
-	})
-}
-
-
-function hapus(a) {
-	Swal.fire({
-	  title: 'Hapus Data?',
-	  text: "",
-	  type: 'warning',
-	  showCancelButton: true,
-	  confirmButtonColor: '#3085d6',
-	  cancelButtonColor: '#d33',
-	  confirmButtonText: 'Ya',
-	  cancelButtonText: "Batal"
-	}).then((result) => {
-	  if (result.value == true) {
-		$.get("<?php echo base_url()?>pembelian/delete/" + a, function (b) { location.reload(); })
-	  }
-	})
-};
 </script>

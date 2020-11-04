@@ -5,6 +5,7 @@ class ModPembelian extends CI_model
       {
 		$start = $this->input->post('start');
 		$end = $this->input->post('end');
+		$produk_id = $this->input->post('produk_id');
 		if($start == NULL) {
 			$start = date("Y-m-01");
 		}
@@ -17,6 +18,9 @@ class ModPembelian extends CI_model
 		$this->db->join('produk', 'pembelian.produk_id = produk.id_produk');
 		$this->db->where('pembelian.tgl >=', $start);
 		$this->db->where('pembelian.tgl <=', $end);
+		if($produk_id > 0) {
+			$this->db->where('pembelian.produk_id', $produk_id);
+		}
         $this->db->order_by('pembelian.id_pembelian', "desc");
 		return $this->db->get()->result();
       }

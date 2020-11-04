@@ -4,6 +4,11 @@ class ModProduk extends CI_model {
 		$this->db->order_by('nama_produk', "asc");
         return $this->db->get('produk')->result();
 	}
+	public function habis() {
+		$this->db->order_by('nama_produk', "asc");
+		$this->db->where('stok < ',3);
+        return $this->db->get('produk')->result();
+	}
 	public function add() {
 		$nama_produk = $this->input->post('nama_produk');
 		$harga_jual = $this->input->post('harga_jual');

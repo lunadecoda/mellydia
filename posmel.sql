@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 26, 2020 at 02:52 PM
+-- Generation Time: Nov 04, 2020 at 05:57 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -40,7 +40,7 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id_admin`, `nama_admin`, `email_admin`, `password_admin`) VALUES
 (1, 'admin', 'admin@admin.com', '21232f297a57a5a743894a0e4a801fc3'),
-(2, 'coba', 'coba@coba.com', 'c3ec0f7b054e729c5a716c8125839829');
+(3, 'coba', 'coba@coba.com', 'c3ec0f7b054e729c5a716c8125839829');
 
 -- --------------------------------------------------------
 
@@ -59,14 +59,18 @@ CREATE TABLE `admin_akses` (
 --
 
 INSERT INTO `admin_akses` (`id`, `admin_id`, `akses_id`) VALUES
-(1, 2, 1),
-(9, 1, 1),
-(10, 1, 3),
-(11, 1, 4),
-(12, 1, 2),
-(13, 1, 5),
-(14, 1, 6),
-(15, 1, 7);
+(17, 3, 7),
+(18, 3, 8),
+(27, 1, 1),
+(28, 1, 3),
+(29, 1, 4),
+(30, 1, 2),
+(31, 1, 5),
+(32, 1, 6),
+(33, 1, 7),
+(34, 1, 8),
+(35, 1, 9),
+(36, 1, 10);
 
 -- --------------------------------------------------------
 
@@ -92,7 +96,10 @@ INSERT INTO `akses` (`id_akses`, `nama_akses`, `link`, `modul_id`) VALUES
 (4, 'Marketplace', 'marketplace', 1),
 (5, 'Produk', 'produk', 2),
 (6, 'Paket', 'paket', 2),
-(7, 'Pembelian', 'pembelian', 3);
+(7, 'Pembelian', 'pembelian', 3),
+(8, 'Penjualan', 'penjualan', 3),
+(9, 'Pembelian', 'laporan', 4),
+(10, 'Penjualan', 'laporan/penjualan', 4);
 
 -- --------------------------------------------------------
 
@@ -152,7 +159,8 @@ CREATE TABLE `modul` (
 INSERT INTO `modul` (`id_modul`, `nama_modul`) VALUES
 (1, 'Master Data'),
 (2, 'Master Barang'),
-(3, 'Transaksi');
+(3, 'Transaksi'),
+(4, 'Laporan');
 
 -- --------------------------------------------------------
 
@@ -210,6 +218,16 @@ CREATE TABLE `pembelian` (
   `tgl` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `pembelian`
+--
+
+INSERT INTO `pembelian` (`id_pembelian`, `produk_id`, `total_harga`, `harga_satuan`, `qty`, `tgl`) VALUES
+(5, 3, 10000, 5000, 2, '2020-10-28'),
+(6, 4, 50000, 5000, 10, '2020-10-29'),
+(7, 3, 25000, 5000, 5, '2020-10-29'),
+(8, 5, 200000, 10000, 20, '2020-10-29');
+
 -- --------------------------------------------------------
 
 --
@@ -221,7 +239,9 @@ CREATE TABLE `penjualan` (
   `diskon` int(11) NOT NULL,
   `ongkir` int(11) NOT NULL,
   `kurir` varchar(100) NOT NULL,
+  `resi` varchar(200) NOT NULL,
   `status` varchar(30) NOT NULL,
+  `total_berat` int(11) NOT NULL,
   `total_harga` int(11) NOT NULL,
   `admin_id` int(11) NOT NULL,
   `tgl_penjualan` date NOT NULL,
@@ -231,15 +251,18 @@ CREATE TABLE `penjualan` (
   `sumber_id` int(11) NOT NULL,
   `nama_penerima` varchar(100) NOT NULL,
   `alamat_penerima` text NOT NULL,
-  `telp_penerima` varchar(100) NOT NULL
+  `telp_penerima` varchar(100) NOT NULL,
+  `ket` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `penjualan`
 --
 
-INSERT INTO `penjualan` (`id_penjualan`, `diskon`, `ongkir`, `kurir`, `status`, `total_harga`, `admin_id`, `tgl_penjualan`, `tgl_proses`, `tgl_selesai`, `member_id`, `sumber_id`, `nama_penerima`, `alamat_penerima`, `telp_penerima`) VALUES
-(13, 0, 0, '', 'sedang dikemas', 5143, 1, '2020-10-25', '0000-00-00', '0000-00-00', 1, 2, 'member 1', 'alamat', '081');
+INSERT INTO `penjualan` (`id_penjualan`, `diskon`, `ongkir`, `kurir`, `resi`, `status`, `total_berat`, `total_harga`, `admin_id`, `tgl_penjualan`, `tgl_proses`, `tgl_selesai`, `member_id`, `sumber_id`, `nama_penerima`, `alamat_penerima`, `telp_penerima`, `ket`) VALUES
+(22, 0, 15000, 'pos', '12345', 'selesai', 1800, 5143, 1, '2020-10-28', '2020-11-03', '2020-11-03', 1, 2, 'member 1', 'alamat', '081', 'batal'),
+(23, 0, 12000, 'jne', '23456', 'selesai', 900, 2750, 1, '2020-11-03', '2020-11-03', '2020-11-03', 1, 1, 'member 1', 'alamat', '081', ''),
+(24, 0, 12000, 'tiki', '123456', 'selesai', 1900, 30855, 1, '2020-11-04', '2020-11-04', '2020-11-04', 2, 2, 'member lagi', 'jl jalan no 123', '0812', '');
 
 -- --------------------------------------------------------
 
@@ -251,6 +274,7 @@ CREATE TABLE `penjualan_paket` (
   `id_penjualan_paket` int(11) NOT NULL,
   `paket_id` int(11) NOT NULL,
   `harga_paket` int(11) NOT NULL,
+  `berat_paket` int(11) NOT NULL,
   `penjualan_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -258,8 +282,10 @@ CREATE TABLE `penjualan_paket` (
 -- Dumping data for table `penjualan_paket`
 --
 
-INSERT INTO `penjualan_paket` (`id_penjualan_paket`, `paket_id`, `harga_paket`, `penjualan_id`) VALUES
-(10, 4, 4675, 13);
+INSERT INTO `penjualan_paket` (`id_penjualan_paket`, `paket_id`, `harga_paket`, `berat_paket`, `penjualan_id`) VALUES
+(17, 4, 4675, 1800, 22),
+(18, 0, 2500, 900, 23),
+(19, 5, 28050, 1900, 24);
 
 -- --------------------------------------------------------
 
@@ -272,16 +298,20 @@ CREATE TABLE `penjualan_produk` (
   `penjualan_paket_id` int(11) NOT NULL,
   `produk_id` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
-  `harga` int(11) NOT NULL
+  `harga` int(11) NOT NULL,
+  `penjualan_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `penjualan_produk`
 --
 
-INSERT INTO `penjualan_produk` (`id_penjualan_produk`, `penjualan_paket_id`, `produk_id`, `qty`, `harga`) VALUES
-(10, 10, 3, 1, 2500),
-(11, 10, 4, 1, 3000);
+INSERT INTO `penjualan_produk` (`id_penjualan_produk`, `penjualan_paket_id`, `produk_id`, `qty`, `harga`, `penjualan_id`) VALUES
+(21, 17, 3, 1, 2500, 22),
+(22, 17, 4, 1, 3000, 22),
+(23, 18, 3, 1, 2500, 23),
+(24, 19, 4, 1, 3000, 24),
+(25, 19, 5, 2, 30000, 24);
 
 -- --------------------------------------------------------
 
@@ -303,9 +333,9 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga_beli`, `harga_jual`, `stok`, `berat`) VALUES
-(3, 'Produk', 1500, 2500, 7, '900'),
-(4, 'Produk 1', 0, 3000, 2, '900'),
-(5, 'Produk 2', 0, 15000, 5, '500');
+(3, 'Produk', 5000, 2500, 7, '900'),
+(4, 'Produk 1', 5000, 3000, 13, '900'),
+(5, 'Produk 2', 10000, 15000, 2, '500');
 
 -- --------------------------------------------------------
 
@@ -451,19 +481,19 @@ ALTER TABLE `sumber_market`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `admin_akses`
 --
 ALTER TABLE `admin_akses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `akses`
 --
 ALTER TABLE `akses`
-  MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -481,7 +511,7 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `modul`
 --
 ALTER TABLE `modul`
-  MODIFY `id_modul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_modul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `paket`
@@ -499,25 +529,25 @@ ALTER TABLE `paket_produk`
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `penjualan`
 --
 ALTER TABLE `penjualan`
-  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `penjualan_paket`
 --
 ALTER TABLE `penjualan_paket`
-  MODIFY `id_penjualan_paket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_penjualan_paket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `penjualan_produk`
 --
 ALTER TABLE `penjualan_produk`
-  MODIFY `id_penjualan_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_penjualan_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `produk`

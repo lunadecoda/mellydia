@@ -6,7 +6,7 @@
                <div class="modal-header">
                   <h5 class="modal-title pull-left">Form</h5>
                </div>
-               <form id="form" class="xform">
+               <form class="form xform">
                   <div class="modal-body" id="modalbody">
                        
                   </div>
@@ -25,7 +25,7 @@
                <div class="modal-header">
                   <h5 class="modal-title pull-left">Form</h5>
                </div>
-               <form id="form" class="xform-lg">
+               <form class="form xform-lg">
                   <div class="modal-body" id="modalbody-lg">
                        
                   </div>
@@ -56,9 +56,9 @@
         <script src="<?php echo base_url();?>assets/js/app.min.js" defer></script>
 
         <!-- Demo -->
-        <script src="<?php echo base_url();?>assets/demo/js/flot-charts/curved-line.js" defer></script>
+        <!--<script src="<?php echo base_url();?>assets/demo/js/flot-charts/curved-line.js" defer></script>
         <script src="<?php echo base_url();?>assets/demo/js/flot-charts/line.js" defer></script>
-        <script src="<?php echo base_url();?>assets/demo/js/flot-charts/bar.js" defer></script>
+        <script src="<?php echo base_url();?>assets/demo/js/flot-charts/bar.js" defer></script>-->
         <!--<script src="<?php echo base_url();?>assets/demo/js/flot-charts/dynamic.js" defer></script>-->
         <script src="<?php echo base_url();?>assets/demo/js/flot-charts/pie.js" defer></script>
         <script src="<?php echo base_url();?>assets/demo/js/flot-charts/chart-tooltips.js" defer></script>
@@ -74,6 +74,9 @@
 	  <script src="<?php echo base_url();?>assets/vendors/jquery-mask-plugin/jquery.mask.min.js" defer></script>
       <!-- App functions and actions -->
       <script src="<?php echo base_url();?>assets/js/app.min.js"></script>
+	  
+	  <script src="<?php echo base_url();?>assets/vendors/chartjs/chart.js" defer></script>
+	  <link rel="stylesheet" href="<?php echo base_url();?>assets/vendors/chartjs/chart.css">
 		
     </body>
 </html>

@@ -45,7 +45,7 @@
                                     <button type="button" onclick="ganti(<?php echo $k->id_produk;?>)" rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="">
                                        <i class="zmdi zmdi-edit zmdi-hc-fw"></i>
                                     </button>
-                                    &nbsp; 
+                                    &nbsp;
                                     <button type="button" rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="" onclick="hapus(<?php echo $k->id_produk;?>)">
                                        <i class="zmdi zmdi-close zmdi-hc-fw"></i>
                                     </button>
@@ -80,16 +80,24 @@ $(document).ready(function () {
 			sDom: '<"dataTables__top"lfB>rt<"dataTables__bottom"ip><"clear">',
 			buttons: [{
 				extend: "excelHtml5",
-				title: "Export Data"
-			}, {
-				extend: "csvHtml5",
-				title: "Export Data"
+				title: "Export Data",
+				exportOptions: {
+					format: {
+						body: function(data, column, row) {
+							if (typeof data === 'string' || data instanceof String) {
+								data = data.replace(/<br\s*\/?>/ig, "\r\n");
+							}
+							data = data.replace(/<.*?>/ig, "");
+							return data;
+						}
+					}
+				},
 			}, {
 				extend: "print",
 				title: "Print"
 			}],
 			initComplete: function (a, b) {
-				$(this).closest(".dataTables_wrapper").find(".dataTables__top").prepend('<div class="dataTables_buttons hidden-sm-down actions"><span class="actions__item zmdi zmdi-print" data-table-action="print" /><span class="actions__item zmdi zmdi-fullscreen" data-table-action="fullscreen" /><div class="dropdown actions__item"><i data-toggle="dropdown" class="zmdi zmdi-download" /><ul class="dropdown-menu dropdown-menu-right"><a href="" class="dropdown-item" data-table-action="excel">Excel (.xlsx)</a><a href="" class="dropdown-item" data-table-action="csv">CSV (.csv)</a></ul></div></div>')
+				$(this).closest(".dataTables_wrapper").find(".dataTables__top").prepend('<div class="dataTables_buttons hidden-sm-down actions"><div class="dropdown actions__item"><i data-toggle="dropdown" class="zmdi zmdi-download" /><ul class="dropdown-menu dropdown-menu-right"><a href="" class="dropdown-item" data-table-action="excel">Excel (.xlsx)</a></ul></div></div>')
 			}
 		}), $(".dataTables_filter input[type=search]").focus(function () {
 			$(this).closest(".dataTables_filter").addClass("dataTables_filter--toggled")
@@ -137,7 +145,7 @@ $(document).ready(function () {
 
 function tambah() {
 	simpan = "tambah";
-	$("#form")[0].reset();
+	$(".form")[0].reset();
 	$("#myModal").modal("show");
 	$("#modalbody").load("<?php echo base_url();?>produk/modal/", function (a) {
 		$("#modalbody").html(a)
@@ -146,7 +154,7 @@ function tambah() {
 
 function ganti(a) {
 	simpan = "update";
-	$("#form")[0].reset();
+	$(".form")[0].reset();
 	$("#myModal").modal("show");
 	$("#modalbody").load("<?php echo base_url();?>produk/edit/" + a, function (b) {
 		$("#modalbody").html(b)
@@ -155,27 +163,19 @@ function ganti(a) {
 
 
 function hapus(a) {
-	swal({
-    title: "Hapus Data?",
-    text: "",
-    type: "warning",
-    showCancelButton: true,
-    confirmButtonColor: '#DD6B55',
-    confirmButtonText: 'Yes, I am sure!',
-    cancelButtonText: "No, cancel it!"
- }).then(
-       function () { $.ajax({
-			url: "<?php echo base_url()?>produk/delete/" + a,
-			type: "POST",
-			dataType: "JSON",
-			success: function (b) {
-				location.reload();
-				//table.ajax.reload()
-			},
-			error: function (b, d, c) {
-				swal("Error", "", "error")
-			}
-		}); },
-       function () { return false; });
+	Swal.fire({
+	  title: 'Hapus Data?',
+	  text: "",
+	  type: 'warning',
+	  showCancelButton: true,
+	  confirmButtonColor: '#3085d6',
+	  cancelButtonColor: '#d33',
+	  confirmButtonText: 'Ya',
+	  cancelButtonText: "Batal"
+	}).then((result) => {
+	  if (result.value == true) {
+		$.get("<?php echo base_url()?>produk/delete/" + a, function (b) { location.reload(); })
+	  }
+	})
 };
 </script>

@@ -6,6 +6,8 @@ class Home extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('ModUser');
+		$this->load->model('ModProduk');
+		$this->load->model('ModPenjualan');
 	}
 	
 	public function index()
@@ -17,9 +19,11 @@ class Home extends CI_Controller {
 		$menu['modul'] = $this->ModUser->modul();
 		$menu['akses'] = $this->ModUser->akses_admin($this->session->userdata('admin_id'));
 		$menu['login'] = $this->ModUser->edit($this->session->userdata('admin_id'));
+		$data['habis'] = $this->ModProduk->habis();
+		$data['penjualan'] = $this->ModPenjualan->bulan_ini();
 		$this->load->view('template/header');
 		$this->load->view('template/menu',$menu);
-		$this->load->view('home');
+		$this->load->view('home',$data);
 		$this->load->view('template/footer');
 	}
 	public function logout() {
