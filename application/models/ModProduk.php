@@ -15,8 +15,8 @@ class ModProduk extends CI_model {
 		$stok = $this->input->post('stok');
 		$berat = $this->input->post('berat');
 		$kategori_id = $this->input->post('kategori_id');
-		
-		$data = array('nama_produk' => $nama_produk,'harga_jual' => $harga_jual, 'berat' => $berat, 'stok' => $stok);
+		$harga_beli = $this->input->post('harga_beli');
+		$data = array('nama_produk' => $nama_produk,'harga_jual' => $harga_jual, 'harga_beli' => $harga_beli, 'berat' => $berat, 'stok' => $stok);
 		$this->db->insert('produk', $data);
 		$x = $this->db->insert_id();
 		foreach ($kategori_id as $k => $v) {
@@ -49,8 +49,8 @@ class ModProduk extends CI_model {
 		$stok = $this->input->post('stok');
 		$berat = $this->input->post('berat');
 		$kategori_id = $this->input->post('kategori_id');
-		
-		$data = array('nama_produk' => $nama_produk,'harga_jual' => $harga_jual, 'berat' => $berat, 'stok' => $stok);
+		$harga_beli = $this->input->post('harga_beli');
+		$data = array('nama_produk' => $nama_produk,'harga_jual' => $harga_jual, 'harga_beli' => $harga_beli, 'berat' => $berat, 'stok' => $stok);
 		$this->db->where('id_produk', $id);
 		$this->db->update('produk', $data);
 		

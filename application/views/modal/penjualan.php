@@ -2,9 +2,11 @@
 <div class="row">
 <div class="col-sm-6">
 <div class="form-group">
+	<label>Tanggal</label><br>
     <input class="form-control" name="tgl" type="date" value="<?php echo date("Y-m-d");?>" placeholder="Tanggal" required>
 </div>
 <div class="form-group">
+	<label>Paket/Produk</label><br>
     <select class="select2 xtra" data-placeholder="Pilih Produk" name="set_produk">
 		<option value="0" disabled selected>Pilih Paket/Produk</option>
 		<?php foreach ($paket as $k) { ?>
@@ -32,6 +34,7 @@
 </div>
 <div class="col-sm-6">
 	<div class="form-group">
+		<label>Customer</label><br>
 		<select class="select2 cust" data-placeholder="Pilih Customer" name="member_id">
 			<option value="0">Customer Baru</option>
 			<option disabled>------------</option>
@@ -42,12 +45,15 @@
 	</div>
 	<div class="set-customer">
 	<div class="form-group">
+		<label>Nama Penerima</label><br>
 		<input class="form-control" name="nama_penerima" type="text" placeholder="Nama Penerima" required>
 	</div>
 	<div class="form-group">
+		<label>Alamat Penerima</label><br>
 		<textarea class="form-control" name="alamat_penerima" placeholder="Alamat Penerima" required></textarea>
 	</div>
 	<div class="form-group">
+		<label>Telp Penerima</label><br>
 		<input class="form-control" name="telp_penerima" type="text" placeholder="Telp Penerima" required>
 	</div>
 	</div>

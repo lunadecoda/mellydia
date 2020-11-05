@@ -1,8 +1,10 @@
 <?php if($cek == 0) { ?>
 <div class="form-group">
+	<label>Nama Paket</label><br>
     <input class="form-control" name="nama_paket" type="text" placeholder="Nama Paket" required>
 </div>
 <div class="form-group">
+	<label>Produk</label><br>
     <select class="select2 xtra" data-placeholder="Pilih Produk" name="produk_id[]" multiple>
 		<?php foreach ($produk as $k) { ?>
 		<option value="<?php echo $k->id_produk.'-'.$k->harga_jual;?>"><?php echo $k->nama_produk;?></option>
@@ -10,14 +12,17 @@
 	</select>
 </div>
 <div class="form-group">
+	<label>Total Harga</label><br>
     <input class="form-control totalharga" name="total" type="text" placeholder="Total Harga" readonly>
 </div>
 <?php } else { ?>
 <input type="hidden" name="id_paket" value="<?php echo $paket->id_paket;?>">
 <div class="form-group">
+	<label>Nama Paket</label><br>
     <input class="form-control" value="<?php echo $paket->nama_paket;?>" name="nama_paket" type="text" placeholder="Nama Paket" required>
 </div>
 <div class="form-group">
+	<label>Produk</label><br>
     <select class="select2 xtra" data-placeholder="Pilih Produk" name="produk_id[]" multiple>
 		<?php $arr_harga = array();
 		foreach ($produk as $k) { ?>
@@ -26,6 +31,7 @@
 	</select>
 </div>
 <div class="form-group">
+	<label>Total Harga</label><br>
     <input class="form-control totalharga" value="<?php echo array_sum($arr_harga) - (15/100 * array_sum($arr_harga));?>" name="total" type="text" placeholder="Total Harga" readonly>
 </div>
 <?php } ?>

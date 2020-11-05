@@ -2,6 +2,7 @@
 <div class="border border-success p-2 <?php echo time();?> mb-4">
 	<div class="row">
 		<div class="form-group col-9">
+			<label>Produk</label><br>
 			<input type="hidden" name="paket_id[]" value="0-<?php echo time();?>">
 			<select class="select2 set-pro" data-placeholder="Pilih Produk" name="produk_id_<?php echo time();?>[]">
 				<?php foreach ($produk as $k) { ?>
@@ -32,6 +33,7 @@
 <div class="border border-success p-2 <?php echo time();?> mb-4">
 	<div class="row">
 		<div class="form-group col-9">
+			<label>Paket</label><br>
 			<input type="hidden" name="paket_id[]" value="<?php echo $paket->id_paket;?>-<?php echo time();?>">
 			<input class="form-control" value="<?php echo $paket->nama_paket;?>" name="nama_paket" type="text" disabled>
 		</div>
@@ -41,6 +43,7 @@
 	$arr_berat = array();
 	foreach ($paket_isi as $produk_isi) { $arr_harga[] = $produk_isi->harga_jual; $arr_berat[] = $produk_isi->berat; ?>
 		<div class="form-group col-9 <?php echo time().$num;?>">
+			<label>Produk</label><br>
 			<select class="select2 set-pro" data-placeholder="Pilih Produk" name="produk_id_<?php echo time();?>[]">
 				<?php foreach ($produk as $k) { ?>
 				<option <?php if($produk_isi->id_produk == $k->id_produk) { echo ' selected '; } if($k->stok <= 0) {echo ' disabled ';} ?> value="<?php echo $k->id_produk;?>"><?php echo $k->nama_produk." - stok ".$k->stok;?></option>
