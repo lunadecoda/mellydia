@@ -116,9 +116,7 @@
 								</div><b><?php echo number_format($k->total_harga+$k->ongkir,0,",",".");?></b>
 								 </td>
 								 <td class="td-actions text-right">
-									<button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">
-									<i class="zmdi zmdi-eye zmdi-hc-fw"></i>
-									</button>
+									<button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Selesai</button>
                                  </td>
                               </tr>
                               <?php $no++; } ?>

@@ -106,21 +106,13 @@
 								 </td>
 								 <td><?php echo $k->nama_market;?></td>
                                  <td class="td-actions text-right">
-									<a class="btn btn-warning mb-2" href="<?php echo base_url();?>penjualan/invoice/<?php echo $k->id_penjualan;?>" target="_blank">
-									<i class="zmdi zmdi-print zmdi-hc-fw"></i>
-									</a>
+									<a class="btn btn-warning mb-2" href="<?php echo base_url();?>penjualan/invoice/<?php echo $k->id_penjualan;?>" target="_blank">Invoice</a>
 									&nbsp;
-									<button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">
-									<i class="zmdi zmdi-eye zmdi-hc-fw"></i>
-									</button>
+									<button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Detail</button>
 									&nbsp;
-									<button type="button" onclick="kirim(<?php echo $k->id_penjualan;?>)" rel="tooltip" class="btn btn-info btn-round mb-2" data-original-title="" title="">
-									<i class="zmdi zmdi-local-shipping zmdi-hc-fw"></i>
-									</button>
+									<button type="button" onclick="kirim(<?php echo $k->id_penjualan;?>)" rel="tooltip" class="btn btn-info btn-round mb-2" data-original-title="" title="">Resi</button>
                                     &nbsp;
-                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round mb-2" data-original-title="" title="" onclick="hapus(<?php echo $k->id_penjualan;?>)">
-                                       <i class="zmdi zmdi-close zmdi-hc-fw"></i>
-                                    </button>
+                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round mb-2" data-original-title="" title="" onclick="hapus(<?php echo $k->id_penjualan;?>)">Batal</button>
                                  </td>
                               </tr>
                               <?php $no++; } ?>
