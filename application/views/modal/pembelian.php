@@ -13,15 +13,15 @@
 </div>
 <div class="form-group">
 	<label>Quantity</label><br>
-    <input class="form-control qty" name="qty" type="number" placeholder="Qty">
+    <input class="form-control qty" name="qty" type="text" placeholder="Qty">
 </div>
 <div class="form-group">
 	<label>Harga Satuan</label><br>
-    <input class="form-control satuan input-mask" name="harga_satuan" type="number" placeholder="Harga Satuan">
+    <input class="form-control satuan input-mask" name="harga_satuan" type="text" placeholder="Harga Satuan">
 </div>
 <div class="form-group">
 	<label>Total Harga</label><br>
-    <input class="form-control total input-mask" name="total_harga" type="number" placeholder="Total arga">
+    <input class="form-control total input-mask" name="total_harga" type="text" placeholder="Total arga">
 </div>
 <?php } else { ?>
 <input type="hidden" name="id_pembelian" value="<?php echo $pembelian->id_pembelian;?>">
@@ -40,15 +40,15 @@
 </div>
 <div class="form-group">
 	<label>Quantity</label><br>
-    <input class="form-control qty" value="<?php echo $pembelian->qty;?>" name="qty" type="number" placeholder="Qty">
+    <input class="form-control qty" value="<?php echo $pembelian->qty;?>" name="qty" type="text" placeholder="Qty">
 </div>
 <div class="form-group">
 	<label>Harga Satuan</label><br>
-    <input class="form-control satuan input-mask" value="<?php echo $pembelian->harga_satuan;?>" name="harga_satuan" type="number" placeholder="Harga Satuan">
+    <input class="form-control satuan input-mask" value="<?php echo $pembelian->harga_satuan;?>" name="harga_satuan" type="text" placeholder="Harga Satuan">
 </div>
 <div class="form-group">
 	<label>Total Harga</label><br>
-    <input class="form-control total input-mask" value="<?php echo $pembelian->total_harga;?>" name="total_harga" type="number" placeholder="Total arga">
+    <input class="form-control total input-mask" value="<?php echo $pembelian->total_harga;?>" name="total_harga" type="text" placeholder="Total arga">
 </div>
 <?php } ?>
 <script>
