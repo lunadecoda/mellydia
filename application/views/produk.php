@@ -2,7 +2,7 @@
             <header class="content__title">
                <h1>Produk</h1>
                <div class="actions">
-                  <button class="btn btn-primary font-btn" onclick="tambah()"><i class="zmdi zmdi-plus zmdi-hc-fw"></i></button>
+                  <button class="btn btn-primary font-btn" onclick="tambah()">Tambah</button>
                </div>
             </header>
             <div class="card">

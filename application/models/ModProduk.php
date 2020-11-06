@@ -6,7 +6,7 @@ class ModProduk extends CI_model {
 	}
 	public function habis() {
 		$this->db->order_by('nama_produk', "asc");
-		$this->db->where('stok < ',3);
+		$this->db->where('stok < ',100);
         return $this->db->get('produk')->result();
 	}
 	public function add() {
