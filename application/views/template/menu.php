@@ -33,7 +33,7 @@
                   </div>
                </div>
                <ul class="navigation">
-				<li><a href="<?php echo base_url();?>">Home</a></li>
+				<li><a href="<?php echo base_url();?>home">Home</a></li>
 				<?php $nem_menu = array();
 				foreach ($modul as $k) {
 					$new_m = array();
@@ -47,6 +47,22 @@
 					}
 				} 
 				$num_mod =1;
+				
+				$ketemu = 0;
+				if(strpos($_SERVER['REQUEST_URI'], "home") == false && strpos($_SERVER['REQUEST_URI'], "invoice") == false) {
+				foreach ($nem_menu as $k => $v) {
+					foreach ($v as $vv) {
+						if (strpos($_SERVER['REQUEST_URI'], $vv[0]) !== false) {
+							$ketemu = 1;
+						}
+					}
+				}
+				} else {
+					$ketemu = 1;
+				}
+				if($ketemu == 0) {
+					echo '<script>window.location.href="'.base_url().'home"</script>';
+				}
 				foreach ($nem_menu as $k => $v) {
 				?>
 					<li class="navigation__sub">

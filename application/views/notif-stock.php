@@ -1,9 +1,6 @@
 <section class="content">
             <header class="content__title">
-               <h1>Produk</h1>
-               <div class="actions">
-                  <button class="btn btn-primary font-btn" onclick="tambah()"><i class="zmdi zmdi-plus zmdi-hc-fw"></i></button>
-               </div>
+               <h1>Minimal Stock</h1>
             </header>
             <div class="card">
                <div class="card-body">
@@ -11,46 +8,24 @@
                      <table class="table table-bordered" id="datatables">
                         <thead>
                               <tr>
-                                 <th>No</th>
-								 <th>Kode</th>
-                                 <th>Produk</th>
-								 <th>Harga Beli</th>
-								 <th>Harga Jual</th>
-								 <th>Berat</th>
-								 <th>Stok</th>
+								 <th>Minimal Stock</th>
                                  <th class="disabled-sorting text-right">Actions</th>
                               </tr>
                            </thead>
                            <tfoot>
                               <tr>
-                                 <th>No</th>
-								 <th>Kode</th>
-                                 <th>Produk</th>
-								 <th>Harga Beli</th>
-								 <th>Harga Jual</th>
-								 <th>Berat</th>
-								 <th>Stok</th>
+								 <th>Minimal Stock</th>
                                  <th class="text-right">Actions</th>
                               </tr>
                            </tfoot>
                            <tbody>
                               <?php $no=1;
-                                 foreach ($produk as $k) { ?>
+                                 foreach ($stok as $k) { ?>
                               <tr>
-                                 <td><?php echo $no;?></td>
-								 <td><?php echo $k->kode_produk;?></td>
-                                 <td><?php echo $k->nama_produk;?></td>
-								 <td><?php echo $k->harga_beli;?></td>
-								 <td><?php echo number_format($k->harga_jual,0,",",".");?></td>
-								 <td><?php echo $k->berat;?> gram</td>
-								 <td><?php echo $k->stok;?></td>
+								 <td><?php echo $k->batas;?></td>
                                  <td class="td-actions text-right">
-                                    <button type="button" onclick="ganti(<?php echo $k->id_produk;?>)" rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="">
+                                    <button type="button" onclick="ganti(<?php echo $k->id;?>)" rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="">
                                        <i class="zmdi zmdi-edit zmdi-hc-fw"></i>
-                                    </button>
-                                    &nbsp;
-                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="" onclick="hapus(<?php echo $k->id_produk;?>)">
-                                       <i class="zmdi zmdi-close zmdi-hc-fw"></i>
                                     </button>
                                  </td>
                               </tr>
@@ -120,9 +95,9 @@ $(document).ready(function () {
 			$(".input-mask").unmask();
 			var a;
 			if (simpan == "tambah") {
-				a = "<?php echo base_url();?>produk/add"
+				a = "<?php echo base_url();?>stokmin/add"
 			} else {
-				a = "<?php echo base_url();?>produk/update"
+				a = "<?php echo base_url();?>stokmin/update"
 			}
 			$.ajax({
 				url: a,
@@ -146,39 +121,12 @@ $(document).ready(function () {
     }, 1500)
 });
 
-function tambah() {
-	simpan = "tambah";
-	$(".form")[0].reset();
-	$("#myModal").modal("show");
-	$("#modalbody").load("<?php echo base_url();?>produk/modal/", function (a) {
-		$("#modalbody").html(a)
-	})
-}
-
 function ganti(a) {
 	simpan = "update";
 	$(".form")[0].reset();
 	$("#myModal").modal("show");
-	$("#modalbody").load("<?php echo base_url();?>produk/edit/" + a, function (b) {
+	$("#modalbody").load("<?php echo base_url();?>stokmin/edit/" + a, function (b) {
 		$("#modalbody").html(b)
 	})
 }
-
-
-function hapus(a) {
-	Swal.fire({
-	  title: 'Hapus Data?',
-	  text: "",
-	  type: 'warning',
-	  showCancelButton: true,
-	  confirmButtonColor: '#3085d6',
-	  cancelButtonColor: '#d33',
-	  confirmButtonText: 'Ya',
-	  cancelButtonText: "Batal"
-	}).then((result) => {
-	  if (result.value == true) {
-		$.get("<?php echo base_url()?>produk/delete/" + a, function (b) { location.reload(); })
-	  }
-	})
-};
 </script>
