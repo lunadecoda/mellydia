@@ -17,7 +17,7 @@
 					<div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Stok Barang kurang dari 100</h4>
+                                <h4 class="card-title">Stok Barang kurang dari <?php foreach($stok as $k) { echo $k->batas; }?></h4>
 								<?php if($habis != NULL) { ?>
 								<table class="table table-sm table-striped">
 								<thead>

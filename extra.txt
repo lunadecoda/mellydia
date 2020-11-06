@@ -1,0 +1,34 @@
+ALTER TABLE `produk` ADD `kode_produk` VARCHAR(100) NOT NULL AFTER `berat`;
+
+CREATE TABLE `notif_limit` (
+  `id` int(11) NOT NULL,
+  `batas` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `notif_limit`
+--
+
+INSERT INTO `notif_limit` (`id`, `batas`) VALUES
+(1, 100);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `notif_limit`
+--
+ALTER TABLE `notif_limit`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `notif_limit`
+--
+ALTER TABLE `notif_limit`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;

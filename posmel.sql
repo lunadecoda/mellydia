@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2020 at 05:57 PM
+-- Generation Time: Nov 06, 2020 at 01:16 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -61,16 +61,17 @@ CREATE TABLE `admin_akses` (
 INSERT INTO `admin_akses` (`id`, `admin_id`, `akses_id`) VALUES
 (17, 3, 7),
 (18, 3, 8),
-(27, 1, 1),
-(28, 1, 3),
-(29, 1, 4),
-(30, 1, 2),
-(31, 1, 5),
-(32, 1, 6),
-(33, 1, 7),
-(34, 1, 8),
-(35, 1, 9),
-(36, 1, 10);
+(37, 1, 1),
+(38, 1, 3),
+(39, 1, 4),
+(40, 1, 11),
+(41, 1, 2),
+(42, 1, 5),
+(43, 1, 6),
+(44, 1, 7),
+(45, 1, 8),
+(46, 1, 9),
+(47, 1, 10);
 
 -- --------------------------------------------------------
 
@@ -99,7 +100,8 @@ INSERT INTO `akses` (`id_akses`, `nama_akses`, `link`, `modul_id`) VALUES
 (7, 'Pembelian', 'pembelian', 3),
 (8, 'Penjualan', 'penjualan', 3),
 (9, 'Pembelian', 'laporan', 4),
-(10, 'Penjualan', 'laporan/penjualan', 4);
+(10, 'Penjualan', 'laporan/penjualan', 4),
+(11, 'Minimal Stock', 'stokmin', 1);
 
 -- --------------------------------------------------------
 
@@ -161,6 +163,24 @@ INSERT INTO `modul` (`id_modul`, `nama_modul`) VALUES
 (2, 'Master Barang'),
 (3, 'Transaksi'),
 (4, 'Laporan');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notif_limit`
+--
+
+CREATE TABLE `notif_limit` (
+  `id` int(11) NOT NULL,
+  `batas` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `notif_limit`
+--
+
+INSERT INTO `notif_limit` (`id`, `batas`) VALUES
+(1, 200);
 
 -- --------------------------------------------------------
 
@@ -325,17 +345,19 @@ CREATE TABLE `produk` (
   `harga_beli` int(11) NOT NULL,
   `harga_jual` int(11) NOT NULL,
   `stok` int(11) NOT NULL,
-  `berat` varchar(20) NOT NULL
+  `berat` varchar(20) NOT NULL,
+  `kode_produk` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `produk`
 --
 
-INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga_beli`, `harga_jual`, `stok`, `berat`) VALUES
-(3, 'Produk', 5000, 2500, 7, '900'),
-(4, 'Produk 1', 5000, 3000, 13, '900'),
-(5, 'Produk 2', 10000, 15000, 2, '500');
+INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga_beli`, `harga_jual`, `stok`, `berat`, `kode_produk`) VALUES
+(3, 'Produk', 5000, 2500, 7, '900', ''),
+(4, 'Produk 1', 5000, 3000, 13, '900', ''),
+(5, 'Produk 2', 10000, 15000, 2, '500', ''),
+(6, 'Produk 3', 16000, 20000, 99, '500', '');
 
 -- --------------------------------------------------------
 
@@ -358,7 +380,9 @@ INSERT INTO `produk_kategori` (`id`, `produk_id`, `kategori_id`) VALUES
 (6, 4, 4),
 (8, 5, 3),
 (9, 5, 4),
-(10, 3, 3);
+(10, 3, 3),
+(17, 6, 3),
+(18, 6, 4);
 
 -- --------------------------------------------------------
 
@@ -418,6 +442,12 @@ ALTER TABLE `member`
 --
 ALTER TABLE `modul`
   ADD PRIMARY KEY (`id_modul`);
+
+--
+-- Indexes for table `notif_limit`
+--
+ALTER TABLE `notif_limit`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `paket`
@@ -487,13 +517,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `admin_akses`
 --
 ALTER TABLE `admin_akses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `akses`
 --
 ALTER TABLE `akses`
-  MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -553,13 +583,13 @@ ALTER TABLE `penjualan_produk`
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `produk_kategori`
 --
 ALTER TABLE `produk_kategori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `sumber_market`

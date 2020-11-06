@@ -8,6 +8,7 @@ class Home extends CI_Controller {
 		$this->load->model('ModUser');
 		$this->load->model('ModProduk');
 		$this->load->model('ModPenjualan');
+		$this->load->model('ModLimit');
 	}
 	
 	public function index()
@@ -21,6 +22,7 @@ class Home extends CI_Controller {
 		$menu['login'] = $this->ModUser->edit($this->session->userdata('admin_id'));
 		$data['habis'] = $this->ModProduk->habis();
 		$data['penjualan'] = $this->ModPenjualan->bulan_ini();
+		$data['stok'] = $this->ModLimit->selectAll();
 		$this->load->view('template/header');
 		$this->load->view('template/menu',$menu);
 		$this->load->view('home',$data);

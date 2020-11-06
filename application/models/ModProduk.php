@@ -5,8 +5,10 @@ class ModProduk extends CI_model {
         return $this->db->get('produk')->result();
 	}
 	public function habis() {
+		$x = $this->db->get('notif_limit')->row();
+		
 		$this->db->order_by('nama_produk', "asc");
-		$this->db->where('stok < ',100);
+		$this->db->where('stok < ',$x->batas);
         return $this->db->get('produk')->result();
 	}
 	public function add() {
