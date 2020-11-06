@@ -25,7 +25,7 @@
 </div>
 <div class="form-group">
 	<label>Diskon <small>(dihitung dalam bentuk %)</small></label><br>
-    <input class="form-control diskon" name="diskon" value="0" type="number" placeholder="Diskon">
+    <input class="form-control diskon" name="diskon" value="0" type="text" placeholder="Diskon">
 </div>
 <div class="form-group">
 	<label>Total Harga <small>(sudah termasuk pajak 10%)</small></label><br>
