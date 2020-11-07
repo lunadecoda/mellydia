@@ -96,7 +96,7 @@
 										}
 									} ?>
 									<b><?php echo number_format($k->total_berat,0,",",".");?> gram</b><br>
-									+10% pajak
+									
 								</div><b><?php echo number_format($k->total_harga,0,",",".");?></b>
 								 </td>
 								 <td><?php echo $k->nama_penerima;?><br>
