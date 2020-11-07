@@ -28,7 +28,7 @@
     <input class="form-control diskon" name="diskon" value="0" type="text" placeholder="Diskon">
 </div>
 <div class="form-group">
-	<label>Total Harga <small>(sudah termasuk pajak 10%)</small></label><br>
+	<label>Total Harga</label><br>
     <input class="form-control harga-total" value="0" name="harga_total" type="text" placeholder="Harga Total" required>
 </div>
 </div>
@@ -181,8 +181,8 @@ function hitung() {
 				var hit = disk/100 * awal;
 				awal = awal-hit;
 			}
-			var pajak = 10/100 * awal;
-			awal = awal+pajak;
+			/*var pajak = 10/100 * awal;
+			awal = awal+pajak;*/
 			$(".harga-total").val(awal); 
 		}
 	xnum++; })

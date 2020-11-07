@@ -120,6 +120,8 @@
 									<button type="button" onclick="kirim(<?php echo $k->id_penjualan;?>)" rel="tooltip" class="btn btn-info btn-round mb-2" data-original-title="" title="">Resi</button>
 									&nbsp;
                                     <button type="button" onclick="selesai(<?php echo $k->id_penjualan;?>)" rel="tooltip" class="btn btn-success btn-round mb-2" data-original-title="" title="">Selesai</button>
+									&nbsp;
+                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round mb-2" data-original-title="" title="" onclick="hapus(<?php echo $k->id_penjualan;?>)">Batal</button>
                                  </td>
                               </tr>
                               <?php $no++; } ?>
@@ -224,8 +226,13 @@ $(document).ready(function () {
 		
 		$(".xform").on("submit", (function (b) {
 			b.preventDefault();
-			$(".input-mask").unmask()
-			var a = "<?php echo base_url();?>penjualan/update_ongkir";
+			$(".input-mask").unmask();
+			var a;
+			if(simpan_alt == "hapus") {
+				a = "<?php echo base_url();?>penjualan/update_delete";
+			} else {
+				a = "<?php echo base_url();?>penjualan/update_ongkir";
+			}
 			$.ajax({
 				url: a,
 				type: "POST",
@@ -290,4 +297,12 @@ function selesai(a) {
 	  }
 	})
 };
+function hapus(a) {
+	simpan_alt = "hapus";
+	$(".form")[0].reset();
+	$("#myModal").modal("show");
+	$("#modalbody").load("<?php echo base_url();?>penjualan/hapus/" + a, function (b) {
+		$("#modalbody").html(b);
+	})
+}
 </script>

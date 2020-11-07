@@ -116,7 +116,9 @@
 								</div><b><?php echo number_format($k->total_harga+$k->ongkir,0,",",".");?></b>
 								 </td>
 								 <td class="td-actions text-right">
-									<button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Selesai</button>
+									<button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Detail</button>
+									&nbsp;
+                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round mb-2" data-original-title="" title="" onclick="hapus(<?php echo $k->id_penjualan;?>)">Batal</button>
                                  </td>
                               </tr>
                               <?php $no++; } ?>
@@ -230,8 +232,13 @@ $(document).ready(function () {
 		
 		$(".xform").on("submit", (function (b) {
 			b.preventDefault();
-			$(".input-mask").unmask()
-			var a = "<?php echo base_url();?>penjualan/update_ongkir";
+			$(".input-mask").unmask();
+			var a;
+			if(simpan_alt == "hapus") {
+				a = "<?php echo base_url();?>penjualan/update_delete";
+			} else {
+				a = "<?php echo base_url();?>penjualan/update_ongkir";
+			}
 			$.ajax({
 				url: a,
 				type: "POST",
@@ -304,4 +311,12 @@ function selesai(a) {
 		}); },
        function () { return false; });
 };
+function hapus(a) {
+	simpan_alt = "hapus";
+	$(".form")[0].reset();
+	$("#myModal").modal("show");
+	$("#modalbody").load("<?php echo base_url();?>penjualan/hapus/" + a, function (b) {
+		$("#modalbody").html(b);
+	})
+}
 </script>
