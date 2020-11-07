@@ -21,7 +21,7 @@
 </div>
 <div class="form-group">
 	<label>Kode Produk</label><br>
-    <input class="form-control" name="nama_produk" type="text" placeholder="Kode" required>
+    <input class="form-control" name="kode_produk" type="text" placeholder="Kode" required>
 </div>
 <div class="form-group">
 	<label>Kategori</label><br>
@@ -56,7 +56,7 @@
 </div>
 <div class="form-group">
 	<label>Kode Produk</label><br>
-    <input class="form-control" name="nama_produk" value="<?php echo $produk->kode_produk;?>" type="text" placeholder="Kode" required>
+    <input class="form-control" name="kode_produk" value="<?php echo $produk->kode_produk;?>" type="text" placeholder="Kode" required>
 </div>
 <div class="form-group">
 	<label>Kategori</label><br>
