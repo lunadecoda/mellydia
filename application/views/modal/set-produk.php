@@ -73,8 +73,8 @@
 		<input class="form-control berat-paket input-mask berat-paket-<?php echo time();?>" value="<?php echo array_sum($arr_berat);?>" name="berat_paket[]" type="text" required>
 	</div>
 	<div class="form-group">
-		<label>Harga Paket <small>harga total otomatis -15%</small></label><br>
-		<input class="form-control harga input-mask total-paket-<?php echo time();?>" value="<?php echo array_sum($arr_harga) - (15/100 * array_sum($arr_harga));?>" name="harga_paket[]" type="text" required>
+		<label>Harga Paket</label><br>
+		<input class="form-control harga input-mask total-paket-<?php echo time();?>" value="<?php echo $paket->total_harga_paket;?>" name="harga_paket[]" type="text" required>
 	</div>
 </div>
 <?php } ?>

@@ -107,7 +107,7 @@
 								 </td>
 								 <td><?php echo $k->nama_penerima;?><br>
 								 <div class="collapse mt-2 expand<?php echo $no;?>">
-									<?php echo $k->alamat_penerima."<br>".$k->telp_penerima."<br>(".$k->kurir.") ".number_format($k->ongkir,0,",","."); ?>
+									<?php echo $k->alamat_penerima."<br>".$k->telp_penerima."<br>(".$k->kurir." - ".$k->resi.") ".number_format($k->ongkir,0,",","."); ?>
 								</div>
 								 </td>
 								 <td><?php echo $k->nama_market;?></td>

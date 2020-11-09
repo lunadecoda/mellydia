@@ -39,11 +39,8 @@
 										$arr_harga[] = $kp->harga_jual;
 										echo '<div class="mb-2">'.$kp->nama_produk.'<br>'.number_format($kp->harga_jual,0,",",".").'</div>';
 									 }
-								 } 
-								 $hdisc = 15/100 * array_sum($arr_harga);
-								 echo '-'.number_format($hdisc,0,",",".").'(15%)';
-								 ?></td>
-								 <td><?php echo number_format(array_sum($arr_harga)-$hdisc,0,",",".");?></td>
+								 } ?></td>
+								 <td><?php echo number_format($k->total_harga_paket,0,",",".");?></td>
                                  <td class="td-actions text-right">
                                     <button type="button" onclick="ganti(<?php echo $k->id_paket;?>)" rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="">
                                        <i class="zmdi zmdi-edit zmdi-hc-fw"></i>
@@ -118,6 +115,7 @@ $(document).ready(function () {
 		
 		$(".xform").on("submit", (function (b) {
 			b.preventDefault();
+			$(".totalharga").unmask();
 			var a;
 			if (simpan == "tambah") {
 				a = "<?php echo base_url();?>paket/add"

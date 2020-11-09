@@ -13,7 +13,7 @@
 </div>
 <div class="form-group">
 	<label>Total Harga</label><br>
-    <input class="form-control totalharga" name="total" type="text" placeholder="Total Harga" readonly>
+    <input class="form-control totalharga" name="total_harga_paket" type="text" placeholder="Total Harga">
 </div>
 <?php } else { ?>
 <input type="hidden" name="id_paket" value="<?php echo $paket->id_paket;?>">
@@ -32,10 +32,9 @@
 </div>
 <div class="form-group">
 	<label>Total Harga</label><br>
-    <input class="form-control totalharga" value="<?php echo array_sum($arr_harga) - (15/100 * array_sum($arr_harga));?>" name="total" type="text" placeholder="Total Harga" readonly>
+    <input class="form-control totalharga" value="<?php echo $paket->total_harga_paket;?>" name="total_harga_paket" type="text" placeholder="Total Harga">
 </div>
 <?php } ?>
-<div class="text-right"><small>harga total otomatis -15%</small></div>
 <script>
 $("select.select2").select2({
 	dropdownAutoWidth: !0,
@@ -43,6 +42,7 @@ $("select.select2").select2({
 	dropdownParent: $("#myModal")
 })
 $('.select2').on('change', function (e) {
+	$(".totalharga").unmask();
 	var xlect = $(this).val();
 	var xjum = [];
 	var xnum = 1;
@@ -56,12 +56,14 @@ $('.select2').on('change', function (e) {
 			if(xlect.length == xnum) {
 				var total=0;
 				for(var i in xjum) { total = parseInt(total) + parseInt(xjum[i]); }
-				var hit = 15/100 * total;
-				var cekhit = total-hit;
+				//var hit = 15/100 * total;
+				//var cekhit = total-hit;
+				cekhit = total;
 				$(".totalharga").val(cekhit);
 			}
 		xnum++; });
 	}
+	$(".totalharga").mask('000.000.000.000.000', {reverse: true});
 });
 $(".totalharga").mask('000.000.000.000.000', {reverse: true});
 </script>

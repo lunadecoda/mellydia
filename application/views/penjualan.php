@@ -193,7 +193,7 @@ $(document).ready(function () {
 			b.preventDefault();
 			if(loadsub == 1) {
 			loadsub = 0;
-			$(".input-mask").unmask()
+			$(".input-mask").unmask();
 			var a;
 			if (simpan == "tambah") {
 				a = "<?php echo base_url();?>penjualan/add"

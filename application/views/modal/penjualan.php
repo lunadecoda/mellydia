@@ -143,8 +143,9 @@ $(document).on('change keydown paste input','.qtypro', function (e) {
 		//console.log($("."+res[1]+" .harga_paket").length);
 		awal = parseInt(xhit) + awal;
 		if(xnum == $("."+res[1]+" .harga_paket").length) {
-			var hit = 15/100 * awal;
-			var cekhit = awal-hit;
+			//var hit = 15/100 * awal;
+			//var cekhit = awal-hit;
+			cekhit = awal;
 			$(".total-paket-"+res[1]).val(cekhit); 
 		}
 	xnum++;})

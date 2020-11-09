@@ -7,8 +7,9 @@ class ModPaket extends CI_model {
 	public function add() {
 		$nama_paket = $this->input->post('nama_paket');
 		$produk_id = $this->input->post('produk_id');
+		$total_harga_paket = $this->input->post('total_harga_paket');
 		
-		$data = array('nama_paket' => $nama_paket);
+		$data = array('nama_paket' => $nama_paket, 'total_harga_paket'=> $total_harga_paket);
 		$this->db->insert('paket', $data);
 		$x = $this->db->insert_id();
 		foreach ($produk_id as $k => $v) {
@@ -49,8 +50,9 @@ class ModPaket extends CI_model {
 		$id = $this->input->post('id_paket');
 		$nama_paket = $this->input->post('nama_paket');
 		$produk_id = $this->input->post('produk_id');
+		$total_harga_paket = $this->input->post('total_harga_paket');
 		
-		$data = array('nama_paket' => $nama_paket);
+		$data = array('nama_paket' => $nama_paket, 'total_harga_paket'=>$total_harga_paket);
 		$this->db->where('id_paket', $id);
 		$this->db->update('paket', $data);
 		
