@@ -73,7 +73,7 @@ class Laporan extends CI_Controller {
 		}
 		$produk_id = $this->input->post('produk_id');
 		$jenis = "";
-		if($produk_id == NULL) {
+		if($produk_id == "go" || $produk_id == NULL) {
 			$produk_id = "go";
 		} else {
 			$exp_pro = explode("-",$produk_id);
