@@ -237,7 +237,7 @@ class ModPenjualan extends CI_model
 			$admin_id = 0;
 		}
 		$produk_id = $this->input->post('produk_id');
-		if($produk_id == "go") {
+		if($produk_id == "go" || $produk_id == NULL) {
 			$produk_id = 0;
 		} else {
 			$exp_pro = explode("-",$produk_id);
@@ -307,7 +307,7 @@ class ModPenjualan extends CI_model
 			$admin_id = 0;
 		}
 		$produk_id = $this->input->post('produk_id');
-		if($produk_id == NULL) {
+		if($produk_id == "go" || $produk_id == NULL) {
 			$produk_id = 0;
 		} else {
 			$exp_pro = explode("-",$produk_id);
