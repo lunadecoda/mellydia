@@ -192,6 +192,7 @@ $(document).ready(function () {
 		$(".xform-lg").on("submit", (function (b) {
 			b.preventDefault();
 			if(loadsub == 1) {
+			$(this).find(':submit').attr('disabled','disabled');
 			loadsub = 0;
 			$(".input-mask").unmask();
 			var a;
