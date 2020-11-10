@@ -34,6 +34,13 @@
 						</select>
                      </div>
 					 <div class="form-group mb-4 mr-sm-4">
+                        <select class="form-control" name="ket">
+						<option value="go">Filter Tambahan</option>
+						<option value="Sampel Promo" <?php if($ket == "Sampel Promo") { echo 'selected'; } ?>>Sampel Promo</option>
+						<option value="Ganti Produk" <?php if($ket == "Ganti Produk") { echo 'selected'; } ?>>Ganti Produk</option>
+						</select>
+                     </div>
+					 <div class="form-group mb-4 mr-sm-4">
                         <input type="date" class="form-control" name="start" value="<?php echo $awal;?>">
                         <i class="form-group__bar"></i>
                      </div>

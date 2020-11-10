@@ -87,6 +87,11 @@ class Laporan extends CI_Controller {
 		if($member_id == NULL) {
 			$member_id = 0;
 		}
+		$ket = $this->input->post('ket');
+		if($ket == NULL) {
+			$ket = "go";
+		}
+		$data['ket'] = $ket;
 		$data['awal'] = $start;
 		$data['akhir'] = $end;
 		$data['admin_id'] = $admin_id;

@@ -27,6 +27,11 @@ class ModPenjualan extends CI_model
 			$status = "batal";
 		}
 		
+		$ket = $this->input->post('ket');
+		if($ket == NULL) {
+			$ket = "go";
+		}
+		
 		$this->db->select('*');
 		$this->db->from('penjualan');
 		$this->db->join('sumber_market', 'penjualan.sumber_id = sumber_market.id_sumber');
@@ -34,6 +39,9 @@ class ModPenjualan extends CI_model
 		$this->db->where('penjualan.tgl_penjualan <=', $end);
 		if($admin_id != 0 && $laporan == 0) {
 			$this->db->where('penjualan.admin_id', $admin_id);
+		}
+		if($ket != "go") {
+			$this->db->where('penjualan.ket', $ket);
 		}
 		$this->db->where('penjualan.status', $status);
         $this->db->order_by('penjualan.id_penjualan', "desc");
@@ -247,6 +255,10 @@ class ModPenjualan extends CI_model
 		if($member_id == NULL) {
 			$member_id = 0;
 		}
+		$ket = $this->input->post('ket');
+		if($ket == NULL) {
+			$ket = "go";
+		}
 		
 		$this->db->select('*');
 		$this->db->from('penjualan_produk');
@@ -258,6 +270,9 @@ class ModPenjualan extends CI_model
 		}
 		if($member_id != 0) {
 			$this->db->where('penjualan.member_id', $member_id);
+		}
+		if($ket != "go") {
+			$this->db->where('penjualan.ket', $ket);
 		}
 		$this->db->where('penjualan.status', "selesai");
 		$xdb = $this->db->get()->result();
@@ -317,6 +332,10 @@ class ModPenjualan extends CI_model
 		if($member_id == NULL) {
 			$member_id = 0;
 		}
+		$ket = $this->input->post('ket');
+		if($ket == NULL) {
+			$ket = "go";
+		}
 		
 		$this->db->select('*');
 		$this->db->from('penjualan_paket');
@@ -328,6 +347,9 @@ class ModPenjualan extends CI_model
 		}
 		if($member_id != 0) {
 			$this->db->where('penjualan.member_id', $member_id);
+		}
+		if($ket != "go") {
+			$this->db->where('penjualan.ket', $ket);
 		}
 		$this->db->where('penjualan.status', "selesai");
 		$xdb = $this->db->get()->result();

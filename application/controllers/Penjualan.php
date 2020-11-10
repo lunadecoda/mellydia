@@ -31,6 +31,11 @@ class Penjualan extends CI_Controller {
 		if($admin_id == NULL) {
 			$admin_id = $this->session->userdata('admin_id');
 		}
+		$ket = $this->input->post('ket');
+		if($ket == NULL) {
+			$ket = "go";
+		}
+		$data['ket'] = $ket;
 		$data['awal'] = $start;
 		$data['akhir'] = $end;
 		$data['admin_id'] = $admin_id;
@@ -70,6 +75,11 @@ class Penjualan extends CI_Controller {
 		if($admin_id == NULL) {
 			$admin_id = $this->session->userdata('admin_id');
 		}
+		$ket = $this->input->post('ket');
+		if($ket == NULL) {
+			$ket = "go";
+		}
+		$data['ket'] = $ket;
 		$data['awal'] = $start;
 		$data['akhir'] = $end;
 		$data['admin_id'] = $admin_id;
@@ -109,6 +119,11 @@ class Penjualan extends CI_Controller {
 		if($admin_id == NULL) {
 			$admin_id = $this->session->userdata('admin_id');
 		}
+		$ket = $this->input->post('ket');
+		if($ket == NULL) {
+			$ket = "go";
+		}
+		$data['ket'] = $ket;
 		$data['awal'] = $start;
 		$data['akhir'] = $end;
 		$data['admin_id'] = $admin_id;
