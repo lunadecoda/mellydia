@@ -60,6 +60,12 @@ class ModPenjualan extends CI_model
 		$harga_paket = $this->input->post('harga_paket');
 		$berat_paket = $this->input->post('berat_paket');
 		$sumber_id = $this->input->post('sumber_id');
+		$ket = $this->input->post('ket');
+		
+		$data = array('diskon' => $diskon, 'status' => "sedang dikemas", 'total_berat'=> $total_berat, 'total_harga' => $harga_total, 'admin_id' => $admin_id, 'tgl_penjualan' => $tgl, 'member_id' => $member_id, 'sumber_id' => $sumber_id, 'nama_penerima' => $nama_penerima, 'alamat_penerima' => $alamat_penerima, 'telp_penerima' => $telp_penerima, 'ket' => $ket);
+		$this->db->insert('penjualan', $data);
+		$penjualan_id = $this->db->insert_id();
+		
 		$num=0;
 		foreach ($paket_id as $k => $v) {
 			$exp_id = explode("-",$v);
@@ -67,12 +73,6 @@ class ModPenjualan extends CI_model
 			$produk_id = $this->input->post('produk_id_'.$exp_id[1]);
 			$harga = $this->input->post('harga_'.$exp_id[1]);
 			$qty = $this->input->post('qty_'.$exp_id[1]);
-			
-			
-			$data = array('diskon' => $diskon, 'status' => "sedang dikemas", 'total_berat'=> $total_berat, 'total_harga' => $harga_total, 'admin_id' => $admin_id, 'tgl_penjualan' => $tgl, 'member_id' => $member_id, 'sumber_id' => $sumber_id, 'nama_penerima' => $nama_penerima, 'alamat_penerima' => $alamat_penerima, 'telp_penerima' => $telp_penerima);
-			$this->db->insert('penjualan', $data);
-			$penjualan_id = $this->db->insert_id();
-			
 			
 			$data = array('paket_id' => $id_paket, 'berat_paket' => $berat_paket[$num], 'harga_paket' => $harga_paket[$num], 'penjualan_id' => $penjualan_id);
 			$this->db->insert('penjualan_paket', $data);

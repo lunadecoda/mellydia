@@ -7,6 +7,8 @@
 </div>
 <div class="form-group">
 	<label>Paket/Produk</label><br>
+	<div class="row">
+	<div class="col-10">
     <select class="select2 xtra" data-placeholder="Pilih Produk" name="set_produk">
 		<option value="0" disabled selected>Pilih Paket/Produk</option>
 		<?php foreach ($paket as $k) { ?>
@@ -17,6 +19,11 @@
 		<option <?php if($k->stok <= 0) {echo ' disabled ';} ?> value="b-<?php echo $k->id_produk;?>"><?php echo $k->nama_produk." - stok ".$k->stok;?></option>
 		<?php } ?>
 	</select>
+	</div>
+	<div class="col-1">
+	<i class="zmdi zmdi-plus zmdi-hc-fw" style="font-size:130%;margin-top:10px;"></i>
+	</div>
+	</div>
 </div>
 <div class="isi-pro"></div>
 <div class="form-group">
@@ -74,6 +81,14 @@
 				<?php } ?>
 			</select>
 		</div>
+	</div>
+	<div class="form-group">
+		<label>Keterangan (optional)</label><br>
+		<select class="form-control" name="ket">
+			<option value="">Pilih</option>
+			<option value="Sampel Promo">Sampel Promo</option>
+			<option value="Ganti Produk">Ganti Produk</option>
+		</select>
 	</div>
 </div>
 

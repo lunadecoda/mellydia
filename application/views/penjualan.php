@@ -51,6 +51,7 @@
 								 <th>Harga</th>
 								 <th>Penerima</th>
 								 <th>Marketplace</th>
+								 <th>Keterangan</th>
                                  <th class="text-right"></th>
                               </tr>
                            </thead>
@@ -61,6 +62,7 @@
 								 <th>Harga</th>
 								 <th>Penerima</th>
 								 <th>Marketplace</th>
+								 <th>Keterangan</th>
                                  <th class="text-right"></th>
                               </tr>
                            </tfoot>
@@ -105,6 +107,7 @@
 								</div>
 								 </td>
 								 <td><?php echo $k->nama_market;?></td>
+								 <td><?php echo $k->ket;?></td>
                                  <td class="td-actions text-right">
 									<a class="btn btn-warning mb-2" href="<?php echo base_url();?>penjualan/invoice/<?php echo $k->id_penjualan;?>" target="_blank">Invoice</a>
 									&nbsp;

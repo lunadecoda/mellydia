@@ -1,4 +1,29 @@
-<section class="content">
+<style>
+@media print {
+	body {transform: scale(.5);}
+	.main .header, .main .sidebar{
+		display:none;
+	}
+	body, .content__inner {
+		min-width: unset !important;
+		max-width: unset !important;
+	}
+	.invoice, .content {
+		padding:0 !important;
+		margin:0 !important;
+	}
+	.invoice {
+		position:absolute !important;
+		top:0;
+		left:0;
+	}
+	@page {
+		margin: 0.5cm;
+		size: 15cm 10.5cm;
+	}
+}
+</style>
+<section class="content printableArea">
                 <div class="content__inner">
                     <header class="content__title">
                         <h1>Invoice</h1>
@@ -8,7 +33,7 @@
                         <div class="row invoice__address">
                             <div class="col-6">
                                 <div class="text-right">
-                                    <p>Invoice from</p>
+                                    <p>Dikirim Oleh:</p>
 
                                     <h4>Mellydia Cosmetic</h4>
 
@@ -22,7 +47,7 @@
 
                             <div class="col-6">
                                 <div class="text-left">
-                                    <p>Invoice to</p>
+                                    <p>Penerima</p>
 
                                     <h4><?php echo $penjualan->nama_penerima;?></h4>
 
@@ -39,14 +64,21 @@
                             <div class="col-3">
                                 <div class="invoice__attrs__item">
                                     <small>Tanggal</small>
-                                    <h3><?php echo date("j M Y", strtotime($penjualan->tgl_penjualan));?></h3>
+                                    <h4><?php echo date("j M Y", strtotime($penjualan->tgl_penjualan));?></h4>
                                 </div>
                             </div>
-
-                            <div class="col-3">
+							<?php if($penjualan->resi != NULL) { ?>
+								<div class="col-3">
+                                <div class="invoice__attrs__item">
+                                    <small>No Resi</small>
+                                    <h4><?php echo $penjualan->resi;?></h4>
+                                </div>
+                            </div>
+							<?php } ?>
+							<div class="col-3">
                                 <div class="invoice__attrs__item">
                                     <small>Grand Total</small>
-                                    <h3><?php echo number_format($penjualan->total_harga+$penjualan->ongkir,0,",",".");?></h3>
+                                    <h4><?php echo number_format($penjualan->total_harga+$penjualan->ongkir,0,",",".");?></h4>
                                 </div>
                             </div>
                         </div>

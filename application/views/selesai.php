@@ -48,6 +48,7 @@
 								 <th>Penerima</th>
 								 <th>Marketplace</th>
 								 <th>Total</th>
+								 <th>Keterangan</th>
 								 <th></th>
                               </tr>
                            </thead>
@@ -59,6 +60,7 @@
 								 <th>Penerima</th>
 								 <th>Marketplace</th>
 								 <th>Total</th>
+								 <th>Keterangan</th>
 								 <th></th>
                               </tr>
                            </tfoot>
@@ -115,6 +117,7 @@
 									<?php echo "(harga) ".number_format($k->total_harga,0,",",".")." + (ongkir) ".number_format($k->ongkir,0,",","."); ?><br>
 								</div><b><?php echo number_format($k->total_harga+$k->ongkir,0,",",".");?></b>
 								 </td>
+								 <td><?php echo $k->ket;?></td>
 								 <td class="td-actions text-right">
 									<button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Detail</button>
 									&nbsp;

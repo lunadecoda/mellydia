@@ -51,6 +51,7 @@
 								 <th>Penerima</th>
 								 <th>Marketplace</th>
 								 <th>Total</th>
+								 <th>Keterangan</th>
                                  <th class="text-right"></th>
                               </tr>
                            </thead>
@@ -62,6 +63,7 @@
 								 <th>Penerima</th>
 								 <th>Marketplace</th>
 								 <th>Total</th>
+								 <th>Keterangan</th>
                                  <th class="text-right"></th>
                               </tr>
                            </tfoot>
@@ -112,6 +114,7 @@
 									<?php echo "(harga) ".number_format($k->total_harga,0,",",".")." + (ongkir) ".number_format($k->ongkir,0,",","."); ?><br>
 								</div><b><?php echo number_format($k->total_harga+$k->ongkir,0,",",".");?></b>
 								 </td>
+								 <td><?php echo $k->ket;?></td>
                                  <td class="td-actions text-right">
 									<a class="btn btn-warning mb-2" href="<?php echo base_url();?>penjualan/invoice/<?php echo $k->id_penjualan;?>" target="_blank">Invoice</a>
 									&nbsp;
