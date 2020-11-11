@@ -8,7 +8,7 @@
 <div class="form-group">
 	<label>Paket/Produk</label><br>
 	<div class="row">
-	<div class="col-10">
+	<div class="col-10 produk-paket">
     <select class="select2 xtra" data-placeholder="Pilih Produk" name="set_produk">
 		<option value="0" disabled selected>Pilih Paket/Produk</option>
 		<?php foreach ($paket as $k) { ?>
@@ -21,7 +21,7 @@
 	</select>
 	</div>
 	<div class="col-1">
-	<i class="zmdi zmdi-plus zmdi-hc-fw" style="font-size:130%;margin-top:10px;"></i>
+	<i class="zmdi zmdi-plus zmdi-hc-fw" onclick="open_produk();" style="font-size:130%;margin-top:10px;cursor:pointer;"></i>
 	</div>
 	</div>
 </div>
@@ -216,6 +216,9 @@ function hitung() {
 	xnum++; })
 	
 	$(".input-mask").mask('000.000.000.000.000', {reverse: true});
+}
+function open_produk() {
+	$('.produk-paket .select2').select2('open');
 }
 $(".input-mask").mask('000.000.000.000.000', {reverse: true});
 </script>
