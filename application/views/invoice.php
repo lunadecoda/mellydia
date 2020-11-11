@@ -1,6 +1,9 @@
 <style>
 @media print {
-	body {transform: scale(.5);}
+	.invoice {
+		transform: scale(.3);
+		transform-origin: top left;
+	}
 	.main .header, .main .sidebar{
 		display:none;
 	}

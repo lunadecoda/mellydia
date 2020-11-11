@@ -141,51 +141,171 @@ var table;
 var simpan;
 var simpan_alt;
 var loadsub = 1;
+function columnToLetter(column) {
+	var temp, letter = '';
+	while (column > 0) {
+		temp = (column - 1) % 15;
+		letter = String.fromCharCode(temp + 65) + letter;
+		column = (column - temp - 1) / 15;
+	}
+	return letter;
+}
+
+function remove_tags(html) {
+	html = html.replace(/<br>/g, "$br$");
+	html = html.replace(/(?:\r\n|\r|\n)/g, '$n$');
+	var tmp = document.createElement("DIV");
+	tmp.innerHTML = html;
+	html = tmp.textContent || tmp.innerText;
+
+	html = html.replace(/\$br\$/g, "<br>");
+	html = html.replace(/\$n\$/g, "<br>");
+
+	return html;
+}
 $(document).ready(function () {
-	setTimeout(function() {
+	setTimeout(function () {
 		table = $("#datatables").DataTable({
-			autoWidth: !1,
-			responsive: !0,
-			lengthMenu: [
-				[15, 30, 45, -1],
-				["15 Rows", "30 Rows", "45 Rows", "Everything"]
-			],
-			language: {
-				searchPlaceholder: "Search for records..."
-			},
 			sDom: '<"dataTables__top"lfB>rt<"dataTables__bottom"ip><"clear">',
 			buttons: [{
-				extend: "excelHtml5",
+				extend: 'excelHtml5',
+				text: 'Excel',
 				title: "Export Data",
 				exportOptions: {
+					columns: ':not(:last-child)',
 					format: {
-						body: function(data, column, row) {
-							if (typeof data === 'string' || data instanceof String) {
-								data = data.replace(/<br\s*\/?>/ig, "\r\n");
+						body: function (data, row, column, node) {
+
+							//need to change double quotes to single
+							data = data.replace(/"/g, "'");
+
+							// replace p with br
+							data = data.replace(/<p[^>]*>/g, '').replace(/<\/p>/g, '<br>');
+
+							// replace div with br
+							data = data.replace(/<div[^>]*>/g, '').replace(/<\/div>/g, '<br>');
+
+							data = remove_tags(data);
+
+
+							//split at each new line
+							splitData = data.split('<br>');
+
+							//remove empty string
+							splitData = splitData.filter(function (v) {
+								return v !== ''
+							});
+
+							data = '';
+							for (i = 0; i < splitData.length; i++) {
+								//add escaped double quotes around each line
+								data += '\"' + splitData[i] + '\"';
+								//if its not the last line add CHAR(13)
+								if (i + 1 < splitData.length) {
+									data += ', CHAR(10), ';
+								}
 							}
-							data = data.replace(/<.*?>/ig, "");
+
+							//Add concat function
+							data = 'CONCATENATE(' + data + ')';
 							return data;
+
 						}
 					}
 				},
-			}, {
-				extend: "print",
-				title: "Print",
-				exportOptions: {
-					format: {
-						body: function(data, column, row) {
-							if (typeof data === 'string' || data instanceof String) {
-								data = data.replace(/<br\s*\/?>/ig, "\r\n");
-							}
-							data = data.replace(/<.*?>/ig, "");
-							return data;
+				customize: function (xlsx) {
+
+					var sSh = xlsx.xl['styles.xml'];
+
+					var styleSheet = sSh.childNodes[0];
+
+					cellXfs = styleSheet.childNodes[5];
+
+					// Using this instead of "" (required for Excel 2007+, not for 2003)
+					var ns = "http://schemas.openxmlformats.org/spreadsheetml/2006/main";
+
+					// Create a custom style
+					var lastStyleNum = $('cellXfs xf', sSh).length - 1;
+					var wrappedTopIndex = lastStyleNum + 1;
+					var newStyle = document.createElementNS(ns, "xf");
+					// Customize style
+					newStyle.setAttribute("numFmtId", 0);
+					newStyle.setAttribute("fontId", 0);
+					newStyle.setAttribute("fillId", 0);
+					newStyle.setAttribute("borderId", 0);
+					newStyle.setAttribute("applyFont", 1);
+					newStyle.setAttribute("applyFill", 1);
+					newStyle.setAttribute("applyBorder", 1);
+					newStyle.setAttribute("xfId", 0);
+					// Alignment (optional)
+					var align = document.createElementNS(ns, "alignment");
+					align.setAttribute("vertical", "top");
+					align.setAttribute("wrapText", 1);
+					newStyle.appendChild(align);
+					// Append the style next to the other ones
+					cellXfs.appendChild(newStyle);
+
+
+					var sheet = xlsx.xl.worksheets['sheet1.xml'];
+
+					var firstExcelRow = 3;
+
+					table.rows({
+						order: 'applied',
+						search: 'applied'
+					}).every(function (rowIdx, tableLoop, rowLoop) {
+
+						var node = this.node();
+
+						var num_colonne = $(node).find("td").length;
+
+						// the cell with biggest number of line inside it determine the height of entire row
+						var maxCountLinesRow = 1;
+
+
+						for (var indexCol = 1; indexCol <= num_colonne; indexCol++) {
+
+							var letterExcel = columnToLetter(indexCol);
+
+							$('c[r=' + letterExcel + (firstExcelRow + rowLoop) + ']', sheet).each(function (e) {
+
+
+								// how many lines are present in this cell?
+								var countLines = ($('is t', this).text().match(/\"/g) || []).length / 2;
+
+								if (countLines > maxCountLinesRow) {
+									maxCountLinesRow = countLines;
+								}
+
+								if ($('is t', this).text()) {
+									//wrap text top vertical top
+									$(this).attr('s', wrappedTopIndex);
+
+									//change the type to `str` which is a formula
+									$(this).attr('t', 'str');
+									//append the concat formula
+									$(this).append('<f>' + $('is t', this).text() + '</f>');
+									//remove the inlineStr
+									$('is', this).remove();
+								}
+
+							});
+
+							$('row:nth-child(' + (firstExcelRow + rowLoop) + ')', sheet).attr('ht', maxCountLinesRow * 18);
+							$('row:nth-child(' + (firstExcelRow + rowLoop) + ')', sheet).attr('customHeight', 1);
+
 						}
-					}
-				},
+
+					});
+
+
+				}
+
 			}],
 			initComplete: function (a, b) {
 				$(this).closest(".dataTables_wrapper").find(".dataTables__top").prepend('<div class="dataTables_buttons hidden-sm-down actions"><div class="dropdown actions__item"><i data-toggle="dropdown" class="zmdi zmdi-download" /><ul class="dropdown-menu dropdown-menu-right"><a href="" class="dropdown-item" data-table-action="excel">Excel (.xlsx)</a></ul></div></div>')
 			}
+
 		}), $(".dataTables_filter input[type=search]").focus(function () {
 			$(this).closest(".dataTables_filter").addClass("dataTables_filter--toggled")
 		}), $(".dataTables_filter input[type=search]").blur(function () {
