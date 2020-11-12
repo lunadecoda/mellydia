@@ -33,7 +33,7 @@
                     </header>
 
                     <div class="invoice">
-                        <div class="row invoice__address" style="argin-bottom: 1.5rem !important;">
+                        <div class="row invoice__address" style="margin-bottom: 1.5rem !important;">
                             <div class="col-6">
                                 <div class="text-right">
                                     <p>Dikirim Oleh:</p>
@@ -63,7 +63,7 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content-center invoice__attrs" style="argin-bottom: 1.5rem !important;">
+                        <div class="row justify-content-center invoice__attrs" style="margin-bottom: 1.5rem !important;">
                             <div class="col-3">
                                 <div class="invoice__attrs__item">
                                     <small>Tanggal</small>
