@@ -119,7 +119,7 @@
 										}
 									} ?>
 									<b><?php echo number_format($k->total_berat,0,",",".");?> gram</b><br>
-									
+									<?php if($k->diskon > 0){ echo '<b>Diskon '.$k->diskon."%</b>"; } ?><br>
 								</div><b><?php echo number_format($k->total_harga,0,",",".");?></b>
 								 </td>
 								 <td><?php echo $k->nama_penerima;?><br>
