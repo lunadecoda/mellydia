@@ -54,6 +54,7 @@
                               <tr>
                                  <th>No</th>
 								 <th>Tanggal</th>
+								 <th>Penjual</th>
 								 <th>Harga</th>
 								 <th>Penerima</th>
 								 <th>Marketplace</th>
@@ -66,6 +67,7 @@
                               <tr>
                                  <th>No</th>
 								 <th>Tanggal</th>
+								 <th>Penjual</th>
 								 <th>Harga</th>
 								 <th>Penerima</th>
 								 <th>Marketplace</th>
@@ -84,16 +86,17 @@
 									Proses <?php echo date("j M Y", strtotime($k->tgl_proses));?>
 								</div>
 								 </td>
+								 <td><?php echo $k->nama_admin;?></td>
 								 <td><div class="collapse mt-2 expand<?php echo $no;?>">
 									<?php foreach($penjualan_paket as $kp) {
 										if($kp->penjualan_id == $k->id_penjualan) {
 										echo '<div class="border p-1">';
 										if($kp->paket_id == 0) {
-											echo "<b>Ecer</b><br><br>";
+											echo "<b>Ecer</b> x".$kp->qty_paket."<br><br>";
 										} else {
 											foreach ($paket as $kpaket) {
 												if($kpaket->id_paket == $kp->paket_id) {
-													echo "<b>".$kpaket->nama_paket.'</b><br><br>';
+													echo "<b>".$kpaket->nama_paket.'</b> x'.$kp->qty_paket.'<br><br>';
 												}
 											}
 										}

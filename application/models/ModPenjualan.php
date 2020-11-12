@@ -35,6 +35,7 @@ class ModPenjualan extends CI_model
 		$this->db->select('*');
 		$this->db->from('penjualan');
 		$this->db->join('sumber_market', 'penjualan.sumber_id = sumber_market.id_sumber');
+		$this->db->join('admin', 'penjualan.admin_id = admin.id_admin');
 		$this->db->where('penjualan.tgl_penjualan >=', $start);
 		$this->db->where('penjualan.tgl_penjualan <=', $end);
 		if($admin_id != 0 && $laporan == 0) {
@@ -62,6 +63,7 @@ class ModPenjualan extends CI_model
 		$tgl = $this->input->post('tgl');
 		$admin_id   = $this->input->post('admin_id');
         $paket_id   = $this->input->post('paket_id');
+		$qty_paket   = $this->input->post('qty_paket');
 		$diskon   = $this->input->post('diskon');
 		$harga_total   = $this->input->post('harga_total');
 		$total_berat   = $this->input->post('total_berat');
@@ -82,7 +84,7 @@ class ModPenjualan extends CI_model
 			$harga = $this->input->post('harga_'.$exp_id[1]);
 			$qty = $this->input->post('qty_'.$exp_id[1]);
 			
-			$data = array('paket_id' => $id_paket, 'berat_paket' => $berat_paket[$num], 'harga_paket' => $harga_paket[$num], 'penjualan_id' => $penjualan_id);
+			$data = array('paket_id' => $id_paket, 'berat_paket' => $berat_paket[$num], 'harga_paket' => $harga_paket[$num], 'penjualan_id' => $penjualan_id, 'qty_paket' => $qty_paket[$num]);
 			$this->db->insert('penjualan_paket', $data);
 			$penjualan_paket_id = $this->db->insert_id();
 			$exnum = 0;
@@ -369,7 +371,7 @@ class ModPenjualan extends CI_model
 				$new_pro = array();
 				foreach($xdb as $k) {
 					if($p->id_paket == $k->paket_id && $k->tgl_penjualan == $xstart) {
-						$new_pro[] = 1;
+						$new_pro[] = $k->qty_paket;;
 					}
 				}
 				$arr_pro[] = array_sum($new_pro);

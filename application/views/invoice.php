@@ -1,7 +1,7 @@
 <style>
 @media print {
 	.invoice {
-		transform: scale(.3);
+		transform: scale(.5);
 		transform-origin: top left;
 	}
 	.main .header, .main .sidebar{

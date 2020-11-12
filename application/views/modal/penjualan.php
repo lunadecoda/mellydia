@@ -155,11 +155,8 @@ $(document).on('change keydown paste input','.qtypro', function (e) {
 	$("."+res[1]+" .harga_paket").each(function(i,obj) {
 		var xhit = $(this).val();
 		xhit = xhit.replace(".","");
-		//console.log($("."+res[1]+" .harga_paket").length);
 		awal = parseInt(xhit) + awal;
 		if(xnum == $("."+res[1]+" .harga_paket").length) {
-			//var hit = 15/100 * awal;
-			//var cekhit = awal-hit;
 			cekhit = awal;
 			$(".total-paket-"+res[1]).val(cekhit); 
 		}
@@ -178,14 +175,35 @@ $(document).on('change keydown paste input','.qtypro', function (e) {
 	
 	hitung();
 });
+$(document).on('change keydown paste input','.qty-paket', function (e) {
+	var id = $(this).attr('id');
+	var res = id.split("-");
+	var isi = $(this).val();
+	$(".qty-paket-isi-"+res[res.length - 1]).val(isi);
+	$(".qty-paket-isi-"+res[res.length - 1]).trigger('change');
+	
+	if($(".qty-paket-isi-"+res[res.length - 1]).length == $(".qty-paket-isi-"+res[res.length - 1]).length) {
+		var x = $(".harga-paket-awal-"+res[res.length - 1]).val();
+		$(".total-paket-"+res[res.length - 1]).val(x*isi);
+		hitung();
+	}
+	
+})
+$(document).on('change keydown paste input','.harga', function (e) {
+	hitung();
+})
 function hapus_produk(id) {
 	$("."+id).remove();
+	$(".qtypro").trigger('change');
 	hitung();
 }
 function hitung() {
 	var awal = 0;
 	var xnum=1;
 	$(".input-mask").unmask();
+	if($(".harga").length == 0) {
+		$(".harga-total").val(0); 
+	} else {
 	$(".harga").each(function(i,obj) {
 		var xhit = $(this).val();
 		xhit = xhit.replace(".","");
@@ -197,14 +215,19 @@ function hitung() {
 				var hit = disk/100 * awal;
 				awal = awal-hit;
 			}
+			console.log(awal);
 			/*var pajak = 10/100 * awal;
 			awal = awal+pajak;*/
 			$(".harga-total").val(awal); 
 		}
 	xnum++; })
+	}
 	
 	var awal_berat = 0;
 	var xnum=1;
+	if($(".berat").length == 0) {
+		$(".berat-total").val(0); 
+	} else {
 	$(".berat").each(function(i,obj) {
 		var xhit = $(this).val();
 		xhit = xhit.replace(".","");
@@ -214,6 +237,7 @@ function hitung() {
 			$(".berat-total").val(awal_berat); 
 		}
 	xnum++; })
+	}
 	
 	$(".input-mask").mask('000.000.000.000.000', {reverse: true});
 }

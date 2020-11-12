@@ -6,7 +6,7 @@
 			<input type="hidden" name="paket_id[]" value="0-<?php echo time();?>">
 			<select class="select2 set-pro" data-placeholder="Pilih Produk" name="produk_id_<?php echo time();?>[]">
 				<?php foreach ($produk as $k) { ?>
-				<option <?php if($produk_isi->id_produk == $k->id_produk) { echo ' selected '; } if($k->stok <= 0) {echo ' disabled ';} ?> value="<?php echo $k->id_produk;?>"><?php echo $k->nama_produk." - stok ".$k->stok;?></option>
+				<option <?php if($produk_isi->id_produk == $k->id_produk) { echo ' selected '; } else{ echo 'disabled'; } ?> value="<?php echo $k->id_produk;?>"><?php echo $k->nama_produk." - stok ".$k->stok;?></option>
 				<?php } ?>
 			</select>
 		</div>
@@ -32,10 +32,14 @@
 <?php } elseif(isset($paket)) { ?>
 <div class="border border-success p-2 <?php echo time();?> mb-4">
 	<div class="row">
-		<div class="form-group col-9">
+		<div class="form-group col-6">
 			<label>Paket</label><br>
 			<input type="hidden" name="paket_id[]" value="<?php echo $paket->id_paket;?>-<?php echo time();?>">
 			<input class="form-control" value="<?php echo $paket->nama_paket;?>" name="nama_paket" type="text" disabled>
+		</div>
+		<div class="form-group col-3">
+			<label>Qty Paket</label><br>
+			<input class="form-control qty-paket" id="qty-paket-<?php echo time();?>" value="1" name="qty_paket" type="number">
 		</div>
 		<div class="text-right form-group col-3"><button type="button" rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="" onclick="hapus_produk('<?php echo time();?>')"><i class="zmdi zmdi-close zmdi-hc-fw"></i></button></div>
 	<?php $num= 1;
@@ -46,7 +50,7 @@
 			<label>Produk</label><br>
 			<select class="select2 set-pro" data-placeholder="Pilih Produk" name="produk_id_<?php echo time();?>[]">
 				<?php foreach ($produk as $k) { ?>
-				<option <?php if($produk_isi->id_produk == $k->id_produk) { echo ' selected '; } if($k->stok <= 0) {echo ' disabled ';} ?> value="<?php echo $k->id_produk;?>"><?php echo $k->nama_produk." - stok ".$k->stok;?></option>
+				<option <?php if($produk_isi->id_produk == $k->id_produk) { echo ' selected '; } else{ echo 'disabled'; } ?> value="<?php echo $k->id_produk;?>"><?php echo $k->nama_produk." - stok ".$k->stok;?></option>
 				<?php } ?>
 			</select>
 		</div>
@@ -58,7 +62,7 @@
 		</div>
 		<div class="form-group col-sm-6 <?php echo time().$num;?>">
 			<label>Qty</label><br>
-			<input class="form-control qtypro" min="1" max="<?php echo $produk_isi->stok;?>" id="<?php echo $num;?>-<?php echo time();?>" value="1" name="qty_<?php echo time();?>[]" type="number">
+			<input class="form-control qtypro qty-paket-isi-<?php echo time();?>" min="1" max="<?php echo $produk_isi->stok;?>" id="<?php echo $num;?>-<?php echo time();?>" value="1" name="qty_<?php echo time();?>[]" type="number">
 		</div>
 		<div class="form-group col-12 <?php echo time().$num;?>">
 			<label>Harga</label><br>
@@ -74,6 +78,8 @@
 	</div>
 	<div class="form-group">
 		<label>Harga Paket</label><br>
+		<input class="jml-produk-<?php echo time();?>" value="<?php echo $num;?>" type="hidden">
+		<input class="harga-paket-awal-<?php echo time();?>" value="<?php echo $paket->total_harga_paket;?>" type="hidden">
 		<input class="form-control harga input-mask total-paket-<?php echo time();?>" value="<?php echo $paket->total_harga_paket;?>" name="harga_paket[]" type="text" required>
 	</div>
 </div>

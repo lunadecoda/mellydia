@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Nov 2020 pada 06.43
--- Versi server: 10.3.16-MariaDB
--- Versi PHP: 7.1.30
+-- Generation Time: Nov 12, 2020 at 04:55 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `m`
+-- Database: `posmel`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE `admin` (
@@ -36,7 +35,7 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`id_admin`, `nama_admin`, `email_admin`, `password_admin`) VALUES
@@ -47,7 +46,7 @@ INSERT INTO `admin` (`id_admin`, `nama_admin`, `email_admin`, `password_admin`) 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `admin_akses`
+-- Table structure for table `admin_akses`
 --
 
 CREATE TABLE `admin_akses` (
@@ -57,7 +56,7 @@ CREATE TABLE `admin_akses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `admin_akses`
+-- Dumping data for table `admin_akses`
 --
 
 INSERT INTO `admin_akses` (`id`, `admin_id`, `akses_id`) VALUES
@@ -83,7 +82,7 @@ INSERT INTO `admin_akses` (`id`, `admin_id`, `akses_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `akses`
+-- Table structure for table `akses`
 --
 
 CREATE TABLE `akses` (
@@ -94,7 +93,7 @@ CREATE TABLE `akses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `akses`
+-- Dumping data for table `akses`
 --
 
 INSERT INTO `akses` (`id_akses`, `nama_akses`, `link`, `modul_id`) VALUES
@@ -113,7 +112,7 @@ INSERT INTO `akses` (`id_akses`, `nama_akses`, `link`, `modul_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kategori`
+-- Table structure for table `kategori`
 --
 
 CREATE TABLE `kategori` (
@@ -122,7 +121,7 @@ CREATE TABLE `kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `kategori`
+-- Dumping data for table `kategori`
 --
 
 INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
@@ -132,7 +131,7 @@ INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `member`
+-- Table structure for table `member`
 --
 
 CREATE TABLE `member` (
@@ -143,7 +142,7 @@ CREATE TABLE `member` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `member`
+-- Dumping data for table `member`
 --
 
 INSERT INTO `member` (`id_member`, `nama_member`, `alamat_member`, `telp_member`) VALUES
@@ -154,7 +153,7 @@ INSERT INTO `member` (`id_member`, `nama_member`, `alamat_member`, `telp_member`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `modul`
+-- Table structure for table `modul`
 --
 
 CREATE TABLE `modul` (
@@ -163,7 +162,7 @@ CREATE TABLE `modul` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `modul`
+-- Dumping data for table `modul`
 --
 
 INSERT INTO `modul` (`id_modul`, `nama_modul`) VALUES
@@ -175,7 +174,7 @@ INSERT INTO `modul` (`id_modul`, `nama_modul`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `notif_limit`
+-- Table structure for table `notif_limit`
 --
 
 CREATE TABLE `notif_limit` (
@@ -184,7 +183,7 @@ CREATE TABLE `notif_limit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `notif_limit`
+-- Dumping data for table `notif_limit`
 --
 
 INSERT INTO `notif_limit` (`id`, `batas`) VALUES
@@ -193,7 +192,7 @@ INSERT INTO `notif_limit` (`id`, `batas`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `paket`
+-- Table structure for table `paket`
 --
 
 CREATE TABLE `paket` (
@@ -203,17 +202,17 @@ CREATE TABLE `paket` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `paket`
+-- Dumping data for table `paket`
 --
 
 INSERT INTO `paket` (`id_paket`, `nama_paket`, `total_harga_paket`) VALUES
-(6, 'Mellydia Paket Lengkap A', 0),
-(7, 'Mellydia Paket Ideal A', 0);
+(6, 'Mellydia Paket Lengkap A', 390000),
+(7, 'Mellydia Paket Ideal A', 300000);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `paket_produk`
+-- Table structure for table `paket_produk`
 --
 
 CREATE TABLE `paket_produk` (
@@ -223,24 +222,24 @@ CREATE TABLE `paket_produk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `paket_produk`
+-- Dumping data for table `paket_produk`
 --
 
 INSERT INTO `paket_produk` (`id`, `paket_id`, `produk_id`) VALUES
-(8, 6, 10),
-(9, 6, 7),
-(10, 6, 11),
-(11, 6, 8),
-(12, 6, 9),
-(13, 7, 10),
-(14, 7, 7),
-(15, 7, 11),
-(16, 7, 8);
+(30, 7, 10),
+(31, 7, 7),
+(32, 7, 11),
+(33, 7, 8),
+(34, 6, 10),
+(35, 6, 7),
+(36, 6, 11),
+(37, 6, 8),
+(38, 6, 9);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pembelian`
+-- Table structure for table `pembelian`
 --
 
 CREATE TABLE `pembelian` (
@@ -253,7 +252,7 @@ CREATE TABLE `pembelian` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `pembelian`
+-- Dumping data for table `pembelian`
 --
 
 INSERT INTO `pembelian` (`id_pembelian`, `produk_id`, `total_harga`, `harga_satuan`, `qty`, `tgl`) VALUES
@@ -266,7 +265,7 @@ INSERT INTO `pembelian` (`id_pembelian`, `produk_id`, `total_harga`, `harga_satu
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penjualan`
+-- Table structure for table `penjualan`
 --
 
 CREATE TABLE `penjualan` (
@@ -291,7 +290,7 @@ CREATE TABLE `penjualan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `penjualan`
+-- Dumping data for table `penjualan`
 --
 
 INSERT INTO `penjualan` (`id_penjualan`, `diskon`, `ongkir`, `kurir`, `resi`, `status`, `total_berat`, `total_harga`, `admin_id`, `tgl_penjualan`, `tgl_proses`, `tgl_selesai`, `member_id`, `sumber_id`, `nama_penerima`, `alamat_penerima`, `telp_penerima`, `ket`) VALUES
@@ -299,12 +298,13 @@ INSERT INTO `penjualan` (`id_penjualan`, `diskon`, `ongkir`, `kurir`, `resi`, `s
 (23, 0, 12000, 'jne', '23456', 'batal', 900, 2750, 1, '2020-11-03', '2020-11-07', '2020-11-03', 1, 1, 'member 1', 'alamat', '081', 'return'),
 (24, 0, 12000, 'tiki', '123456', 'batal', 1900, 30855, 1, '2020-11-04', '2020-11-07', '2020-11-04', 2, 2, 'member lagi', 'jl jalan no 123', '0812', 'retur'),
 (25, 0, 15000, 'JNT', 'JP09090909090', 'selesai', 1000, 369325, 4, '2020-11-07', '2020-11-07', '2020-11-07', 1, 4, 'Andika', 'alamat 1', '081234234324', ''),
-(26, 10, 0, 'JNT', 'JP9898928298', 'selesai', 800, 277695, 1, '2020-11-07', '2020-11-07', '2020-11-07', 2, 2, 'Budi', 'jl jalan no 123', '081224325234', '');
+(26, 10, 0, 'JNT', 'JP9898928298', 'selesai', 800, 277695, 1, '2020-11-07', '2020-11-07', '2020-11-07', 2, 2, 'Budi', 'jl jalan no 123', '081224325234', ''),
+(27, 0, 12000, 'pos', '12345', 'selesai', 1600, 600000, 1, '2020-11-12', '2020-11-12', '2020-11-12', 1, 3, 'Andika', 'alamat 1', '081234234324', '');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penjualan_paket`
+-- Table structure for table `penjualan_paket`
 --
 
 CREATE TABLE `penjualan_paket` (
@@ -312,24 +312,26 @@ CREATE TABLE `penjualan_paket` (
   `paket_id` int(11) NOT NULL,
   `harga_paket` int(11) NOT NULL,
   `berat_paket` int(11) NOT NULL,
-  `penjualan_id` int(11) NOT NULL
+  `penjualan_id` int(11) NOT NULL,
+  `qty_paket` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `penjualan_paket`
+-- Dumping data for table `penjualan_paket`
 --
 
-INSERT INTO `penjualan_paket` (`id_penjualan_paket`, `paket_id`, `harga_paket`, `berat_paket`, `penjualan_id`) VALUES
-(17, 4, 4675, 1800, 22),
-(18, 0, 2500, 900, 23),
-(19, 5, 28050, 1900, 24),
-(20, 6, 335750, 1000, 25),
-(21, 7, 280500, 800, 26);
+INSERT INTO `penjualan_paket` (`id_penjualan_paket`, `paket_id`, `harga_paket`, `berat_paket`, `penjualan_id`, `qty_paket`) VALUES
+(17, 4, 4675, 1800, 22, 1),
+(18, 0, 2500, 900, 23, 1),
+(19, 5, 28050, 1900, 24, 1),
+(20, 6, 335750, 1000, 25, 1),
+(21, 7, 280500, 800, 26, 1),
+(22, 7, 600000, 1600, 27, 2);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penjualan_produk`
+-- Table structure for table `penjualan_produk`
 --
 
 CREATE TABLE `penjualan_produk` (
@@ -342,7 +344,7 @@ CREATE TABLE `penjualan_produk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `penjualan_produk`
+-- Dumping data for table `penjualan_produk`
 --
 
 INSERT INTO `penjualan_produk` (`id_penjualan_produk`, `penjualan_paket_id`, `produk_id`, `qty`, `harga`, `penjualan_id`) VALUES
@@ -359,12 +361,16 @@ INSERT INTO `penjualan_produk` (`id_penjualan_produk`, `penjualan_paket_id`, `pr
 (31, 21, 7, 1, 65000, 26),
 (32, 21, 8, 1, 65000, 26),
 (33, 21, 10, 1, 100000, 26),
-(34, 21, 11, 1, 100000, 26);
+(34, 21, 11, 1, 100000, 26),
+(35, 22, 10, 2, 200000, 27),
+(36, 22, 7, 2, 130000, 27),
+(37, 22, 11, 2, 200000, 27),
+(38, 22, 8, 2, 130000, 27);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `produk`
+-- Table structure for table `produk`
 --
 
 CREATE TABLE `produk` (
@@ -378,20 +384,20 @@ CREATE TABLE `produk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `produk`
+-- Dumping data for table `produk`
 --
 
 INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga_beli`, `harga_jual`, `stok`, `berat`, `kode_produk`) VALUES
-(7, 'Mellydia Facial Foam', 15000, 65000, 98, '200', 'M-FFOAM'),
-(8, 'Mellydia Toner', 15000, 65000, 108, '200', 'M-TONER'),
+(7, 'Mellydia Facial Foam', 15000, 65000, 96, '200', 'M-FFOAM'),
+(8, 'Mellydia Toner', 15000, 65000, 106, '200', 'M-TONER'),
 (9, 'Mellydia Whitening Serum', 15000, 65000, 89, '200', 'M-WSERUM'),
-(10, 'Mellydia Day Cream', 28000, 100000, 148, '200', 'M-DCREAM'),
-(11, 'Mellydia Night Cream', 28000, 100000, 188, '200', 'M-NCREAM');
+(10, 'Mellydia Day Cream', 28000, 100000, 146, '200', 'M-DCREAM'),
+(11, 'Mellydia Night Cream', 28000, 100000, 186, '200', 'M-NCREAM');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `produk_kategori`
+-- Table structure for table `produk_kategori`
 --
 
 CREATE TABLE `produk_kategori` (
@@ -401,7 +407,7 @@ CREATE TABLE `produk_kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `produk_kategori`
+-- Dumping data for table `produk_kategori`
 --
 
 INSERT INTO `produk_kategori` (`id`, `produk_id`, `kategori_id`) VALUES
@@ -414,7 +420,7 @@ INSERT INTO `produk_kategori` (`id`, `produk_id`, `kategori_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `sumber_market`
+-- Table structure for table `sumber_market`
 --
 
 CREATE TABLE `sumber_market` (
@@ -423,7 +429,7 @@ CREATE TABLE `sumber_market` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `sumber_market`
+-- Dumping data for table `sumber_market`
 --
 
 INSERT INTO `sumber_market` (`id_sumber`, `nama_market`) VALUES
@@ -437,191 +443,191 @@ INSERT INTO `sumber_market` (`id_sumber`, `nama_market`) VALUES
 --
 
 --
--- Indeks untuk tabel `admin`
+-- Indexes for table `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id_admin`);
 
 --
--- Indeks untuk tabel `admin_akses`
+-- Indexes for table `admin_akses`
 --
 ALTER TABLE `admin_akses`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `akses`
+-- Indexes for table `akses`
 --
 ALTER TABLE `akses`
   ADD PRIMARY KEY (`id_akses`);
 
 --
--- Indeks untuk tabel `kategori`
+-- Indexes for table `kategori`
 --
 ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id_kategori`);
 
 --
--- Indeks untuk tabel `member`
+-- Indexes for table `member`
 --
 ALTER TABLE `member`
   ADD PRIMARY KEY (`id_member`);
 
 --
--- Indeks untuk tabel `modul`
+-- Indexes for table `modul`
 --
 ALTER TABLE `modul`
   ADD PRIMARY KEY (`id_modul`);
 
 --
--- Indeks untuk tabel `notif_limit`
+-- Indexes for table `notif_limit`
 --
 ALTER TABLE `notif_limit`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `paket`
+-- Indexes for table `paket`
 --
 ALTER TABLE `paket`
   ADD PRIMARY KEY (`id_paket`);
 
 --
--- Indeks untuk tabel `paket_produk`
+-- Indexes for table `paket_produk`
 --
 ALTER TABLE `paket_produk`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `pembelian`
+-- Indexes for table `pembelian`
 --
 ALTER TABLE `pembelian`
   ADD PRIMARY KEY (`id_pembelian`);
 
 --
--- Indeks untuk tabel `penjualan`
+-- Indexes for table `penjualan`
 --
 ALTER TABLE `penjualan`
   ADD PRIMARY KEY (`id_penjualan`);
 
 --
--- Indeks untuk tabel `penjualan_paket`
+-- Indexes for table `penjualan_paket`
 --
 ALTER TABLE `penjualan_paket`
   ADD PRIMARY KEY (`id_penjualan_paket`);
 
 --
--- Indeks untuk tabel `penjualan_produk`
+-- Indexes for table `penjualan_produk`
 --
 ALTER TABLE `penjualan_produk`
   ADD PRIMARY KEY (`id_penjualan_produk`);
 
 --
--- Indeks untuk tabel `produk`
+-- Indexes for table `produk`
 --
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`id_produk`);
 
 --
--- Indeks untuk tabel `produk_kategori`
+-- Indexes for table `produk_kategori`
 --
 ALTER TABLE `produk_kategori`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `sumber_market`
+-- Indexes for table `sumber_market`
 --
 ALTER TABLE `sumber_market`
   ADD PRIMARY KEY (`id_sumber`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `admin`
+-- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
   MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `admin_akses`
+-- AUTO_INCREMENT for table `admin_akses`
 --
 ALTER TABLE `admin_akses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
--- AUTO_INCREMENT untuk tabel `akses`
+-- AUTO_INCREMENT for table `akses`
 --
 ALTER TABLE `akses`
   MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT untuk tabel `kategori`
+-- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
   MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `member`
+-- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
   MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `modul`
+-- AUTO_INCREMENT for table `modul`
 --
 ALTER TABLE `modul`
   MODIFY `id_modul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `paket`
+-- AUTO_INCREMENT for table `paket`
 --
 ALTER TABLE `paket`
   MODIFY `id_paket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `paket_produk`
+-- AUTO_INCREMENT for table `paket_produk`
 --
 ALTER TABLE `paket_produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
--- AUTO_INCREMENT untuk tabel `pembelian`
+-- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
   MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `penjualan`
+-- AUTO_INCREMENT for table `penjualan`
 --
 ALTER TABLE `penjualan`
-  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT untuk tabel `penjualan_paket`
+-- AUTO_INCREMENT for table `penjualan_paket`
 --
 ALTER TABLE `penjualan_paket`
-  MODIFY `id_penjualan_paket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_penjualan_paket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT untuk tabel `penjualan_produk`
+-- AUTO_INCREMENT for table `penjualan_produk`
 --
 ALTER TABLE `penjualan_produk`
-  MODIFY `id_penjualan_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_penjualan_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
--- AUTO_INCREMENT untuk tabel `produk`
+-- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
   MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT untuk tabel `produk_kategori`
+-- AUTO_INCREMENT for table `produk_kategori`
 --
 ALTER TABLE `produk_kategori`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT untuk tabel `sumber_market`
+-- AUTO_INCREMENT for table `sumber_market`
 --
 ALTER TABLE `sumber_market`
   MODIFY `id_sumber` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
