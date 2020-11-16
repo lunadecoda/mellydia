@@ -62,7 +62,7 @@
 		</div>
 		<div class="form-group col-sm-6 <?php echo time().$num;?>">
 			<label>Qty</label><br>
-			<input class="form-control qtypro qty-paket-isi-<?php echo time();?>" min="1" max="<?php echo $produk_isi->stok;?>" id="<?php echo $num;?>-<?php echo time();?>" value="1" name="qty_<?php echo time();?>[]" type="number">
+			<input class="form-control qtypro qty-paket-isi-<?php echo time();?>" min="1" max="<?php echo $produk_isi->stok;?>" id="<?php echo $num;?>-<?php echo time();?>" value="1" name="qty_<?php echo time();?>[]" type="number" readonly>
 		</div>
 		<div class="form-group col-12 <?php echo time().$num;?>">
 			<label>Harga</label><br>
