@@ -143,7 +143,7 @@
                            </tbody>
 						   <tbody>
 							<tr class="bg-info text-white">
-								<td colspan="2">Total</td>
+								<td colspan="3">Total</td>
 								<td><?php echo number_format(array_sum($arr_harga),0,",",".");?></td>
 								<td colspan="2"></td>
 								<td><?php echo number_format(array_sum($arr_total),0,",",".");?></td>
