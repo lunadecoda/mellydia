@@ -1,5 +1,9 @@
 <?php if($cek == 0) { ?>
 <div class="form-group">
+	<label>Kode Paket</label><br>
+    <input class="form-control" name="kode_paket" type="text" placeholder="Kode" required>
+</div>
+<div class="form-group">
 	<label>Nama Paket</label><br>
     <input class="form-control" name="nama_paket" type="text" placeholder="Nama Paket" required>
 </div>
@@ -17,6 +21,10 @@
 </div>
 <?php } else { ?>
 <input type="hidden" name="id_paket" value="<?php echo $paket->id_paket;?>">
+<div class="form-group">
+	<label>Kode Paket</label><br>
+    <input class="form-control" value="<?php echo $paket->kode_paket;?>" name="kode_paket" type="text" placeholder="Kode" required>
+</div>
 <div class="form-group">
 	<label>Nama Paket</label><br>
     <input class="form-control" value="<?php echo $paket->nama_paket;?>" name="nama_paket" type="text" placeholder="Nama Paket" required>

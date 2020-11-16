@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2020 at 04:55 PM
+-- Generation Time: Nov 16, 2020 at 03:17 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -198,16 +198,17 @@ INSERT INTO `notif_limit` (`id`, `batas`) VALUES
 CREATE TABLE `paket` (
   `id_paket` int(11) NOT NULL,
   `nama_paket` varchar(200) NOT NULL,
-  `total_harga_paket` int(11) NOT NULL
+  `total_harga_paket` int(11) NOT NULL,
+  `kode_paket` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `paket`
 --
 
-INSERT INTO `paket` (`id_paket`, `nama_paket`, `total_harga_paket`) VALUES
-(6, 'Mellydia Paket Lengkap A', 390000),
-(7, 'Mellydia Paket Ideal A', 300000);
+INSERT INTO `paket` (`id_paket`, `nama_paket`, `total_harga_paket`, `kode_paket`) VALUES
+(6, 'Mellydia Paket Lengkap A', 390000, 'm-456'),
+(7, 'Mellydia Paket Ideal A', 300000, 'm-123');
 
 -- --------------------------------------------------------
 
@@ -226,15 +227,15 @@ CREATE TABLE `paket_produk` (
 --
 
 INSERT INTO `paket_produk` (`id`, `paket_id`, `produk_id`) VALUES
-(30, 7, 10),
-(31, 7, 7),
-(32, 7, 11),
-(33, 7, 8),
-(34, 6, 10),
-(35, 6, 7),
-(36, 6, 11),
-(37, 6, 8),
-(38, 6, 9);
+(39, 7, 10),
+(40, 7, 7),
+(41, 7, 11),
+(42, 7, 8),
+(43, 6, 10),
+(44, 6, 7),
+(45, 6, 11),
+(46, 6, 8),
+(47, 6, 9);
 
 -- --------------------------------------------------------
 
@@ -294,12 +295,10 @@ CREATE TABLE `penjualan` (
 --
 
 INSERT INTO `penjualan` (`id_penjualan`, `diskon`, `ongkir`, `kurir`, `resi`, `status`, `total_berat`, `total_harga`, `admin_id`, `tgl_penjualan`, `tgl_proses`, `tgl_selesai`, `member_id`, `sumber_id`, `nama_penerima`, `alamat_penerima`, `telp_penerima`, `ket`) VALUES
-(22, 0, 15000, 'pos', '12345', 'batal', 1800, 5143, 1, '2020-10-28', '2020-11-07', '2020-11-03', 1, 2, 'member 1', 'alamat', '081', 'retur'),
-(23, 0, 12000, 'jne', '23456', 'batal', 900, 2750, 1, '2020-11-03', '2020-11-07', '2020-11-03', 1, 1, 'member 1', 'alamat', '081', 'return'),
-(24, 0, 12000, 'tiki', '123456', 'batal', 1900, 30855, 1, '2020-11-04', '2020-11-07', '2020-11-04', 2, 2, 'member lagi', 'jl jalan no 123', '0812', 'retur'),
 (25, 0, 15000, 'JNT', 'JP09090909090', 'selesai', 1000, 369325, 4, '2020-11-07', '2020-11-07', '2020-11-07', 1, 4, 'Andika', 'alamat 1', '081234234324', ''),
 (26, 10, 0, 'JNT', 'JP9898928298', 'selesai', 800, 277695, 1, '2020-11-07', '2020-11-07', '2020-11-07', 2, 2, 'Budi', 'jl jalan no 123', '081224325234', ''),
-(27, 0, 12000, 'pos', '12345', 'selesai', 1600, 600000, 1, '2020-11-12', '2020-11-12', '2020-11-12', 1, 3, 'Andika', 'alamat 1', '081234234324', '');
+(27, 0, 12000, 'pos', '12345', 'selesai', 1600, 600000, 1, '2020-11-12', '2020-11-12', '2020-11-12', 1, 3, 'Andika', 'alamat 1', '081234234324', ''),
+(29, 0, 12000, 'pos', '123456789', 'selesai', 2800, 1090000, 1, '2020-11-16', '2020-11-16', '2020-11-16', 3, 3, 'Cici', 'di hatimu', '0823543534534', '');
 
 -- --------------------------------------------------------
 
@@ -321,12 +320,12 @@ CREATE TABLE `penjualan_paket` (
 --
 
 INSERT INTO `penjualan_paket` (`id_penjualan_paket`, `paket_id`, `harga_paket`, `berat_paket`, `penjualan_id`, `qty_paket`) VALUES
-(17, 4, 4675, 1800, 22, 1),
-(18, 0, 2500, 900, 23, 1),
-(19, 5, 28050, 1900, 24, 1),
 (20, 6, 335750, 1000, 25, 1),
 (21, 7, 280500, 800, 26, 1),
-(22, 7, 600000, 1600, 27, 2);
+(22, 7, 600000, 1600, 27, 2),
+(25, 7, 600000, 1600, 29, 2),
+(26, 6, 390000, 1000, 29, 1),
+(27, 0, 100000, 200, 29, 1);
 
 -- --------------------------------------------------------
 
@@ -348,11 +347,6 @@ CREATE TABLE `penjualan_produk` (
 --
 
 INSERT INTO `penjualan_produk` (`id_penjualan_produk`, `penjualan_paket_id`, `produk_id`, `qty`, `harga`, `penjualan_id`) VALUES
-(21, 17, 3, 1, 2500, 22),
-(22, 17, 4, 1, 3000, 22),
-(23, 18, 3, 1, 2500, 23),
-(24, 19, 4, 1, 3000, 24),
-(25, 19, 5, 2, 30000, 24),
 (26, 20, 7, 1, 65000, 25),
 (27, 20, 8, 1, 65000, 25),
 (28, 20, 9, 1, 65000, 25),
@@ -365,7 +359,17 @@ INSERT INTO `penjualan_produk` (`id_penjualan_produk`, `penjualan_paket_id`, `pr
 (35, 22, 10, 2, 200000, 27),
 (36, 22, 7, 2, 130000, 27),
 (37, 22, 11, 2, 200000, 27),
-(38, 22, 8, 2, 130000, 27);
+(38, 22, 8, 2, 130000, 27),
+(48, 25, 10, 2, 200000, 29),
+(49, 25, 7, 2, 130000, 29),
+(50, 25, 11, 2, 200000, 29),
+(51, 25, 8, 2, 130000, 29),
+(52, 26, 10, 1, 100000, 29),
+(53, 26, 7, 1, 65000, 29),
+(54, 26, 11, 1, 100000, 29),
+(55, 26, 8, 1, 65000, 29),
+(56, 26, 9, 1, 65000, 29),
+(57, 27, 10, 1, 100000, 29);
 
 -- --------------------------------------------------------
 
@@ -388,11 +392,11 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga_beli`, `harga_jual`, `stok`, `berat`, `kode_produk`) VALUES
-(7, 'Mellydia Facial Foam', 15000, 65000, 96, '200', 'M-FFOAM'),
-(8, 'Mellydia Toner', 15000, 65000, 106, '200', 'M-TONER'),
-(9, 'Mellydia Whitening Serum', 15000, 65000, 89, '200', 'M-WSERUM'),
-(10, 'Mellydia Day Cream', 28000, 100000, 146, '200', 'M-DCREAM'),
-(11, 'Mellydia Night Cream', 28000, 100000, 186, '200', 'M-NCREAM');
+(7, 'Mellydia Facial Foam', 15000, 65000, 90, '200', 'M-FFOAM'),
+(8, 'Mellydia Toner', 15000, 65000, 100, '200', 'M-TONER'),
+(9, 'Mellydia Whitening Serum', 15000, 65000, 87, '200', 'M-WSERUM'),
+(10, 'Mellydia Day Cream', 28000, 100000, 139, '200', 'M-DCREAM'),
+(11, 'Mellydia Night Cream', 28000, 100000, 180, '200', 'M-NCREAM');
 
 -- --------------------------------------------------------
 
@@ -588,7 +592,7 @@ ALTER TABLE `paket`
 -- AUTO_INCREMENT for table `paket_produk`
 --
 ALTER TABLE `paket_produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `pembelian`
@@ -600,19 +604,19 @@ ALTER TABLE `pembelian`
 -- AUTO_INCREMENT for table `penjualan`
 --
 ALTER TABLE `penjualan`
-  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `penjualan_paket`
 --
 ALTER TABLE `penjualan_paket`
-  MODIFY `id_penjualan_paket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_penjualan_paket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `penjualan_produk`
 --
 ALTER TABLE `penjualan_produk`
-  MODIFY `id_penjualan_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id_penjualan_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `produk`

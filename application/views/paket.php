@@ -12,6 +12,7 @@
                         <thead>
                               <tr>
                                  <th>No</th>
+								 <th>Kode</th>
                                  <th>Nama Paket</th>
 								 <th>Produk</th>
 								 <th>Harga</th>
@@ -21,6 +22,7 @@
                            <tfoot>
                               <tr>
                                  <th>No</th>
+								 <th>Kode</th>
                                  <th>Nama Paket</th>
 								 <th>Produk</th>
 								 <th>Harga</th>
@@ -32,6 +34,7 @@
                                  foreach ($paket as $k) { ?>
                               <tr>
                                  <td><?php echo $no;?></td>
+								 <td><?php echo $k->kode_paket;?></td>
                                  <td><?php echo $k->nama_paket;?></td>
 								 <td><?php $arr_harga = array();
 								 foreach ($produk as $kp) {

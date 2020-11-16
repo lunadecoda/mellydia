@@ -20,6 +20,7 @@
 		<div class="form-group col-sm-6">
 			<label>Qty</label><br>
 			<input class="form-control qty" min="1" max="<?php echo $produk_isi->stok;?>" value="1" name="qty_<?php echo time();?>[]" id="qty-<?php echo time();?>" type="number">
+			<input value="1" name="qty_paket[]" type="number">
 		</div>
 		<div class="form-group col-12">
 			<label>Harga</label><br>
@@ -39,7 +40,7 @@
 		</div>
 		<div class="form-group col-3">
 			<label>Qty Paket</label><br>
-			<input class="form-control qty-paket" id="qty-paket-<?php echo time();?>" value="1" name="qty_paket" type="number">
+			<input class="form-control qty-paket" id="qty-paket-<?php echo time();?>" value="1" min="1" name="qty_paket[]" type="number">
 		</div>
 		<div class="text-right form-group col-3"><button type="button" rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="" onclick="hapus_produk('<?php echo time();?>')"><i class="zmdi zmdi-close zmdi-hc-fw"></i></button></div>
 	<?php $num= 1;

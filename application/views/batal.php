@@ -1,3 +1,11 @@
+<style>
+.table tr td {
+	vertical-align:top !important;
+}
+.table td, .table th {
+	padding:0.4rem !important;
+}
+</style>
 <section class="content">
             <header class="content__title">
                <h1>Pemabatalan Penjualan</h1>
@@ -47,10 +55,17 @@
                                  <th>No</th>
 								 <th>Tanggal</th>
 								 <th>Penjual</th>
-								 <th>Harga</th>
+								 <th>Sku</th>
+								 <th>Qty</th>
 								 <th>Penerima</th>
+								 <th>Alamat</th>
+								 <th>No Telp</th>
 								 <th>Marketplace</th>
-                                 <th>Pemabatalan</th>
+								 <th>Harga</th>
+								 <th>Ongkir</th>
+								 <th>Total</th>
+								 <th>Keterangan</th>
+								 <th></th>
                               </tr>
                            </thead>
                            <tfoot>
@@ -58,55 +73,84 @@
                                  <th>No</th>
 								 <th>Tanggal</th>
 								 <th>Penjual</th>
-								 <th>Harga</th>
+								 <th>Sku</th>
+								 <th>Qty</th>
 								 <th>Penerima</th>
+								 <th>Alamat</th>
+								 <th>No Telp</th>
 								 <th>Marketplace</th>
-                                 <th>Pemabatalan</th>
+								 <th>Harga</th>
+								 <th>Ongkir</th>
+								 <th>Total</th>
+								 <th>Keterangan</th>
+								 <th></th>
                               </tr>
                            </tfoot>
                            <tbody>
                               <?php $no=1;
-                                 foreach ($penjualan as $k) { ?>
+								$arr_harga = array();
+								$arr_total = array();
+                                 foreach ($penjualan as $k) { 
+								 $arr_harga[] = $k->total_harga;
+								 $arr_total[] = $k->total_harga + $k->ongkir;
+								 ?>
                               <tr>
                                  <td><?php echo $no;?></td>
+								 <td>Pembelian <?php echo date("j M Y", strtotime($k->tgl_penjualan));?>
+								 <div class="collapse mt-2 expand<?php echo $no;?>">
+									Proses <?php echo date("j M Y", strtotime($k->tgl_proses));?><br>
+									Selesai <?php echo date("j M Y", strtotime($k->tgl_selesai));?>
+								</div>
+								 </td>
+								 <td><?php echo $k->nama_admin;?></td>
 								 <td>
-								 <?php echo date("j M Y", strtotime($k->tgl_penjualan));?>
-								</td>
-								<td><?php echo $k->nama_admin;?></td>
-								 <td><div class="collapse mt-2 expand<?php echo $no;?>">
 									<?php foreach($penjualan_paket as $kp) {
 										if($kp->penjualan_id == $k->id_penjualan) {
 										echo '<div class="border p-1">';
 										if($kp->paket_id == 0) {
-											echo "<b>Ecer</b> x".$kp->qty_paket."<br><br>";
+											echo "<b>Ecer</b><br><br>";
 										} else {
 											foreach ($paket as $kpaket) {
 												if($kpaket->id_paket == $kp->paket_id) {
-													echo "<b>".$kpaket->nama_paket.'</b> x'.$kp->qty_paket.'<br><br>';
+													echo "<b>".$kpaket->kode_paket.'</b><br><br>';
 												}
 											}
 										}
+										echo '<div class="collapse mt-2 expand'.$no.'">';
 										foreach ($produk as $kpro) {
 											if($kpro->penjualan_paket_id == $kp->id_penjualan_paket) {
-												echo $kpro->nama_produk."<br>".$kpro->qty." qty ".number_format($kpro->harga,0,",",".")."<hr>";
+												echo $kpro->kode_produk."<br><hr>";
 											}
 										}
-										echo "Berat ".number_format($kp->berat_paket,0,",",".")." gram<br>";
-										echo 'Total '.number_format($kp->harga_paket,0,",",".");
-										echo '</div><br>';
+										echo '</div></div><br>';
 										}
 									} ?>
-									<b><?php echo number_format($k->total_berat,0,",",".");?> gram</b><br>
-									
-								</div><b><?php echo number_format($k->total_harga,0,",",".");?></b>
 								 </td>
-								 <td><?php echo $k->nama_penerima;?><br>
-								 <div class="collapse mt-2 expand<?php echo $no;?>">
-									<?php echo $k->alamat_penerima."<br>".$k->telp_penerima; ?>
-								</div>
+								 <td>
+									<?php foreach($penjualan_paket as $kp) {
+										if($kp->penjualan_id == $k->id_penjualan) {
+										echo '<div class="border p-1">';
+										echo $kp->qty_paket."<br><br>";
+										echo '<div class="collapse mt-2 expand'.$no.'">';
+										foreach ($produk as $kpro) {
+											if($kpro->penjualan_paket_id == $kp->id_penjualan_paket) {
+												echo $kpro->qty."<br><hr>";
+											}
+										}
+										echo '</div></div><br>';
+										}
+									} ?>
 								 </td>
+								 <td><?php echo $k->nama_penerima;?></td>
+								 <td><?php echo $k->alamat_penerima;?></td>
+								 <td><?php echo $k->telp_penerima;?></td>
 								 <td><?php echo $k->nama_market;?></td>
+								 <td><?php echo number_format($k->total_harga,0,",",".");?></td>
+								 <td><?php echo number_format($k->ongkir,0,",",".");?></td>
+								 <td><b><?php echo number_format($k->total_harga+$k->ongkir,0,",",".");?></b></td>
 								 <td><?php echo $k->ket;?></td>
+								 <td class="td-actions text-right"><button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Detail</button>
+                                 </td>
                               </tr>
                               <?php $no++; } ?>
                            </tbody>

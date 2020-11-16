@@ -377,7 +377,7 @@ class ModPenjualan extends CI_model
 				$arr_pro[] = array_sum($new_pro);
 				$xstart = date ("Y-m-d", strtotime("+1 day", strtotime($xstart))); 
 			}
-			$new_arr[$p->nama_paket] = $arr_pro;
+			$new_arr[$p->kode_paket] = $arr_pro;
 		}
 		if($produk_id == 0) {
 		$arr_pro = array();
