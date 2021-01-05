@@ -1,6 +1,6 @@
 <section class="content">
             <header class="content__title">
-               <h1>Pembelian</h1>
+               <h1>Pengeluaran</h1>
                <div class="actions">
                   <button class="btn btn-primary font-btn" onclick="tambah()">Tambah</button>
                </div>
@@ -23,8 +23,8 @@
                         <thead>
                               <tr>
                                  <th>No</th>
-								 <th>Tgl</th>
-                                 <th>Produk</th>
+								 <th>Tanggal</th>
+                                 <th>Jenis</th>
 								 <th>Qty</th>
 								 <th>Harga Satuan</th>
 								 <th>Harga Total</th>
@@ -34,8 +34,8 @@
                            <tfoot>
                               <tr>
                                  <th>No</th>
-                                 <th>Tgl</th>
-                                 <th>Produk</th>
+								 <th>Tanggal</th>
+                                 <th>Jenis</th>
 								 <th>Qty</th>
 								 <th>Harga Satuan</th>
 								 <th>Harga Total</th>
@@ -44,21 +44,21 @@
                            </tfoot>
                            <tbody>
                               <?php $no=1; $arr_harga = array();
-                                 foreach ($pembelian as $k) { 
-								 $arr_harga[] = $k->total_harga; ?>
+                                 foreach ($pengeluaran as $k) { 
+								 $arr_harga[] = $k->total_pengeluaran; ?>
                               <tr>
                                  <td><?php echo $no;?></td>
-								 <td><?php echo date("j M Y", strtotime($k->tgl));?></td>
-                                 <td><?php echo $k->nama_produk;?></td>
+								 <td><?php echo date("j M Y", strtotime($k->tanggal_pengeluaran));?></td>
+                                 <td><?php echo $k->jenis_pengeluaran;?></td>
 								 <td><?php echo $k->qty;?></td>
 								 <td><?php echo number_format($k->harga_satuan,0,",",".");?></td>
-								 <td><?php echo number_format($k->total_harga,0,",",".");?></td>
+								 <td><?php echo number_format($k->total_pengeluaran,0,",",".");?></td>
                                  <td class="td-actions text-right">
-                                    <button type="button" onclick="ganti(<?php echo $k->id_pembelian;?>)" rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="">
+                                    <button type="button" onclick="ganti(<?php echo $k->id_pengeluaran;?>)" rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="">
                                        <i class="zmdi zmdi-edit zmdi-hc-fw"></i>
                                     </button>
                                     &nbsp;
-                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="" onclick="hapus(<?php echo $k->id_pembelian;?>)">
+                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="" onclick="hapus(<?php echo $k->id_pengeluaran;?>)">
                                        <i class="zmdi zmdi-close zmdi-hc-fw"></i>
                                     </button>
                                  </td>
@@ -133,12 +133,11 @@ $(document).ready(function () {
 		
 		$(".xform").on("submit", (function (b) {
 			b.preventDefault();
-			$(".input-mask").unmask()
 			var a;
 			if (simpan == "tambah") {
-				a = "<?php echo base_url();?>pembelian/add"
+				a = "<?php echo base_url();?>pengeluaran/add"
 			} else {
-				a = "<?php echo base_url();?>pembelian/update"
+				a = "<?php echo base_url();?>pengeluaran/update"
 			}
 			$.ajax({
 				url: a,
@@ -166,7 +165,7 @@ function tambah() {
 	simpan = "tambah";
 	$(".form")[0].reset();
 	$("#myModal").modal("show");
-	$("#modalbody").load("<?php echo base_url();?>pembelian/modal/", function (a) {
+	$("#modalbody").load("<?php echo base_url();?>pengeluaran/modal/", function (a) {
 		$("#modalbody").html(a)
 	})
 }
@@ -175,7 +174,7 @@ function ganti(a) {
 	simpan = "update";
 	$(".form")[0].reset();
 	$("#myModal").modal("show");
-	$("#modalbody").load("<?php echo base_url();?>pembelian/edit/" + a, function (b) {
+	$("#modalbody").load("<?php echo base_url();?>pengeluaran/edit/" + a, function (b) {
 		$("#modalbody").html(b)
 	})
 }
@@ -193,7 +192,7 @@ function hapus(a) {
 	  cancelButtonText: "Batal"
 	}).then((result) => {
 	  if (result.value == true) {
-		$.get("<?php echo base_url()?>pembelian/delete/" + a, function (b) { location.reload(); })
+		$.get("<?php echo base_url()?>pengeluaran/delete/" + a, function (b) { location.reload(); })
 	  }
 	})
 };
