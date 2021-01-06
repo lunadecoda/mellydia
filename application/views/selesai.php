@@ -68,6 +68,8 @@
 								 <th>Marketplace</th>
 								 <th>Harga</th>
 								 <th>Ongkir</th>
+								 <th>Biaya Admin</th>
+								 <th>Uang Masuk</th>
 								 <th>Total</th>
 								 <th>Keterangan</th>
 								 <th></th>
@@ -86,6 +88,8 @@
 								 <th>Marketplace</th>
 								 <th>Harga</th>
 								 <th>Ongkir</th>
+								 <th>Biaya Admin</th>
+								 <th>Uang Masuk</th>
 								 <th>Total</th>
 								 <th>Keterangan</th>
 								 <th></th>
@@ -98,6 +102,7 @@
                                  foreach ($penjualan as $k) { 
 								 $arr_harga[] = $k->total_harga;
 								 $arr_total[] = $k->total_harga + $k->ongkir;
+								 $arr_total_biaya_admin[] = $k->total_harga + $k->ongkir-$k->biaya_admin;
 								 ?>
                               <tr>
                                  <td><?php echo $no;?></td>
@@ -152,9 +157,12 @@
 								 <td><?php echo $k->nama_market;?></td>
 								 <td><?php echo number_format($k->total_harga,0,",",".");?></td>
 								 <td><?php echo number_format($k->ongkir,0,",",".");?></td>
+								 <td><?php echo number_format($k->biaya_admin,0,",",".");?></td>
+								 <td><b><?php echo number_format($k->total_harga+$k->ongkir-$k->biaya_admin,0,",",".");?></b></td>
 								 <td><b><?php echo number_format($k->total_harga+$k->ongkir,0,",",".");?></b></td>
 								 <td><?php echo $k->ket;?></td>
 								 <td class="td-actions text-right"><button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Detail</button>
+								 <button type="button" onclick="biaya_admin(<?php echo $k->id_penjualan;?>)" rel="tooltip" class="btn btn-warning btn-round mb-2" data-original-title="" title="">Biaya Admin</button>
 								 <button type="button" rel="tooltip" class="btn btn-danger btn-round mb-2" data-original-title="" title="" onclick="hapus(<?php echo $k->id_penjualan;?>)">Batal</button>
                                  </td>
                               </tr>
@@ -165,8 +173,10 @@
 								<td colspan="9">Total</td>
 								<td><?php echo number_format(array_sum($arr_harga),0,",",".");?></td>
 								<td></td>
+								<td></td>
+								<td><?php echo number_format(array_sum($arr_total_biaya_admin),0,",",".");?></td>
 								<td><?php echo number_format(array_sum($arr_total),0,",",".");?></td>
-								<td colspan="2"></td>
+								<td colspan="1"></td>
 							</tr>
 						   </tbody>
                      </table>
@@ -393,8 +403,8 @@ $(document).ready(function () {
 			var a;
 			if (simpan_alt == "hapus") {
 				a = "<?php echo base_url();?>penjualan/update_delete";
-			} else {
-				a = "<?php echo base_url();?>penjualan/update_ongkir";
+			} else if(simpan_alt == "biaya_admin"){
+				a = "<?php echo base_url();?>penjualan/update_biaya_admin";
 			}
 			$.ajax({
 				url: a,
@@ -440,6 +450,15 @@ function kirim(a) {
 	$(".form")[0].reset();
 	$("#myModal").modal("show");
 	$("#modalbody").load("<?php echo base_url();?>penjualan/ongkir/" + a, function (b) {
+		$("#modalbody").html(b);
+	})
+}
+
+function biaya_admin(a) {
+	simpan_alt = "biaya_admin";
+	$(".form")[0].reset();
+	$("#myModal").modal("show");
+	$("#modalbody").load("<?php echo base_url();?>penjualan/biaya_admin/" + a, function (b) {
 		$("#modalbody").html(b);
 	})
 }
