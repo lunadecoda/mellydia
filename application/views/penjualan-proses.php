@@ -163,6 +163,7 @@
 								 <td><b><?php echo number_format($k->total_harga+$k->ongkir+$k->biaya_admin,0,",",".");?></b></td>
 								 <td><?php echo $k->ket;?></td>
                                  <td class="td-actions text-right">
+	    						    <a class="btn btn-success mb-2" href="<?php echo base_url();?>penjualan/cetak_label/<?php echo $k->id_penjualan;?>" target="_blank">Cetak Label</a>
 									<a class="btn btn-warning mb-2" href="<?php echo base_url();?>penjualan/invoice/<?php echo $k->id_penjualan;?>" target="_blank">Invoice</a>
 									<button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Detail</button>
 									<button type="button" onclick="kirim(<?php echo $k->id_penjualan;?>)" rel="tooltip" class="btn btn-info btn-round mb-2" data-original-title="" title="">Resi</button>

@@ -293,6 +293,24 @@ class Penjualan extends CI_Controller {
 		$this->load->view('invoice', $data);
 		$this->load->view('template/footer');
 	}
+	public function cetak_label($id) {
+		$q = $this->session->userdata('status');
+		if($q != "login") {
+			exit();
+		}
+		$data['penjualan'] = $this->ModPenjualan->edit($id);
+		$data['penjualan_paket'] = $this->ModPenjualan->penjualan_paket_edit($id);
+		$data['paket'] = $this->ModPaket->selectAll();
+		$data['produk'] = $this->ModPenjualan->paket_produk_edit($id);
+		$menu['modul'] = $this->ModUser->modul();
+		$menu['akses'] = $this->ModUser->akses_admin($this->session->userdata('admin_id'));
+		$menu['login'] = $this->ModUser->edit($this->session->userdata('admin_id'));
+		$menu['user'] = $this->ModUser->selectAll();
+		$this->load->view('template/header');
+		$this->load->view('template/menu',$menu);
+		$this->load->view('cetak-label', $data);
+		$this->load->view('template/footer');
+	}
 	public function biaya_admin($id) {
 		$q = $this->session->userdata('status');
 		if($q != "login") {
