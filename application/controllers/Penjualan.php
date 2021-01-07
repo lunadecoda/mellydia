@@ -293,4 +293,20 @@ class Penjualan extends CI_Controller {
 		$this->load->view('invoice', $data);
 		$this->load->view('template/footer');
 	}
+	public function biaya_admin($id) {
+		$q = $this->session->userdata('status');
+		if($q != "login") {
+			exit();
+		}
+		$data['penjualan'] = $this->ModPenjualan->edit($id); 
+		$this->load->view('modal/biaya-admin', $data);
+	}
+	public function update_biaya_admin() {
+		$q = $this->session->userdata('status');
+		if($q != "login") {
+			exit();
+		}
+		$this->ModPenjualan->update_biayaadmin();
+		echo json_encode(array("status" => TRUE));
+	}
 }

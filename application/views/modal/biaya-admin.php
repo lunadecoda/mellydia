@@ -1,5 +1,10 @@
 <input name="id_penjualan" type="hidden" value="<?php echo $penjualan->id_penjualan;?>">
+<input class="form-control" name="status" value="<?php echo $penjualan->status;?>" type="text"  required>
 <div class="form-group">
+	<label>Biaya Admin</label><br>
+    <input class="form-control input-mask ongkir" name="biaya_admin" value="<?php echo $penjualan->biaya_admin;?>" type="text" placeholder="" required>
+</div>
+<!-- <div class="form-group">
 	<label>Nama Penerima</label><br>
 	<input class="form-control" name="nama_penerima" value="<?php echo $penjualan->nama_penerima;?>" type="text" placeholder="Nama Penerima" required>
 </div>
@@ -24,6 +29,10 @@
     <input class="form-control" name="resi" type="text" value="<?php echo $penjualan->resi;?>" placeholder="No Resi" required>
 </div>
 <div class="form-group">
+	<label>No Resi</label><br>
+    <input class="form-control" name="tgl_proses" type="date" value="<?php echo $penjualan->tgl_proses;?>" placeholder="No Resi" required>
+</div>
+<div class="form-group">
     <label>Total Berat <small>(satuan gram)</small></label><br>
 	<input class="form-control input-mask" name="berat" type="text" value="<?php echo $penjualan->total_berat;?>" placeholder="Berat" required>
 </div>
@@ -31,15 +40,4 @@
 	<label>Total Harga</label><br>
 	<input class="form-control harga-asli" type="hidden" value="<?php echo $penjualan->total_harga;?>">
     <input class="form-control input-mask ongkirtotal" type="text" value="<?php echo $penjualan->total_harga+$penjualan->ongkir;?>" disabled>
-</div>
-
-<script>
-$(".input-mask").mask('000.000.000.000.000', {reverse: true});
-$(document).on('change keydown paste input','.ongkir', function (e) {
-	var a = $(".harga-asli").val();
-	var b = $(this).val();
-	b = b.replace(".","");
-	var c = parseInt(a) + parseInt(b);
-	$(".ongkirtotal").val(c);
-});
-</script>
+</div> -->

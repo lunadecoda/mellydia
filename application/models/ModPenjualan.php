@@ -186,6 +186,22 @@ class ModPenjualan extends CI_model
 		$this->db->where('id_penjualan', $id);
 		$this->db->update('penjualan', $data);
 	}
+	public function update_biayaadmin() {
+		$id = $this->input->post('id_penjualan');
+		// $nama_penerima = $this->input->post('nama_penerima');
+		// $alamat_penerima = $this->input->post('alamat_penerima');
+		// $telp_penerima = $this->input->post('telp_penerima');
+		// $ongkir = $this->input->post('ongkir');
+		// $resi = $this->input->post('resi');
+		// $kurir = $this->input->post('kurir');
+		// $tgl_proses = $this->input->post('tgl_proses');
+		$biaya_admin = $this->input->post('biaya_admin');
+		// $status = $this->input->post('status');
+
+		$data = array('biaya_admin'=>$biaya_admin);
+		$this->db->where('id_penjualan', $id);
+		$this->db->update('penjualan', $data);
+	}
 	public function selesai($id) {
 		$data = array('status' => "selesai", 'tgl_selesai' => date("Y-m-d"));
 		$this->db->where('id_penjualan', $id);
