@@ -99,6 +99,7 @@
                               <?php $no=1;
 								$arr_harga = array();
 								$arr_total = array();
+								$arr_total_biaya_admin = array();
                                  foreach ($penjualan as $k) { 
 								 $arr_harga[] = $k->total_harga;
 								 $arr_total[] = $k->total_harga + $k->ongkir;
