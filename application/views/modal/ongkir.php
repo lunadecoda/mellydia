@@ -32,6 +32,7 @@
 	<input class="form-control harga-asli" type="hidden" value="<?php echo $penjualan->total_harga;?>">
     <input class="form-control input-mask ongkirtotal" type="text" value="<?php echo $penjualan->total_harga+$penjualan->ongkir;?>" disabled>
 </div>
+
 <script>
 $(".input-mask").mask('000.000.000.000.000', {reverse: true});
 $(document).on('change keydown paste input','.ongkir', function (e) {

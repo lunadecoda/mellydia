@@ -71,6 +71,7 @@
 								 <th>Marketplace</th>
 								 <th>Harga</th>
 								 <th>Ongkir</th>
+								 <th>Biaya Admin</th>
 								 <th>Total</th>
 								 <th>Keterangan</th>
 								 <th></th>
@@ -89,6 +90,7 @@
 								 <th>Marketplace</th>
 								 <th>Harga</th>
 								 <th>Ongkir</th>
+								 <th>Biaya Admin</th>
 								 <th>Total</th>
 								 <th>Keterangan</th>
 								 <th></th>
@@ -155,6 +157,7 @@
 								 <td><?php echo $k->nama_market;?></td>
 								 <td><?php echo number_format($k->total_harga,0,",",".");?></td>
 								 <td><?php echo number_format($k->ongkir,0,",",".");?></td>
+								 <td><?php echo number_format($k->biaya_admin,0,",",".");?></td>
 								 <td><b><?php echo number_format($k->total_harga+$k->ongkir,0,",",".");?></b></td>
 								 <td><?php echo $k->ket;?></td>
                                  <td class="td-actions text-right">
@@ -435,6 +438,7 @@ function ganti(a) {
 }
 
 function kirim(a) {
+	simpan_alt = "ongkir";
 	$(".form")[0].reset();
 	$("#myModal").modal("show");
 	$("#modalbody").load("<?php echo base_url();?>penjualan/ongkir/" + a, function (b) {
