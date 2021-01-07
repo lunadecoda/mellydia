@@ -69,8 +69,8 @@
 								 <th>Harga</th>
 								 <th>Ongkir</th>
 								 <th>Biaya Admin</th>
-								 <th>Uang Masuk</th>
 								 <th>Total</th>
+								 <th>Uang Masuk</th>
 								 <th>Keterangan</th>
 								 <th></th>
                               </tr>
@@ -89,8 +89,8 @@
 								 <th>Harga</th>
 								 <th>Ongkir</th>
 								 <th>Biaya Admin</th>
-								 <th>Uang Masuk</th>
 								 <th>Total</th>
+								 <th>Uang Masuk</th>
 								 <th>Keterangan</th>
 								 <th></th>
                               </tr>
@@ -102,8 +102,8 @@
 								$arr_total_biaya_admin = array();
                                  foreach ($penjualan as $k) { 
 								 $arr_harga[] = $k->total_harga;
-								 $arr_total[] = $k->total_harga + $k->ongkir;
-								 $arr_total_biaya_admin[] = $k->total_harga + $k->ongkir-$k->biaya_admin;
+								 $arr_total[] = $k->total_harga + $k->ongkir + $k->biaya_admin;
+								 $arr_total_biaya_admin[] = $k->total_harga - $k->ongkir - $k->biaya_admin;
 								 ?>
                               <tr>
                                  <td><?php echo $no;?></td>
@@ -159,8 +159,8 @@
 								 <td><?php echo number_format($k->total_harga,0,",",".");?></td>
 								 <td><?php echo number_format($k->ongkir,0,",",".");?></td>
 								 <td><?php echo number_format($k->biaya_admin,0,",",".");?></td>
-								 <td><b><?php echo number_format($k->total_harga+$k->ongkir-$k->biaya_admin,0,",",".");?></b></td>
-								 <td><b><?php echo number_format($k->total_harga+$k->ongkir,0,",",".");?></b></td>
+								 <td><b><?php echo number_format($k->total_harga+$k->ongkir+$k->biaya_admin,0,",",".");?></b></td>
+								 <td><b><?php echo number_format($k->total_harga-$k->ongkir-$k->biaya_admin,0,",",".");?></b></td>
 								 <td><?php echo $k->ket;?></td>
 								 <td class="td-actions text-right"><button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Detail</button>
 								 <button type="button" onclick="biaya_admin(<?php echo $k->id_penjualan;?>)" rel="tooltip" class="btn btn-warning btn-round mb-2" data-original-title="" title="">Biaya Admin</button>
@@ -175,8 +175,8 @@
 								<td><?php echo number_format(array_sum($arr_harga),0,",",".");?></td>
 								<td></td>
 								<td></td>
-								<td><?php echo number_format(array_sum($arr_total_biaya_admin),0,",",".");?></td>
 								<td><?php echo number_format(array_sum($arr_total),0,",",".");?></td>
+								<td><?php echo number_format(array_sum($arr_total_biaya_admin),0,",",".");?></td>
 								<td colspan="1"></td>
 							</tr>
 						   </tbody>
