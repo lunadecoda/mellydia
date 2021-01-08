@@ -74,8 +74,10 @@
                            <tbody>
                               <?php $no=1;
 								$xnum = 0;
+								$arr_qtyPaket = array();
                                  foreach ($penjualan_paket[0] as $v => $k) { 
 								 foreach ($penjualan_paket[1] as $newk => $newv) {
+								 	$arr_qtyPaket[] = $newv[$xnum];
 								if($newv[$xnum] > 0) {
 								 ?>
                               <tr>
@@ -87,6 +89,14 @@
                               </tr>
 								 <?php $no++; } } $xnum++; } ?>
                            </tbody>
+                           <tbody>
+                           	<?php  ?>
+							<tr class="bg-info text-white">
+								<td colspan="3">Total</td>
+								<td><?php echo array_sum($arr_qtyPaket);?></td>
+								<!-- <td>cro</td> -->
+							</tr>
+						   </tbody>
                      </table>
                   </div>
 				  <div style="width:95%;">
@@ -119,8 +129,10 @@
                            <tbody>
                               <?php $no=1;
 								$xnum = 0;
+								$arr_qtyProduk = array();
                                  foreach ($penjualan[0] as $v => $k) { 
 								 foreach ($penjualan[1] as $newk => $newv) {
+								 	$arr_qtyProduk[] = $newv[$xnum];
 								if($newv[$xnum] > 0) {
 								 ?>
                               <tr>
@@ -132,6 +144,14 @@
                               </tr>
 								 <?php $no++; } } $xnum++; } ?>
                            </tbody>
+                           <tbody>
+                           	<?php  ?>
+							<tr class="bg-info text-white">
+								<td colspan="3">Total</td>
+								<td><?php echo array_sum($arr_qtyProduk);?></td>
+								<!-- <td>cro</td> -->
+							</tr>
+						   </tbody>
                      </table>
                   </div>
 				  <div style="width:95%;">

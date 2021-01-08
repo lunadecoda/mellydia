@@ -100,9 +100,11 @@
                               <?php $no=1;
 								$arr_harga = array();
 								$arr_total = array();
+								$arr_total_biaya_admin = array();
                                  foreach ($penjualan as $k) { 
 								 $arr_harga[] = $k->total_harga;
-								 $arr_total[] = $k->total_harga + $k->ongkir;
+								 $arr_total[] = $k->total_harga + $k->ongkir + $k->biaya_admin;
+								 $arr_total_biaya_admin[] = $k->total_harga - $k->ongkir - $k->biaya_admin;
 								 ?>
                               <tr>
                                  <td><?php echo $no;?></td>
@@ -158,12 +160,14 @@
 								 <td><?php echo number_format($k->total_harga,0,",",".");?></td>
 								 <td><?php echo number_format($k->ongkir,0,",",".");?></td>
 								 <td><?php echo number_format($k->biaya_admin,0,",",".");?></td>
-								 <td><b><?php echo number_format($k->total_harga+$k->ongkir,0,",",".");?></b></td>
+								 <td><b><?php echo number_format($k->total_harga+$k->ongkir+$k->biaya_admin,0,",",".");?></b></td>
 								 <td><?php echo $k->ket;?></td>
                                  <td class="td-actions text-right">
+	    						    <a class="btn btn-success mb-2" href="<?php echo base_url();?>penjualan/cetak_label/<?php echo $k->id_penjualan;?>" target="_blank">Cetak Label</a>
 									<a class="btn btn-warning mb-2" href="<?php echo base_url();?>penjualan/invoice/<?php echo $k->id_penjualan;?>" target="_blank">Invoice</a>
 									<button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Detail</button>
 									<button type="button" onclick="kirim(<?php echo $k->id_penjualan;?>)" rel="tooltip" class="btn btn-info btn-round mb-2" data-original-title="" title="">Resi</button>
+									<button type="button" onclick="biaya_admin(<?php echo $k->id_penjualan;?>)" rel="tooltip" class="btn btn-warning btn-round mb-2" data-original-title="" title="">Biaya Admin</button>
 									<button type="button" onclick="selesai(<?php echo $k->id_penjualan;?>)" rel="tooltip" class="btn btn-success btn-round mb-2" data-original-title="" title="">Selesai</button>
 									<button type="button" rel="tooltip" class="btn btn-danger btn-round mb-2" data-original-title="" title="" onclick="hapus(<?php echo $k->id_penjualan;?>)">Batal</button>
                                  </td>
@@ -394,7 +398,9 @@ $(document).ready(function () {
 			var a;
 			if(simpan_alt == "hapus") {
 				a = "<?php echo base_url();?>penjualan/update_delete";
-			} else {
+			}else if(simpan_alt == "biaya_admin"){
+				a = "<?php echo base_url();?>penjualan/update_biaya_admin";
+			}else {
 				a = "<?php echo base_url();?>penjualan/update_ongkir";
 			}
 			$.ajax({
@@ -442,6 +448,15 @@ function kirim(a) {
 	$(".form")[0].reset();
 	$("#myModal").modal("show");
 	$("#modalbody").load("<?php echo base_url();?>penjualan/ongkir/" + a, function (b) {
+		$("#modalbody").html(b);
+	})
+}
+
+function biaya_admin(a) {
+	simpan_alt = "biaya_admin";
+	$(".form")[0].reset();
+	$("#myModal").modal("show");
+	$("#modalbody").load("<?php echo base_url();?>penjualan/biaya_admin/" + a, function (b) {
 		$("#modalbody").html(b);
 	})
 }

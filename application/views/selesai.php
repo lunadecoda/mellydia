@@ -68,7 +68,6 @@
 								 <th>Marketplace</th>
 								 <th>Harga</th>
 								 <th>Ongkir</th>
-								 <th>Biaya Admin</th>
 								 <th>Total</th>
 								 <th>Uang Masuk</th>
 								 <th>Keterangan</th>
@@ -88,7 +87,6 @@
 								 <th>Marketplace</th>
 								 <th>Harga</th>
 								 <th>Ongkir</th>
-								 <th>Biaya Admin</th>
 								 <th>Total</th>
 								 <th>Uang Masuk</th>
 								 <th>Keterangan</th>
@@ -163,7 +161,6 @@
 								 <td><b><?php echo number_format($k->total_harga-$k->ongkir-$k->biaya_admin,0,",",".");?></b></td>
 								 <td><?php echo $k->ket;?></td>
 								 <td class="td-actions text-right"><button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Detail</button>
-								 <button type="button" onclick="biaya_admin(<?php echo $k->id_penjualan;?>)" rel="tooltip" class="btn btn-warning btn-round mb-2" data-original-title="" title="">Biaya Admin</button>
 								 <button type="button" rel="tooltip" class="btn btn-danger btn-round mb-2" data-original-title="" title="" onclick="hapus(<?php echo $k->id_penjualan;?>)">Batal</button>
                                  </td>
                               </tr>
@@ -455,14 +452,6 @@ function kirim(a) {
 	})
 }
 
-function biaya_admin(a) {
-	simpan_alt = "biaya_admin";
-	$(".form")[0].reset();
-	$("#myModal").modal("show");
-	$("#modalbody").load("<?php echo base_url();?>penjualan/biaya_admin/" + a, function (b) {
-		$("#modalbody").html(b);
-	})
-}
 
 function selesai(a) {
 	swal({
