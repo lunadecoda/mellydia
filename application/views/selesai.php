@@ -68,6 +68,7 @@
 								 <th>Marketplace</th>
 								 <th>Harga</th>
 								 <th>Ongkir</th>
+								 <th>Biaya Admin</th>
 								 <th>Total</th>
 								 <th>Uang Masuk</th>
 								 <th>Keterangan</th>
@@ -87,6 +88,7 @@
 								 <th>Marketplace</th>
 								 <th>Harga</th>
 								 <th>Ongkir</th>
+								 <th>Biaya Admin</th>
 								 <th>Total</th>
 								 <th>Uang Masuk</th>
 								 <th>Keterangan</th>
