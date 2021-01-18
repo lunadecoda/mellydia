@@ -133,6 +133,7 @@ class Penjualan extends CI_Controller {
 		$menu['login'] = $this->ModUser->edit($this->session->userdata('admin_id'));
 		$menu['user'] = $this->ModUser->selectAll();
 		$data['penjualan'] = $this->ModPenjualan->selectAll(2);
+		$menu['aksesEdit'] = $this->ModUser->akses_edit_transaksi($this->session->userdata('admin_id'));
 		if($data['penjualan'] != NULL) {
 			$data['penjualan_paket'] = $this->ModPenjualan->penjualan_paket(2);
 			$data['paket'] = $this->ModPaket->selectAll();
