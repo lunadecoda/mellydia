@@ -16,7 +16,7 @@ class ModUser extends CI_model {
 		foreach ($akses_id as $k => $v) {
 			$data = array('admin_id' => $x, 'akses_id' => $v);
 			$this->db->insert('admin_akses', $data);
-			$this->db->insert_id();
+			$this->db->insert_id(); 
 		}
 	}
 	public function delete($id){
@@ -48,7 +48,25 @@ class ModUser extends CI_model {
 		$this->db->from('admin_akses');
 		$this->db->join('akses', 'admin_akses.akses_id = akses.id_akses');
 		$this->db->where('admin_akses.admin_id', $id);
+				$this->db->where('akses.id_akses NOT IN (13)');
 		return $this->db->get()->result();
+	}
+
+	public function akses_admin_menu($id){
+		$this->db->select('*');
+		$this->db->from('admin_akses');
+		$this->db->join('akses', 'admin_akses.akses_id = akses.id_akses');
+		$this->db->where('admin_akses.admin_id', $id);
+		return $this->db->get()->result();
+	}
+
+	public function akses_edit_transaksi($id){
+		$this->db->select('*');
+		$this->db->from('admin_akses');
+		$this->db->join('akses', 'admin_akses.akses_id = akses.id_akses');
+		$this->db->where('admin_akses.admin_id', $id);
+		$this->db->where(' nama_akses = "Edit Transaksi"');
+		return $this->db->get()->row();
 	}
 	
 	public function update(){
