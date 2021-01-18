@@ -72,7 +72,7 @@
 								 <th>Total</th>
 								 <th>Uang Masuk</th>
 								 <th>Keterangan</th>
-								 <th></th>
+								 <th>Action</th>
                               </tr>
                            </thead>
                            <tfoot>
@@ -92,7 +92,7 @@
 								 <th>Total</th>
 								 <th>Uang Masuk</th>
 								 <th>Keterangan</th>
-								 <th></th>
+								 <th>Action</th>
                               </tr>
                            </tfoot>
                            <tbody>
@@ -162,8 +162,10 @@
 								 <td><b><?php echo number_format($k->total_harga+$k->ongkir+$k->biaya_admin,0,",",".");?></b></td>
 								 <td><b><?php echo number_format($k->total_harga-$k->ongkir-$k->biaya_admin,0,",",".");?></b></td>
 								 <td><?php echo $k->ket;?></td>
-								 <td class="td-actions text-right"><button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Detail</button>
-								 <button type="button" rel="tooltip" class="btn btn-danger btn-round mb-2" data-original-title="" title="" onclick="hapus(<?php echo $k->id_penjualan;?>)">Batal</button>
+								 <td class="td-actions text-right">
+								 	<button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Detail</button>
+								 	<button type="button" rel="tooltip" class="btn btn-warning btn-round mb-2" data-original-title="" title="" onclick="ganti(<?php echo $k->id_penjualan;?>)">Edit</button>
+								 	<button type="button" rel="tooltip" class="btn btn-danger btn-round mb-2" data-original-title="" title="" onclick="hapus(<?php echo $k->id_penjualan;?>)">Batal</button>
                                  </td>
                               </tr>
                               <?php $no++; } ?>
@@ -369,14 +371,14 @@ $(document).ready(function () {
 			}
 		})
 
-		$(".xform-lg").on("submit", (function (b) {
+		$(".xform").on("submit", (function (b) {
 			b.preventDefault();
 			$(".input-mask").unmask()
 			var a;
 			if (simpan == "tambah") {
 				a = "<?php echo base_url();?>penjualan/add"
 			} else {
-				a = "<?php echo base_url();?>penjualan/update"
+				a = "<?php echo base_url();?>penjualan/updateSelesai"
 			}
 			$.ajax({
 				url: a,
@@ -386,7 +388,7 @@ $(document).ready(function () {
 				cache: false,
 				processData: false,
 				success: function (c) {
-					$("#modal-lg").modal("hide");
+					$("#myModal").modal("hide");
 					//swal("Sukses!", "", "success");
 					location.reload();
 				},
@@ -397,33 +399,36 @@ $(document).ready(function () {
 			return false
 		}));
 
-		$(".xform").on("submit", (function (b) {
-			b.preventDefault();
-			$(".input-mask").unmask();
-			var a;
-			if (simpan_alt == "hapus") {
-				a = "<?php echo base_url();?>penjualan/update_delete";
-			} else if(simpan_alt == "biaya_admin"){
-				a = "<?php echo base_url();?>penjualan/update_biaya_admin";
-			}
-			$.ajax({
-				url: a,
-				type: "POST",
-				data: new FormData(this),
-				contentType: false,
-				cache: false,
-				processData: false,
-				success: function (c) {
-					$("#modal-lg").modal("hide");
-					//swal("Sukses!", "", "success");
-					location.reload();
-				},
-				error: function (c, e, d) {
-					swal("Error", "", "error")
-				}
-			});
-			return false
-		}));
+		// $(".xform").on("submit", (function (b) {
+		// 	b.preventDefault();
+		// 	$(".input-mask").unmask();
+		// 	var a;
+		// 	if (simpan_alt == "hapus") {
+		// 		a = "<?php echo base_url();?>penjualan/update_delete";
+		// 	} else if(simpan_alt == "biaya_admin"){
+		// 		a = "<?php echo base_url();?>penjualan/update_biaya_admin";
+		// 	}
+		// 	else if(simpan == "update"){
+		// 		a = "<?php echo base_url();?>penjualan/updateSelesai";
+		// 	}
+		// 	$.ajax({
+		// 		url: a,
+		// 		type: "POST",
+		// 		data: new FormData(this),
+		// 		contentType: false,
+		// 		cache: false,
+		// 		processData: false,
+		// 		success: function (c) {
+		// 			$("#myModal").modal("hide");
+		// 			//swal("Sukses!", "", "success");
+		// 			location.reload();
+		// 		},
+		// 		error: function (c, e, d) {
+		// 			swal("Error", "", "error")
+		// 		}
+		// 	});
+		// 	return false
+		// }));
 
 	}, 1500)
 });
@@ -440,9 +445,9 @@ function tambah() {
 function ganti(a) {
 	simpan = "update";
 	$(".form")[0].reset();
-	$("#modal-lg").modal("show");
-	$("#modalbody-lg").load("<?php echo base_url();?>penjualan/edit/" + a, function (b) {
-		$("#modalbody-lg").html(b)
+	$("#myModal").modal("show");
+	$("#modalbody").load("<?php echo base_url();?>penjualan/editSelesai/" + a, function (b) {
+		$("#modalbody").html(b)
 	})
 }
 

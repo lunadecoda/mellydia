@@ -327,4 +327,22 @@ class Penjualan extends CI_Controller {
 		$this->ModPenjualan->update_biayaadmin();
 		echo json_encode(array("status" => TRUE));
 	}
+	public function editSelesai($id) {
+		$q = $this->session->userdata('status');
+		if($q != "login") {
+			exit();
+		}
+		$data['cek'] = 1;
+		$data['penjualan'] = $this->ModPenjualan->edit($id);
+		$this->load->view('modal/edit-selesai', $data);
+	}
+	public function updateSelesai() {
+		$q = $this->session->userdata('status');
+		if($q != "login") {
+			exit();
+		}
+		$this->ModPenjualan->updateSelesai();
+		$this->ModCustomer->updateSelesai();
+		echo json_encode(array("status" => TRUE));
+	}
 }
