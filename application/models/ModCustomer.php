@@ -32,4 +32,15 @@ class ModCustomer extends CI_model {
 		$this->db->where('id_member', $id);
 		$this->db->update('member', $data);
 	}
+
+	public function updateSelesai(){
+		$id = $this->input->post('id_member');
+		$nama_member = $this->input->post('nama_penerima');
+		$alamat_member = $this->input->post('alamat_penerima');
+		$telp_member = $this->input->post('telp_penerima');
+		
+		$data = array('nama_member' => $nama_member, 'alamat_member' => $alamat_member, 'telp_member' => $telp_member);
+		$this->db->where('id_member', $id);
+		$this->db->update('member', $data);
+	}
 }
