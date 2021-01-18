@@ -164,8 +164,10 @@
 								 <td><?php echo $k->ket;?></td>
 								 <td class="td-actions text-right">
 								 	<button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Detail</button>
-								 	<button type="button" rel="tooltip" class="btn btn-warning btn-round mb-2" data-original-title="" title="" onclick="ganti(<?php echo $k->id_penjualan;?>)">Edit</button>
-								 	<button type="button" rel="tooltip" class="btn btn-danger btn-round mb-2" data-original-title="" title="" onclick="hapus(<?php echo $k->id_penjualan;?>)">Batal</button>
+									 <?php if($aksesEdit){ ?>
+								 	<button type="button" rel="tooltip" class="btn btn-warning btn-round mb-2" data-original-title="" title="" onclick="ganti(<?php echo $k->id_penjualan;?>)"><?php echo $aksesEdit->nama_akses ?></button>
+								 	<?php } ?>
+									 <button type="button" rel="tooltip" class="btn btn-danger btn-round mb-2" data-original-title="" title="" onclick="hapus(<?php echo $k->id_penjualan;?>)">Batal</button>
                                  </td>
                               </tr>
                               <?php $no++; } ?>
