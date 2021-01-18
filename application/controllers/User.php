@@ -12,7 +12,7 @@ class User extends CI_Controller {
 		if($q != "login") {
 			redirect('login','refresh');
 		}
-		
+		 
 		$menu['modul'] = $this->ModUser->modul();
 		$menu['akses'] = $this->ModUser->akses_admin($this->session->userdata('admin_id'));
 		$menu['login'] = $this->ModUser->edit($this->session->userdata('admin_id'));
@@ -49,7 +49,7 @@ class User extends CI_Controller {
 		$data['modul'] = $this->ModUser->modul();
 		$data['user'] = $this->ModUser->edit($id);
 		$data['akses'] = $this->ModUser->akses();
-		$data['akses_admin'] = $this->ModUser->akses_admin($id);
+		$data['akses_menu'] = $this->ModUser->akses_admin_menu($id);		
 		$this->load->view('modal/user', $data);
 	}
 	public function delete($id) {
