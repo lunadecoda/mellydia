@@ -160,7 +160,7 @@
 								 <td><?php echo number_format($k->ongkir,0,",",".");?></td>
 								 <td><?php echo number_format($k->biaya_admin,0,",",".");?></td>
 								 <td><b><?php echo number_format($k->total_harga+$k->ongkir+$k->biaya_admin,0,",",".");?></b></td>
-								 <td><b><?php echo number_format($k->total_harga-$k->ongkir-$k->biaya_admin,0,",",".");?></b></td>
+								 <td><b><?php echo number_format($k->uang_masuk,0,",",".");?></b></td>
 								 <td><?php echo $k->ket;?></td>
 								 <td class="td-actions text-right">
 								 	<button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Detail</button>
