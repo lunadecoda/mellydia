@@ -16,5 +16,5 @@
 		<script src="<?php echo base_url();?>assets/vendors/jquery/jquery.min.js"></script>
     </head>
 
-    <body data-ma-theme="green">
+    <body data-ma-theme="">
       <main class="main">

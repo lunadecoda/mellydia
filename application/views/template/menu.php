@@ -5,7 +5,7 @@
                </svg>
             </div>
          </div>
-         <header class="header">
+         <header class="header" style="background-color: #C03E3E">
             <div class="navigation-trigger hidden-xl-up" data-ma-action="aside-open" data-ma-target=".sidebar">
                <div class="navigation-trigger__inner">
                   <i class="navigation-trigger__line"></i>
@@ -14,7 +14,7 @@
                </div>
             </div>
             <div class="header__logo hidden-sm-down">
-               <h1><a href="<?php echo base_url();?>">Mellydia</a></h1>
+               <h1><a href="<?php echo base_url();?>">Gluserent</a></h1>
             </div>
          </header>
          <aside class="sidebar">
