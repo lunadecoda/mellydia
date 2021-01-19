@@ -242,6 +242,7 @@ class Penjualan extends CI_Controller {
 			exit();
 		}
 		$this->ModPenjualan->update_ongkir();
+		$this->ModPenjualan->update_uangMasuk();
 		echo json_encode(array("status" => TRUE));
 	}
 	public function update_selesai($id) {
@@ -326,6 +327,7 @@ class Penjualan extends CI_Controller {
 			exit();
 		}
 		$this->ModPenjualan->update_biayaadmin();
+		$this->ModPenjualan->update_uangMasuk();
 		echo json_encode(array("status" => TRUE));
 	}
 	public function editSelesai($id) {
@@ -342,6 +344,7 @@ class Penjualan extends CI_Controller {
 		if($q != "login") {
 			exit();
 		}
+		$this->ModPenjualan->update_uangMasuk();
 		$this->ModPenjualan->updateSelesai();
 		$this->ModCustomer->updateSelesai();
 		echo json_encode(array("status" => TRUE));

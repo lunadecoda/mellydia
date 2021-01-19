@@ -1,6 +1,7 @@
 <?php if($cek == 1) { ?>
 <input type="hidden" name="id_member" value="<?php echo $penjualan->member_id;?>">
 <input type="hidden" name="id_penjualan" value="<?php echo $penjualan->id_penjualan;?>">
+<input type="hidden" name="total_harga" value="<?php echo $penjualan->total_harga;?>">
 <div class="form-group">
 	<label>Nama</label><br>
     <input class="form-control" value="<?php echo $penjualan->nama_penerima;?>" name="nama_penerima" type="text" placeholder="Nama" required>

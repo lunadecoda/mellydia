@@ -29,7 +29,7 @@
 </div>
 <div class="form-group">
 	<label>Total Harga</label><br>
-	<input class="form-control harga-asli" type="hidden" value="<?php echo $penjualan->total_harga;?>">
+	<input class="form-control harga-asli" type="hidden" name="total_harga" value="<?php echo $penjualan->total_harga;?>">
     <input class="form-control input-mask ongkirtotal" type="text" value="<?php echo $penjualan->total_harga+$penjualan->ongkir;?>" disabled>
 </div>
 
