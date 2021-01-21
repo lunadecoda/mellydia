@@ -162,8 +162,9 @@
 								 <td><b><?php echo number_format($k->total_harga+$k->ongkir,0,",",".");?></b></td>
 								 <td><?php echo $k->ket;?></td>
                                  <td class="td-actions text-right">
-								    <a class="btn btn-success mb-2" href="<?php echo base_url();?>penjualan/cetak_label/<?php echo $k->id_penjualan;?>" target="_blank">Cetak Label</a>
+								    <a class="btn btn-success mb-2" href="<?php echo base_url();?>penjualan/cetak_label/<?php echo $k->id_penjualan;?>" target="_blank">Label</a>
 									<a class="btn btn-warning mb-2" href="<?php echo base_url();?>penjualan/invoice/<?php echo $k->id_penjualan;?>" target="_blank">Invoice</a>
+									<button type="button" rel="tooltip" class="btn btn-success btn-round mb-2" data-original-title="" title="" onclick="edit(<?php echo $k->id_penjualan;?>)">Edit</button>
 									<button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target=".expand<?php echo $no;?>" aria-expanded="false" aria-controls="expand<?php echo $no;?>">Detail</button>
 									<button type="button" onclick="kirim(<?php echo $k->id_penjualan;?>)" rel="tooltip" class="btn btn-info btn-round mb-2" data-original-title="" title="">Resi</button>
 									<button type="button" rel="tooltip" class="btn btn-danger btn-round mb-2" data-original-title="" title="" onclick="hapus(<?php echo $k->id_penjualan;?>)">Batal</button>
@@ -372,7 +373,10 @@ $(document).ready(function () {
 			var a;
 			if (simpan == "tambah") {
 				a = "<?php echo base_url();?>penjualan/add"
-			} else {
+			}else if(simpan == "edit"){
+				a = "<?php echo base_url('penjualan/updateProses') ?>"
+			} 
+			else {
 				a = "<?php echo base_url();?>penjualan/update"
 			}
 			$.ajax({
@@ -441,6 +445,15 @@ function ganti(a) {
 	$(".form")[0].reset();
 	$("#modal-lg").modal("show");
 	$("#modalbody-lg").load("<?php echo base_url();?>penjualan/edit/" + a, function (b) {
+		$("#modalbody-lg").html(b)
+	})
+}
+
+function edit(a) {
+	simpan = "edit";
+	$(".form")[0].reset();
+	$("#modal-lg").modal("show");
+	$("#modalbody-lg").load("<?php echo base_url();?>penjualan/editProses/" + a, function (b) {
 		$("#modalbody-lg").html(b)
 	})
 }
