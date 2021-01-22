@@ -349,4 +349,32 @@ class Penjualan extends CI_Controller {
 		$this->ModCustomer->updateSelesai();
 		echo json_encode(array("status" => TRUE));
 	}
+	public function editProses($id) {
+		$q = $this->session->userdata('status');
+		if($q != "login") {
+			exit();
+		}
+		$data['cek'] = 1;
+		$data['produk'] = $this->ModProduk->selectAll();
+		$data['paket'] = $this->ModPaket->selectAll();
+		$data['member'] = $this->ModCustomer->selectAll();
+		$data['user'] = $this->ModUser->selectAll();
+		$data['market'] = $this->ModMarketplace->selectAll();
+		$data['user_id'] = $this->session->userdata('admin_id');
+		$data['penjualan'] = $this->ModPenjualan->edit_proses($id);
+		$data['penjualan_paket'] = $this->ModPenjualan->penjualan_paket_edit($id);
+		$data['paket'] = $this->ModPaket->selectAll();
+		$data['produk'] = $this->ModPenjualan->paket_produk_edit($id);
+		$this->load->view('modal/penjualan', $data);
+	}
+
+	public function updateProses() {
+		$q = $this->session->userdata('status');
+		if($q != "login") {
+			exit();
+		}
+		$this->ModPenjualan->update_proses();
+		$this->ModCustomer->updateSelesai();
+		echo json_encode(array("status" => TRUE));
+	}
 }

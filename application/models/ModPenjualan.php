@@ -135,7 +135,8 @@ class ModPenjualan extends CI_model
       {
         $this->db->where('id_penjualan', $id);
         return $this->db->get('penjualan')->row();
-      }
+	  }
+	  
 	public function penjualan_paket($status = 0,$laporan=0) {
 		$xpaket = $this->selectAll($status,$laporan);
 		$newin = array();
@@ -188,16 +189,7 @@ class ModPenjualan extends CI_model
 	}
 	public function update_biayaadmin() {
 		$id = $this->input->post('id_penjualan');
-		// $nama_penerima = $this->input->post('nama_penerima');
-		// $alamat_penerima = $this->input->post('alamat_penerima');
-		// $telp_penerima = $this->input->post('telp_penerima');
-		// $ongkir = $this->input->post('ongkir');
-		// $resi = $this->input->post('resi');
-		// $kurir = $this->input->post('kurir');
-		// $tgl_proses = $this->input->post('tgl_proses');
 		$biaya_admin = $this->input->post('biaya_admin');
-		// $status = $this->input->post('status');
-
 		$data = array('biaya_admin'=>$biaya_admin);
 		$this->db->where('id_penjualan', $id);
 		$this->db->update('penjualan', $data);
@@ -512,4 +504,41 @@ class ModPenjualan extends CI_model
 		$this->db->where('id_penjualan', $id);
 		$this->db->update('penjualan', $data);
 	}
+	public function edit_proses($id)
+	{
+	  $this->db->select('*');
+	  $this->db->from('admin');
+	  $this->db->join('penjualan','admin.id_admin=penjualan.admin_id');
+	  $this->db->join('sumber_market','penjualan.sumber_id = sumber_market.id_sumber');
+	  $this->db->join('penjualan_produk','penjualan_produk.penjualan_id = penjualan.id_penjualan');
+	  // $this->db->join('produk','penjualan_produk.produk_id = produk.id_produk');
+	  // $this->db->join('penjualan_paket','penjualan_produk.penjualan_paket_id=penjualan_paket.id_penjualan_paket');
+	  // $this->db->join('paket','penjualan_paket.paket_id=paket.id_paket');
+	  $this->db->where('id_penjualan', $id);
+	  return $this->db->get()->row();
+	}
+	public function update_proses(){
+		$id_penjualan = $this->input->post('id_penjualan');
+		$nama_penerima = $this->input->post('nama_penerima');
+		$alamat_penerima = $this->input->post('alamat_penerima');
+		$telp_penerima = $this->input->post('telp_penerima');		
+		$tgl = $this->input->post('tgl');
+		$admin_id   = $this->input->post('admin_id');
+		$diskon   = $this->input->post('diskon');
+		$harga_total   = $this->input->post('harga_total');
+		$total_berat   = $this->input->post('total_berat');
+		$berat_paket = $this->input->post('berat_paket');
+		$sumber_id = $this->input->post('sumber_id');
+		$ket = $this->input->post('ket');
+		$harga_paket = $this->input->post('harga_paket');
+		$penjualan_id = $this->input->post('id_penjualan');
+		$qty_paket   = $this->input->post('qty_paket');
+		$data = array('diskon' => $diskon, 'status' => "sedang dikemas", 'total_berat'=> $total_berat, 
+		'total_harga' => $harga_total, 'admin_id' => $admin_id, 'tgl_penjualan' => $tgl, 
+		'sumber_id' => $sumber_id, 'nama_penerima' => $nama_penerima, 
+		'alamat_penerima' => $alamat_penerima, 'telp_penerima' => $telp_penerima, 'ket' => $ket);
+		$this->db->where('id_penjualan', $id_penjualan);
+		$this->db->update('penjualan', $data);
+		$paket_id   = $this->input->post('paket_id');
+	  }
   }

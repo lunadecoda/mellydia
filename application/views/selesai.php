@@ -171,7 +171,7 @@
                                  </td>
                               </tr>
                               <?php $no++; } ?>
-                           </tbody>
+                           </tbody> 
 						   <tbody>
 							<tr class="bg-info text-white">
 								<td colspan="9">Total</td>
