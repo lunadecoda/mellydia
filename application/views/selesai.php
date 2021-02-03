@@ -103,7 +103,7 @@
                                  foreach ($penjualan as $k) { 
 								 $arr_harga[] = $k->total_harga;
 								 $arr_total[] = $k->total_harga + $k->ongkir + $k->biaya_admin;
-								 $arr_total_biaya_admin[] = $k->total_harga - $k->ongkir - $k->biaya_admin;
+								 $arr_total_biaya_admin[] = $k->total_harga + $k->ongkir - $k->biaya_admin;
 								 ?>
                               <tr>
                                  <td><?php echo $no;?></td>
