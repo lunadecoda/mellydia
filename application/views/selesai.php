@@ -103,7 +103,7 @@
                                  foreach ($penjualan as $k) { 
 								 $arr_harga[] = $k->total_harga;
 								 $arr_total[] = $k->total_harga + $k->ongkir + $k->biaya_admin;
-								 $arr_total_biaya_admin[] = $k->total_harga - $k->ongkir - $k->biaya_admin;
+								 $arr_total_biaya_admin[] = $k->total_harga + $k->ongkir - $k->biaya_admin;
 								 ?>
                               <tr>
                                  <td><?php echo $no;?></td>
@@ -401,36 +401,36 @@ $(document).ready(function () {
 			return false
 		}));
 
-		// $(".xform").on("submit", (function (b) {
-		// 	b.preventDefault();
-		// 	$(".input-mask").unmask();
-		// 	var a;
-		// 	if (simpan_alt == "hapus") {
-		// 		a = "<?php echo base_url();?>penjualan/update_delete";
-		// 	} else if(simpan_alt == "biaya_admin"){
-		// 		a = "<?php echo base_url();?>penjualan/update_biaya_admin";
-		// 	}
-		// 	else if(simpan == "update"){
-		// 		a = "<?php echo base_url();?>penjualan/updateSelesai";
-		// 	}
-		// 	$.ajax({
-		// 		url: a,
-		// 		type: "POST",
-		// 		data: new FormData(this),
-		// 		contentType: false,
-		// 		cache: false,
-		// 		processData: false,
-		// 		success: function (c) {
-		// 			$("#myModal").modal("hide");
-		// 			//swal("Sukses!", "", "success");
-		// 			location.reload();
-		// 		},
-		// 		error: function (c, e, d) {
-		// 			swal("Error", "", "error")
-		// 		}
-		// 	});
-		// 	return false
-		// }));
+		$(".xform").on("submit", (function (b) {
+			b.preventDefault();
+			$(".input-mask").unmask();
+			var a;
+			if (simpan_alt == "hapus") {
+				a = "<?php echo base_url();?>penjualan/update_delete";
+			} else if(simpan_alt == "biaya_admin"){
+				a = "<?php echo base_url();?>penjualan/update_biaya_admin";
+			}
+			else if(simpan == "update"){
+				a = "<?php echo base_url();?>penjualan/updateSelesai";
+			} 
+			$.ajax({
+				url: a,
+				type: "POST",
+				data: new FormData(this),
+				contentType: false,
+				cache: false,
+				processData: false,
+				success: function (c) {
+					$("#myModal").modal("hide");
+					//swal("Sukses!", "", "success");
+					location.reload();
+				},
+				error: function (c, e, d) {
+					swal("Error", "", "error")
+				}
+			});
+			return false
+		}));
 
 	}, 1500)
 });

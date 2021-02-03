@@ -478,7 +478,7 @@ class ModPenjualan extends CI_model
 					if($p->id_produk == $k->produk_id && $k->tgl_penjualan == $xstart) {
 						$new_pro[] = $k->qty;
 					}
-				}
+				} 
 				$arr_pro[] = array_sum($new_pro);
 				$xstart = date ("Y-m-d", strtotime("+1 day", strtotime($xstart))); 
 			}

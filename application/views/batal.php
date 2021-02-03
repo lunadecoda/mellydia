@@ -8,7 +8,7 @@
 </style>
 <section class="content">
             <header class="content__title">
-               <h1>Pemabatalan Penjualan</h1>
+               <h1>Pembatalan Penjualan</h1>
                <div class="actions">
                   <button class="btn btn-primary font-btn" onclick="tambah()">Tambah</button>
                </div>

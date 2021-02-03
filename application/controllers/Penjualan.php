@@ -99,7 +99,7 @@ class Penjualan extends CI_Controller {
 		$this->load->view('penjualan-proses',$data);
 		$this->load->view('template/footer');
 	}
-	public function selesai()
+	public function selesai() 
 	{
 		$q = $this->session->userdata('status');
 		if($q != "login") {
